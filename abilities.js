@@ -270,7 +270,7 @@ class ConcussionBlow extends Ability {
 class Whirlwind extends Ability {
     use(attacker, defender) {
         let damage= this.weaponSwingRoll(attacker);
-        damage *= attacker.getDamageMod();
+         damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.arp)) * attacker.getDamageMod();
         let damageEvent = rollAttack(attacker, defender, damage, true, false, false, true);
         damageEvent.threat = 0;
         damageEvent.threat = this.threatCalculator(damageEvent, attacker);
