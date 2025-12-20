@@ -1,0 +1,1056 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" charset="UTF-8" src="stats.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="config.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="attacktable.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="abilities.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="auras.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="procs.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="actor.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="main.js"></script>
+    <style>
+    body {background-color: #222629; color: #C8CED1}
+    #bodyDiv {display: flex; flex-wrap: wrap; justify-content: center}
+    #input {background-color: #222629; color: #C8CED1}
+    button {width: 70px; margin: 0px 0px 8px 0px; background-color: #474b4f; color: #C8CED1}
+    #lineSelect {width: 170px; margin-left:auto; padding: 0px 8px 0px 0px; background-color: #474b4f; color: #C8CED1}
+    #barContainer {width: 300px; border: 100px; background-color: #474b4f; color: #C8CED1; margin: auto; display: none}
+    #progressBar {width: 0%; height: 30px; text-align: center; background-color: #C8CED1}
+    #resultContainer {grid-column: 1/span 3; display: flex; flex-direction: row; justify-content: left; margin: 0 auto 0 0;}
+    #resultContainer table { border-collapse: collapse; }
+    #resultContainer th {text-align: left}
+    #resultContainer td {padding: 0px 14px 0px 0px; border-bottom: 1px solid #474b4f; }
+    #resultContainer > div {display:inline-table; align-self: flex-start}
+    #selectRow td { padding: 0px 8px 12px 0px; border-bottom: 0px}
+
+    #Grid      {display: inline-grid; grid-gap: 5px 40px; justify-content:start; grid-template-rows: auto auto; grid-template-columns: 450px 300px 300px}
+    #header    {grid-column: 1/span 3; grid-row: 1; margin: 0px auto 0px auto; text-align: center}
+    #header h2 {margin-bottom: 7px}
+    #leftCol   {display: inline-grid; grid-column: 1; grid-row: 2; grid-template-columns: 300px 150px; grid-template-rows: 545px auto; grid-column-gap: 0px; justify-content: top }
+    #gear      {grid-column: 1; grid-row: 1; max-height: 100%}
+    #enchants  {grid-column: 2; grid-row: 1; max-height: 100%}
+    #bottomleft{display: inline-grid; grid-column: 1/3; grid-row: 2;}
+    #talents   {grid-column: 1; grid-row: 1;}
+    #bonuses   {grid-column: 2; grid-row: 1; margin-left: 10px}
+    #stances   {grid-column: 2; grid-row: 2; margin-left: 10px}
+    #middleCol {grid-column: 2; grid-row: 2}
+    #rightCol  {grid-column: 3; grid-row: 2}
+    input {background-color: #474b4f; color: #C8CED1; }
+
+    #talents .talent-input {width: 17px}
+    
+    #calcSettings button {margin-left: auto}
+
+    #gear select {width: 200px; margin-left:auto; padding: 0px 8px 0px 0px; background-color: #474b4f; color: #C8CED1}
+    #enchants select {width: 145px; margin-left:auto; padding: 0px 8px 0px 0px; background-color: #474b4f; color: #C8CED1}
+    #buffs select {width: 160px; margin-left:auto; padding: 0px 8px 0px 0px; background-color: #474b4f; color: #C8CED1}
+    #playerstats input {margin-left:4px; width:40px}
+    #playerstats .playerstats {margin-left:auto; margin-right: 20px}
+    .playerstatcontainer {margin-right:40px}
+    
+
+    #mhweptypeselect select, #ohweptypeselect select {width: 90px}
+    #gear #mainhandcontainer, #gear #offhandcontainer {margin-left: auto;}
+
+    .hInput {display: flex; flex-direction: row; align-content: center; align-items: center; padding: 0 0 3px 0}
+    .hInput input {margin-left:auto; width:50px}
+    .hInput .inputSwing {margin-left:0; width:50px}
+    .hInput label {margin: 0}
+    input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0;}
+    input[type=number] {-moz-appearance: textfield;}
+    </style>
+    <!--
+        #resultContainer {display:flex; justify-content: center; flex-wrap: nowrap; grid-column: 1/span 3; grid-row: 3;}
+        #resultContainer > div {margin:auto}
+        #plotContainer {grid-column: 1/span 3; grid-row: 4; justify-content: center}
+        #graphSettings input {background-color: #474b4f; color: #C8CED1; grid-column: 3; grid-row: 2}
+    -->
+</head>
+<body onload="onLoadPage()">
+    <div id="bodyDiv">
+        <div id="Grid">
+            <div id="header">
+                <h2>TankSim & Pull Variance Analysis</h2>
+                Now with Deep Prot and IEA!</p>
+            </div>
+            <div id="leftCol">
+                <div id="gear">
+                        <h4>Gear</h4>
+
+                    <div class="hInput">
+                        <label>Race:</label>                    
+                        <select name="race" id="race" onchange="updateStats()">
+                        <option value="Dwarf">Dwarf</option>
+                        <option value="Gnome">Gnome</option>
+                        <option value="Human">Human</option>
+                        <option value="Night Elf">Night Elf</option>
+                        <option value="Orc">Orc</option>
+                        <option value="Goblin">Goblin</option>
+                        <option value="Tauren">Tauren</option>
+                        <option value="Troll">Troll</option>
+                        <option value="Undead">Undead</option>
+                        </select>
+                    </div>
+
+                        <div class="hInput">
+                            <label>Head:</label>                    
+                            <select name="head" id="head" onchange="updateStats()">
+                                <option value="None">None</option>
+                                <option value="Circlet of Restless Dreams">Circlet of Restless Dreams</option>
+                                <option value="Conqueror's Crown">Conqueror's Crown</option>
+                                <option value="Crown of Destruction">Crown of Destruction</option>
+                                <option value="Darkflame Helm">Darkflame Helm</option>
+                                <option value="Dreadnaught Helm">Dreadnaught Helm</option>
+                                <option value="Dreadnaught Crown (DPS)">Dreadnaught Crown (DPS)</option>
+                                <option value="Dreadslayer Horns">Dreadslayer Horns</option>
+                                <option value="Dreadslayer Horns (vs Demons)">Dreadslayer Horns (vs Demons)</option>
+                                <option value="Expert Goldminer's Helmet">Expert Goldminer's Helmet</option>
+                                <option value="Eye of Rend">Eye of Rend</option>
+                                <option value="Fury Visor">Fury Visor</option>
+                                <option value="Helm of Domination">Helm of Domination</option>
+                                <option value="Helm of Endless Rage">Helm of Endless Rage</option>
+                                <option value="Helm of Heroism">Helm of Heroism</option>
+                                <option value="Helm of Might">Helm of Might</option>
+                                <option value="Helmet of the Brotherhood">Helmet of the Brotherhood</option>
+                                <option value="Crown of Might (DPS)">Crown of Might (DPS)</option>
+                                <option value="Helm of the Executioner">Helm of the Executioner</option>
+                                <option value="Helm of Valor">Helm of Valor</option>
+                                <option value="Helm of Wrath">Helm of Wrath</option>
+                                <option value="Crown of Wrath (DPS)">Crown of Wrath (DPS)</option>
+                                <option value="Lionheart Helm">Lionheart Helm</option>
+                                <option value="Mask of the Unforgiven">Mask of the Unforgiven</option>
+                                <option value="R10 Plate Helm">R10 Plate Helm</option>
+                                <option value="R13 Plate Helm">R13 Plate Helm</option>
+                                <option value="Raging Berserker's Helm">Raging Berserker's Helm</option>
+                            </select>
+
+                        </div>
+        
+                        <div class="hInput">
+                            <label>Neck:</label>                    
+                            <select name="neck" id="neck" onchange="updateStats()">
+                                <option value="None">None</option>
+                                <option value="Amulet of the Darkmoon">Amulet of the Darkmoon</option>
+                                <option value="Barbed Choker">Barbed Choker</option>
+                                <option value="Beads of Ogre Might">Beads of Ogre Might</option>
+                                <option value="Blazefury Medallion">Blazefury Medallion</option>
+                                <option value="Choker of the Shifting Sands">Choker of the Shifting Sands</option>
+                                <option value="Choker of the Brotherhood">Choker of the Brotherhood</option>
+                                <option value="Choker of Terminal Arcanum">Choker of Terminal Arcanum</option>
+                                <option value="Eskhandar's Collar">Eskhandar's Collar</option>
+                                <option value="Fury of the Forgotten Swarm">Fury of the Forgotten Swarm</option>
+                                <option value="Imperial Jewel">Imperial Jewel</option>
+                                <option value="Master Dragonslayer's Medallion">Master Dragonslayer's Medallion</option>
+                                <option value="Mark of C'Thun">Mark of C'Thun</option>
+                                <option value="Mark of Fordring">Mark of Fordring</option>
+                                <option value="Onyxia Tooth Pendant">Onyxia Tooth Pendant</option>
+                                <option value="Pendant of Celerity">Pendant of Celerity</option>
+                                <option value="Pendant of the Qiraji Guardian">Pendant of the Qiraji Guardian</option>
+                                <option value="Pendant of Purified Demon's Blood">Pendant of Purified Demon's Blood</option>
+                                <option value="Prestor's Talisman of Connivery">Prestor's Talisman of Connivery</option>
+                                <option value="Sadist's Collar">Sadist's Collar</option>
+                                <option value="Stormrage's Talisman of Seething">Stormrage's Talisman of Seething</option>
+                                <option value="Zealous Shadowshard Pendant">Zealous Shadowshard Pendant</option>
+                                <option value="The Eye of Hakkar">The Eye of Hakkar</option>
+                                <option value="Will of the Martyr">Will of the Martyr</option>
+                            </select>
+                        </div>
+                        
+                        <div class="hInput">
+                            <label>Shoulders:</label>
+                            <select name="shoulder" id="shoulder" onchange="updateStats()"> 
+                                <option value="None">None</option>
+                                <option value="Abyssal Plate Epaulets">Abyssal Plate Epaulets</option>
+                                <option value="Arathi Plate Spaulders">Arathi Plate Spaulders</option>
+                                <option value="Black Dragonscale Shoulders">Black Dragonscale Shoulders</option>
+                                <option value="Bloodsoaked Pauldrons">Bloodsoaked Pauldrons</option>
+                                <option value="Conqueror's Spaulders">Conqueror's Spaulders</option>
+                                <option value="Drake Talon Pauldrons">Drake Talon Pauldrons</option>
+                                <option value="Dreadnaught Pauldrons">Dreadnaught Pauldrons</option>
+                                <option value="Dreadnaught Pauldrons (DPS)">Dreadnaught Pauldrons (DPS)</option>
+                                <option value="Pauldrons of Might">Pauldrons of Might</option>
+                                <option value="Pauldrons of Might (DPS)">Pauldrons of Might</option>
+                                <option value="Pauldrons of the Unrelenting">Pauldrons of the Unrelenting</option>
+                                <option value="Pauldrons of Wrath">Pauldrons of Wrath</option>
+                                <option value="Pauldrons of Wrath (DPS)">Pauldrons of Wrath (DPS)</option>
+                                <option value="Polished Obsidian Pauldrons">Polished Obsidian Pauldrons</option>
+                                <option value="R10 Plate Shoulders">R10 Plate Shoulders</option>
+                                <option value="R13 Plate Shoulders">R13 Plate Shoulders</option>
+                                <option value="Razorsteel Shoulders">Razorsteel Shoulders</option>
+                                <option value="Shoulderguards of the Brotherhood">Shoulderguards of the Brotherhood</option>
+                                <option value="Spaulders of Heroism">Spaulders of Heroism</option>
+                                <option value="Spaulders of Valor">Spaulders of Valor</option>
+                                <option value="Truestrike Shoulders">Truestrike Shoulders</option>
+                                <option value="Wyrmhide Spaulders">Wyrmhide Spaulders</option>
+                            </select>
+                        </div>
+                        
+                        <div class="hInput">
+                            <label>Cape:</label>
+                            <select name="cape" id="cape" onchange="updateStats()"> 
+                                <option value="None">None</option>
+                                <option value="Blackveil Cape">Blackveil Cape</option>
+                                <option value="Cape of the Black Baron">Cape of the Black Baron</option>
+                                <option value="Chain-Cloak of the Rookguard">Chain-Cloak of the Rookguard</option>
+                                <option value="Cloak of Concentrated Hatred">Cloak of Concentrated Hatred</option>
+                                <option value="Cloak of Draconic Might">Cloak of Draconic Might</option>
+                                <option value="Cloak of Firemaw">Cloak of Firemaw</option>
+                                <option value="Cloak of the Fallen God">Cloak of the Fallen God</option>
+                                <option value="Cloak of the Golden Hive">Cloak of the Golden Hive</option>
+                                <option value="Cloak of the Honor Guard">Cloak of the Honor Guard</option>
+                                <option value="Cloak of the Scourge">Cloak of the Scourge</option>
+                                <option value="Cloak of the Shrouded Mists">Cloak of the Shrouded Mists</option>
+                                <option value="Cryptfiend Silk Cloak">Cryptfiend Silk Cloak</option>
+                                <option value="Dragon's Blood Cape">Dragon's Blood Cape</option>
+                                <option value="Drape of Unyielding Strength">Drape of Unyielding Strength</option>
+                                <option value="Earthweave Cloak">Earthweave Cloak</option>
+                                <option value="Elementium Threaded Cloak">Elementium Threaded Cloak</option>
+                                <option value="Eskhandar's Pelt">Eskhandar's Pelt</option>
+                                <option value="Felforged Nathrezan Veil">Felforged Nathrezan Veil</option>
+                                <option value="Onyxia Scale Cloak">Onyxia Scale Cloak</option>
+                                <option value="Phantasmal Cloak">Phantasmal Cloak</option>
+                                <option value="Puissant Cape">Puissant Cape</option>
+                                <option value="Sandstorm Cloak">Sandstorm Cloak</option>
+                                <option value="Shroud of Dominion">Shroud of Dominion</option>
+                                <option value="Stoneskin Gargoyle Cape">Stoneskin Gargoyle Cape</option>
+                                <option value="Stormpike Soldier's Cloak">Stormpike Soldier's Cloak</option>
+                                <option value="Zulian Tigerhide Cloak">Zulian Tigerhide Cloak</option>
+                                <option value="Windshear Cape">Windshear Cape</option>
+                                <option value="Wing of the Time-Lord">Wing of the Time-Lord</option>
+                            </select>
+                        </div>
+        
+                        <div class="hInput">
+                            <label>Chest:</label>                    
+                            <select name="chest" id="chest" onchange="updateStats()">
+                                <option value="None">None</option>
+                                <option value="Black Dragonscale Breastplate">Black Dragonscale Breastplate</option>
+                                <option value="Bloodsoul Breastplate">Bloodsoul Breastplate</option>
+                                <option value="Breastplate of Annihilation">Breastplate of Annihilation</option>
+                                <option value="Breastplate of Bloodthirst">Breastplate of Bloodthirst</option>
+                                <option value="Breastplate of Heroism">Breastplate of Heroism</option>
+                                <option value="Breastplate of Might">Breastplate of Might</option>
+                                <option value="Chestplate of Might (DPS)">Chestplate of Might (DPS)</option>
+                                <option value="Breastplate of the Chromatic Flight">Breastplate of the Chromatic Flight</option>
+                                <option value="Breastplate of Valor">Breastplate of Valor</option>
+                                <option value="Breastplate of Wrath">Breastplate of Wrath</option>
+                                <option value="Chestplate of Wrath (DPS)">Chestplate of Wrath (DPS)</option>
+                                <option value="Cadaverous Armor">Cadaverous Armor</option>
+                                <option value="Chestguard of the Brotherhood">Chestguard of the Brotherhood</option>
+                                <option value="Conqueror's Breastplate">Conqueror's Breastplate</option>
+                                <option value="Deathdealer Breastplate">Deathdealer Breastplate</option>
+                                <option value="Dreadnaught Breastplate">Dreadnaught Breastplate</option>
+                                <option value="Dreadnaught Chestplate (DPS)">Dreadnaught Chestplate (DPS)</option>
+                                <option value="Ghoul Skin Tunic">Ghoul Skin Tunic</option>
+                                <option value="Malfurion's Blessed Bulwark">Malfurion's Blessed Bulwark</option>
+                                <option value="Obsidian Mail Tunic">Obsidian Mail Tunic</option>
+                                <option value="Ogre Forged Hauberk">Ogre Forged Hauberk</option>
+                                <option value="Plated Abomination Ribcage">Plated Abomination Ribcage</option>
+                                <option value="R13 Plate Armor">R13 Plate Armor</option>
+                                <option value="R8 Plate Armor">R8 Plate Armor</option>
+                                <option value="Runed Bloodstained Hauberk">Runed Bloodstained Hauberk</option>
+                                <option value="Savage Gladiator Chain">Savage Gladiator Chain</option>
+                                <option value="Zandalar Vindicator's Breastplate">Zandalar Vindicator's Breastplate</option>
+                                <option value="Tombstone Breastplate">Tombstone Breastplate</option>
+                                <option value="Traphook Jerkin">Traphook Jerkin</option>
+                                <option value="Tunic of Demonic Deception">Tunic of Demonic Deception</option>
+                                <option value="Vest of Swift Execution">Vest of Swift Execution</option>
+                            </select>
+                        </div>
+        
+                        <div class="hInput">
+                            <label>Wrists:</label>
+                            <select name="wrist" id="wrist" onchange="updateStats()"> 
+                                <option value="None">None</option>
+                                <option value="Abyssal Plate Vambraces">Abyssal Plate Vambraces</option>
+                                <option value="Battleborn Armbraces">Battleborn Armbraces</option>
+                                <option value="Berserker Bracers">Berserker Bracers</option>
+                                <option value="Blackmist Armguards">Blackmist Armguards</option>
+                                <option value="Bracelets of Wrath">Bracelets of Wrath</option>
+                                <option value="Bindings of Wrath (DPS)">Bindings of Wrath</option>
+                                <option value="Bracers of Brutality">Bracers of Brutality</option>
+                                <option value="Bracers of Heroism">Bracers of Heroism</option>
+                                <option value="Bracers of Might">Bracers of Might</option>
+                                <option value="Bracers of Might (DPS)">Bracers of Might (DPS)</option>
+                                <option value="Bracers of Valor">Bracers of Valor</option>
+                                <option value="Deepfury Bracers">Deepfury Bracers</option>
+                                <option value="Deeprock Bracers">Deeprock Bracers</option>
+                                <option value="Dreadnaught Bracers">Dreadnaught Bracers</option>
+                                <option value="Dreadnaught Bindings (DPS)">Dreadnaught Bindings (DPS)</option>
+                                <option value="Gordok Bracers of Power">Gordok Bracers of Power</option>
+                                <option value="Hive Defiler Wristguards">Hive Defiler Wristguards</option>
+                                <option value="Netherwrought Bracers">Netherwrought Bracers</option>
+                                <option value="Qiraji Execution Bracers">Qiraji Execution Bracers</option>
+                                <option value="Scaled Bracers of the Gorger">Scaled Bracers of the Gorger</option>
+                                <option value="Slashclaw Bracers">Slashclaw Bracers</option>
+                                <option value="Zandalar Vindicator's Armguards">Zandalar Vindicator's Armguards</option>
+                                <option value="Vambraces of the Sadist">Vambraces of the Sadist</option>
+                                <option value="Wristguards of Stability">Wristguards of Stability</option>
+                                <option value="Wristguards of True Flight">Wristguards of True Flight</option>
+                                <option value="Wristguards of Vengeance">Wristguards of Vengeance</option>
+                            </select>
+                        </div>
+        
+                        <div class="hInput">
+                            <label>Hands:</label>
+                            <select name="hands" id="hands" onchange="updateStats()"> 
+                                <option value="None">None</option>
+                                <option value="Aged Core Leather Gloves">Aged Core Leather Gloves</option>
+                                <option value="Devilsaur Gauntlets">Devilsaur Gauntlets</option>
+                                <option value="Dragonclaw Gauntlerts">Dragonclaw Gauntlets</option>
+                                <option value="Dreadnaught Gauntlets">Dreadnaught Gauntlets</option>
+                                <option value="Dreadnaught Gloves (DPS)">Dreadnaught Gloves (DPS)</option>
+                                <option value="Edgemaster's Handguards">Edgemaster's Handguards</option>
+                                <option value="Fists of the Makers">Fists of the Makers</option>
+                                <option value="Flameguard Gauntlets">Flameguard Gauntlets</option>
+                                <option value="Gargoyle Slashers">Gargoyle Slashers</option>
+                                <option value="Gauntlets of Annihilation">Gauntlets of Annihilation</option>
+                                <option value="Gauntlets of Heroism">Gauntlets of Heroism</option>
+                                <option value="Gauntlets of Might">Gauntlets of Might</option>
+                                <option value="Gloves of Might (DPS)">Gloves of Might (DPS)</option>
+                                <option value="Gauntlets of Steadfast Determination">Gauntlets of Steadfast Determination</option>
+                                <option value="Gauntlets of the Immovable">Gauntlets of the Immovable</option>
+                                <option value="Gauntlets of Valor">Gauntlets of Valor</option>
+                                <option value="Gauntlets of Wrath">Gauntlets of Wrath</option>
+                                <option value="Gloves of Wrath (DPS)">Gloves of Wrath (DPS)</option>
+                                <option value="Gloves of Enforcement">Gloves of Enforcement</option>
+                                <option value="Gloves of the Primordial Burrower">Gloves of the Primordial Burrower</option>
+                                <option value="R12 Gauntlets">R12 Gauntlets</option>
+                                <option value="R7 Gauntlets">R7 Gauntlets</option>
+                                <option value="Reiver Claws">Reiver Claws</option>
+                                <option value="Sacrificial Gauntlets">Sacrificial Gauntlets</option>
+                                <option value="Stronghold Gauntlets">Stronghold Gauntlets</option>
+                                <option value="Voone's Vice Grips">Voone's Vice Grips</option>
+                            </select>
+                        </div>
+        
+                        <div class="hInput">
+                            <label>Waists:</label>
+                            <select name="waist" id="waist" onchange="updateStats()"> 
+                                <option value="None">None</option>
+                                <option value="Arathi Plate Girdle">Arathi Plate Girdle</option>
+                                <option value="Belt of Heroism">Belt of Heroism</option>
+                                <option value="Belt of Might">Belt of Might</option>
+                                <option value="Girdle of Might (DPS)">Girdle of Might (DPS)</option>
+                                <option value="Belt of Never-ending Agony">Belt of Never-ending Agony</option>
+                                <option value="Belt of Preserved Heads">Belt of Preserved Heads</option>
+                                <option value="Belt of Shrunken Heads">Belt of Shrunken Heads</option>
+                                <option value="Belt of the Sand Reaver">Belt of the Sand Reaver</option>
+                                <option value="Belt of Valor">Belt of Valor</option>
+                                <option value="Brigam Girdle">Brigam Girdle</option>
+                                <option value="Cloudrunner Girdle">Cloudrunner Girdle</option>
+                                <option value="Dreadnaught Waistguard">Dreadnaught Waistguard</option>
+                                <option value="Dreadnaught Girdle (DPS)">Dreadnaught Girdle (DPS)</option>
+                                <option value="Girdle of the Mentor">Girdle of the Mentor</option>
+                                <option value="Mugger's Belt">Mugger's Belt</option>
+                                <option value="Omokk's Girth Restrainer">Omokk's Girth Restrainer</option>
+                                <option value="Onslaught Girdle">Onslaught Girdle</option>
+                                <option value="Ossirian's Binding">Ossirian's Binding</option>
+                                <option value="Royal Qiraji Belt">Royal Qiraji Belt</option>
+                                <option value="Sash of the Grand Betrayal">Sash of the Grand Betrayal</option>
+                                <option value="Zandalar Vindicator's Belt">Zandalar Vindicator's Belt</option>
+                                <option value="Therazane's Link">Therazane's Link</option>
+                                <option value="Triad Girdle">Triad Girdle</option>
+                                <option value="Worldbreaker Girdle">Worldbreaker Girdle</option>
+                                <option value="Waistband of Wrath">Waistband of Wrath</option>
+                                <option value="Girdle of Wrath (DPS)">Girdle of Wrath (DPS)</option>
+                            </select>
+                        </div>
+        
+                        <div class="hInput">
+                            <label>Legs:</label>
+                            <select name="legs" id="legs" onchange="updateStats()"> 
+                                <option value="None">None</option>
+                                <option value="Abyssal Plate Legplates">Abyssal Plate Legplates</option>
+                                <option value="Black Dragonscale Leggings">Black Dragonscale Leggings</option>
+                                <option value="Blademaster Leggings">Blademaster Leggings</option>
+                                <option value="Bloodsoaked Legplates">Bloodsoaked Legplates</option>
+                                <option value="Cadaverous Leggings">Cadaverous Leggings</option>
+                                <option value="Cloudkeeper Legplates">Cloudkeeper Legplates</option>
+                                <option value="Conqueror's Legguards">Conqueror's Legguards</option>
+                                <option value="Dark Heart Pants">Dark Heart Pants</option>
+                                <option value="Devilsaur Leggings">Devilsaur Leggings</option>
+                                <option value="Dreadnaught Legplates">Dreadnaught Legplates</option>
+                                <option value="Dreadnaught Leggings (DPS)">Dreadnaught Leggings (DPS)</option>
+                                <option value="Eldritch Reinforced Legplates">Eldritch Reinforced Legplates</option>
+                                <option value="Handcrafted Mastersmith Leggings">Handcrafted Mastersmith Leggings</option>
+                                <option value="Leggings of the Apocalypse">Leggings of the Apocalypse</option>
+                                <option value="Leggings of the Ursa">Leggings of the Ursa</option>
+                                <option value="Legguards of the Brotherhood">Legguards of the Brotherhood</option>
+                                <option value="Legguards of the Fallen Crusader">Legguards of the Fallen Crusader</option>
+                                <option value="Legplates of Carnage">Legplates of Carnage</option>
+                                <option value="Legplates of Heroism">Legplates of Heroism</option>
+                                <option value="Legplates of Might">Legplates of Might</option>
+                                <option value="Leggings of Might (DPS)">Leggings of Might (DPS)</option>
+                                <option value="Legplates of the Qiraji Command">Legplates of the Qiraji Command</option>
+                                <option value="Legplates of Valor">Legplates of Valor</option>
+                                <option value="Legplates of Wrath">Legplates of Wrath</option>
+                                <option value="Leggings of Wrath (DPS)">Leggings of Wrath (DPS)</option>
+                                <option value="R12 Plate Legguards">R12 Plate Legguards</option>
+                                <option value="R8 Plate Leggings">R8 Plate Leggings</option>
+                                <option value="Scaled Sand Reaver Leggings">Scaled Sand Reaver Leggings</option>
+                                <option value="Sentinel's Plate Legguards">Sentinel's Plate Legguards</option>
+                                <option value="Titanic Leggings">Titanic Leggings</option>
+                            </select>
+                        </div>
+        
+                        <div class="hInput">
+                            <label>Feet:</label>
+                            <select name="feet" id="feet" onchange="updateStats()"> 
+                                <option value="None">None</option>
+                                <option value="Arathi Plate Greaves">Arathi Plate Greaves</option>
+                                <option value="Battlechaser's Greaves">Battlechaser's Greaves</option>
+                                <option value="Black Dragonscale Boots">Black Dragonscale Boots</option>
+                                <option value="Blooddrenched Footpads">Blooddrenched Footpads</option>
+                                <option value="Bloodmail Boots">Bloodmail Boots</option>
+                                <option value="Boots of Avoidance">Boots of Avoidance</option>
+                                <option value="Boots of Heroism">Boots of Heroism</option>
+                                <option value="Boots of the Fallen Hero">Boots of the Fallen Hero</option>
+                                <option value="Boots of the Shadow Flame">Boots of the Shadow Flame</option>
+                                <option value="Boots of the Vanguard">Boots of the Vanguard</option>
+                                <option value="Boots of Unwavering Will">Boots of Unwavering Will</option>
+                                <option value="Boots of Valor">Boots of Valor</option>
+                                <option value="Chromatic Boots">Chromatic Boots</option>
+                                <option value="Conqueror's Greaves">Conqueror's Greaves</option>
+                                <option value="Dreadnaught Sabatons">Dreadnaught Sabatons</option>
+                                <option value="Dreadnaught Boots (DPS)">Dreadnaught Boots</option>
+                                <option value="Greaves of the Brotherhood">Greaves of the Brotherhood</option>
+                                <option value="Pads of the Dread Wolf">Pads of the Dread Wolf</option>
+                                <option value="Pawn's Advance">Pawn's Advance</option>
+                                <option value="R12 Plate Boots">R12 Plate Boots</option>
+                                <option value="R7 Plate Boots">R7 Plate Boots</option>
+                                <option value="Sabatons of Might">Sabatons of Might</option>
+                                <option value="Boots of Might (DPS)">Boots of Might (DPS)</option>
+                                <option value="Sabatons of Wrath">Sabatons of Wrath</option>
+                                <option value="Boots of Wrath (DPS)">Boots of Wrath (DPS)</option>
+                                <option value="Sapphiron's Scale Boots">Sapphiron's Scale Boots</option>
+                                <option value="Savage Gladiator Greaves">Savage Gladiator Greaves</option>
+                                <option value="Slime Kickers">Slime Kickers</option>
+                                <option value="Swiftwalker Boots">Swiftwalker Boots</option>
+                                <option value="Windreaver Greaves">Windreaver Greaves</option>
+                            </select>
+                        </div>
+        
+                        <div class="hInput">
+                            <label>Ring One:</label>
+                            <select name="ringone" id="ringone" onchange="updateStats()"> 
+                                <option value="None">None</option>
+                                <option value="Angelista's Touch">Angelista's Touch</option>
+                                <option value="Archimtiros' Ring of Reckoning">Archimtiros' Ring of Reckoning</option>
+                                <option value="Band of Accuria">Band of Accuria</option>
+                                <option value="Band of Earthen Might">Band of Earthen Might</option>
+                                <option value="Band of Jin">Band of Jin</option>
+                                <option value="Band of Reanimation">Band of Reanimation</option>
+                                <option value="Band of the Ogre King">Band of the Ogre King</option>
+                                <option value="Band of the Penitent">Band of the Penitent</option>
+                                <option value="Band of Unnatural Forces">Band of Unnatural Forces</option>
+                                <option value="Blackstone Ring">Blackstone Ring</option>
+                                <option value="Circle of Applied Force">Circle of Applied Force</option>
+                                <option value="Don Julio's Band">Don Julio's Band</option>
+                                <option value="Magni's Will">Magni's Will</option>
+                                <option value="Master Dragonslayer's Ring">Master Dragonslayer's Ring</option>
+                                <option value="Might of Cenarius">Might of Cenarius</option>
+                                <option value="Naglering">Naglering</option>
+                                <option value="Painweaver Band">Painweaver Band</option>
+                                <option value="Protector's Band">Protector's Band</option>
+                                <option value="Quick Strike Ring">Quick Strike Ring</option>
+                                <option value="Ring of Emperor Vek'lor">Ring of Emperor Vek'lor</option>
+                                <option value="Ring of Fury">Ring of Fury</option>
+                                <option value="Ring of the Dreadnaught">Ring of the Dreadnaught</option>
+                                <option value="Signet of the Dreadnaught (DPS)">Signet of the Dreadnaught (DPS)</option>
+                                <option value="Ring of the Godslayer">Ring of the Godslayer</option>
+                                <option value="Ring of the Qiraji Fury">Ring of the Qiraji Fury</option>
+                                <option value="Seal of Jin">Seal of Jin</option>
+                                <option value="Seal of the Gurubashi Berserker">Seal of the Gurubashi Berserker</option>
+                                <option value="Signet of the Fallen Defender">Signet of the Fallen Defender</option>
+                                <option value="Signet of Unyielding Strength">Signet of Unyielding Strength</option>
+                                <option value="Signet Ring of the Bronze Dragonflight (Agi)">Signet Ring of the Bronze Dragonflight (Agi)</option>
+                                <option value="Signet Ring of the Bronze Dragonflight (Str)">Signet Ring of the Bronze Dragonflight (Str)</option>
+                                <option value="Tarnished Elven Ring">Tarnished Elven Ring</option>
+                            </select>
+                        </div>
+        
+                        <div class="hInput">
+                            <label>Ring Two:</label>
+                            <select name="ringtwo" id="ringtwo" onchange="updateStats()">
+                                <option value="None">None</option> 
+                                <option value="Angelista's Touch">Angelista's Touch</option>
+                                <option value="Archimtiros' Ring of Reckoning">Archimtiros' Ring of Reckoning</option>
+                                <option value="Band of Accuria">Band of Accuria</option>
+                                <option value="Band of Earthen Might">Band of Earthen Might</option>
+                                <option value="Band of Jin">Band of Jin</option>
+                                <option value="Band of Reanimation">Band of Reanimation</option>
+                                <option value="Band of the Ogre King">Band of the Ogre King</option>
+                                <option value="Band of the Penitent">Band of the Penitent</option>
+                                <option value="Band of Unnatural Forces">Band of Unnatural Forces</option>
+                                <option value="Blackstone Ring">Blackstone Ring</option>
+                                <option value="Circle of Applied Force">Circle of Applied Force</option>
+                                <option value="Don Julio's Band">Don Julio's Band</option>
+                                <option value="Magni's Will">Magni's Will</option>
+                                <option value="Master Dragonslayer's Ring">Master Dragonslayer's Ring</option>
+                                <option value="Might of Cenarius">Might of Cenarius</option>
+                                <option value="Naglering">Naglering</option>
+                                <option value="Painweaver Band">Painweaver Band</option>
+                                <option value="Protector's Band">Protector's Band</option>
+                                <option value="Quick Strike Ring">Quick Strike Ring</option>
+                                <option value="Ring of Emperor Vek'lor">Ring of Emperor Vek'lor</option>
+                                <option value="Ring of Fury">Ring of Fury</option>
+                                <option value="Ring of the Dreadnaught">Ring of the Dreadnaught</option>
+                                <option value="Signet of the Dreadnaught (DPS)">Signet of the Dreadnaught (DPS)</option>
+                                <option value="Ring of the Godslayer">Ring of the Godslayer</option>
+                                <option value="Ring of the Qiraji Fury">Ring of the Qiraji Fury</option>
+                                <option value="Seal of Jin">Seal of Jin</option>
+                                <option value="Seal of the Gurubashi Berserker">Seal of the Gurubashi Berserker</option>
+                                <option value="Signet of the Fallen Defender">Signet of the Fallen Defender</option>
+                                <option value="Signet of Unyielding Strength">Signet of Unyielding Strength</option>
+                                <option value="Signet Ring of the Bronze Dragonflight (Agi)">Signet Ring of the Bronze Dragonflight (Agi)</option>
+                                <option value="Signet Ring of the Bronze Dragonflight (Str)">Signet Ring of the Bronze Dragonflight (Str)</option>
+                                <option value="Tarnished Elven Ring">Tarnished Elven Ring</option>
+                            </select>
+                        </div>
+        
+                        <div class="hInput">
+                            <label>Trinket One:</label>
+                            <select name="trinketone" id="trinketone" onchange="updateStats()"> 
+                                <option value="None">None</option>
+                                <!--<option value="Badge of the Swarmguard">Badge of the Swarmguard</option>-->
+                                <option value="Blackhand's Breadth">Blackhand's Breadth</option>
+                                <option value="Counterattack Lodestone">Counterattack Lodestone</option>
+                                <!--<option value="Darkmoon Card: Maelstrom">Darkmoon Card: Maelstrom</option>-->
+                                <option value="Diamond Flask">Diamond Flask</option>
+                                <option value="Drake Fang Talisman">Drake Fang Talisman</option>
+                                <option value="Earthstrike">Earthstrike</option>
+                                <option value="Hand of Justice">Hand of Justice</option>
+                                <!--<option value="Heart of Wyrmthalak">Heart of Wyrmthalak</option>-->
+                                <option value="Jom Gabbar">Jom Gabbar</option>
+                                <option value="Kiss of the Spider">Kiss of the Spider</option>
+                                <option value="Mark of the Champion">Mark of the Champion</option>
+                                <option value="Rune of the Guard Captain">Rune of the Guard Captain</option>
+                                <option value="Seal of the Dawn">Seal of the Dawn</option>
+                                <option value="Slayer's Crest">Slayer's Crest</option>
+                                <option value="Stormpike Insignia Rank 6">Stormpike Insignia Rank 6</option>
+                                <option value="Styleen's Impending Scarab">Styleen's Impending Scarab</option>
+                                <option value="The Heart of Dreams">The Heart of Dreams</option>
+                                <option value="Vigilance Charm">Vigilance Charm</option>
+                            </select>
+                        </div>
+                            
+                        <div class="hInput">
+                            <label>Trinket Two:</label>
+                            <select name="trinkettwo" id="trinkettwo" onchange="updateStats()"> 
+                                <option value="None">None</option>
+                                <!--<option value="Badge of the Swarmguard">Badge of the Swarmguard</option>-->
+                                <option value="Blackhand's Breadth">Blackhand's Breadth</option>
+                                <option value="Counterattack Lodestone">Counterattack Lodestone</option>
+                                <!--<option value="Darkmoon Card: Maelstrom">Darkmoon Card: Maelstrom</option>-->
+                                <option value="Diamond Flask">Diamond Flask</option>
+                                <option value="Drake Fang Talisman">Drake Fang Talisman</option>
+                                <option value="Earthstrike">Earthstrike</option>
+                                <option value="Hand of Justice">Hand of Justice</option>
+                                <!--<option value="Heart of Wyrmthalak">Heart of Wyrmthalak</option>-->
+                                <option value="Jom Gabbar">Jom Gabbar</option>
+                                <option value="Kiss of the Spider">Kiss of the Spider</option>
+                                <option value="Mark of the Champion">Mark of the Champion</option>
+                                <option value="Rune of the Guard Captain">Rune of the Guard Captain</option>
+                                <option value="Seal of the Dawn">Seal of the Dawn</option>
+                                <option value="Slayer's Crest">Slayer's Crest</option>
+                                <option value="Stormpike Insignia Rank 6">Stormpike Insignia Rank 6</option>
+                                <option value="Styleen's Impending Scarab">Styleen's Impending Scarab</option>
+                                <option value="The Heart of Dreams">The Heart of Dreams</option>
+                                <option value="Vigilance Charm">Vigilance Charm</option>
+                            </select>
+                        </div>
+                        <div class="hInput">
+                            <label>Ranged:</label>
+                            <select name="ranged" id="ranged" onchange="updateStats()"> 
+                                <option value="None">None</option>
+                                <option value="Blackcrow">Blackcrow</option>
+                                <option value="Blastershot Launcher">Blastershot Launcher</option>
+                                <option value="Bloodseeker">Bloodseeker</option>
+                                <option value="Bow of Taut Sinew">Bow of Taut Sinew</option>
+                                <option value="Burstshot Harquebus">Burstshot Harquebus</option>
+                                <option value="Carapace Spine Crossbow">Carapace Spine Crossbow</option>
+                                <option value="Crossbow of Imminent Doom">Crossbow of Imminent Doom</option>
+                                <option value="Crystal Slugthrower">Crystal Slugthrower</option>
+                                <option value="Custom Item">Custom Item</option>
+                                <option value="Dragonbreath Hand Cannon">Dragonbreath Hand Cannon</option>
+                                <option value="Fahrad's Reloading Repeater">Fahrad's Reloading Repeater</option>
+                                <option value="Fragments of Aldrach">Fragments of Aldrach</option>
+                                <option value="Gorewood Bow">Gorewood Bow</option>
+                                <option value="Gurubashi Dwarf Destroyer">Gurubashi Dwarf Destroyer</option>
+                                <option value="Guttbuster">Guttbuster</option>
+                                <option value="Heartseeking Crossbow">Heartseeking Crossbow</option>
+                                <option value="Heartstriker">Heartstriker</option>
+                                <option value="Hoodoo Hunting Bow">Hoodoo Hunting Bow</option>
+                                <option value="Huhuran's Stinger">Huhuran's Stinger</option>
+                                <option value="Larvae of the Great Worm">Larvae of the Great Worm</option>
+                                <option value="Malgen's Long Bow">Malgen's Long Bow</option>
+                                <option value="Mandokir's Sting">Mandokir's Sting</option>
+                                <option value="Nerubian Slavemaker">Nerubian Slavemaker</option>
+                                <option value="Outrunner's Bow">Outrunner's Bow</option>
+                                <option value="Phase-shifting Crossbow">Phase-shifting Crossbow</option>
+                                <option value="Polished Ironwood Crossbow">Polished Ironwood Crossbow</option>
+                                <option value="Riphook">Riphook</option>
+                                <option value="Satyr's Bow">Satyr's Bow</option>
+                                <option value="Silithid Husked Launcher">Silithid Husked Launcher</option>
+                                <option value="Skull Splitting Crossbow">Skull Splitting Crossbow</option>
+                                <option value="Soulstring">Soulstring</option>
+                                <option value="Striker's Mark">Striker's Mark</option>
+                                <option value="Toxin Injector">Toxin Injector</option>
+                                <option value="Willey's Portable Howitzer">Willey's Portable Howitzer</option>
+                            </select>
+                        </div>
+        
+        
+                        <div class="hInput">
+                            <label>Main Hand:</label></div>
+                        <div class="hInput" >
+                            <div id="mhweptypeselect">
+                                <select name="mainhandtype" id="mhweptypelist" onchange="updateMHWeaponList(true)"> 
+                                    <option value="Axes">Axes</option>
+                                    <option value="Daggers">Daggers</option>
+                                    <option value="Fists">Fists</option>
+                                    <option value="Maces">Maces</option>
+                                    <option value="Swords">Swords</option>
+                                </select>
+                            </div>
+                            <div id="mainhandcontainer">
+                                <select name="mainhand" id="mainhand" onchange="updateStats()"> 
+        
+                                </select>
+                            </div>
+                        </div>
+        
+                        <div class="hInput">
+                            <label>Off Hand:</label></div>
+                        <div class="hInput" >
+                            <div id="ohweptypeselect">
+                            <select name="offhandtype" id="ohweptypelist" onchange="updateOHWeaponList(true)"> 
+                                <option value="Axes">Axes</option>
+                                <option value="Daggers">Daggers</option>
+                                <option value="Fists">Fists</option>
+                                <option value="Maces">Maces</option>
+                                <option value="Swords">Swords</option>
+                                <option value="Shields">Shields</option>
+                            </select>
+                        </div>
+                        <div id="offhandcontainer">
+                            <select name="offhand" id="offhand" onchange="updateStats()"> 
+        
+                            </select>
+                        </div>
+                        </div>
+        
+                    </div><!-- end of "gear"-->
+
+
+            <div id="enchants">
+                <h4> </h4>
+                <div class="hInput"><select disabled="true"></select></div>
+                <div class="hInput">
+                    <select name="headenchant" id="headenchant" onchange="updateStats()"> 
+                        <option value="None">None</option>
+                        <option value="Libram of Constitution">Libram of Constitution</option>
+                        <option value="Libram of Rapidity">Libram of Rapidity</option>
+                        <option value="Libram of Protection (+1% Dodge)">Libram of Protection (+1% Dodge)</option>
+                        <option value="Libram of Voracity (+8 Agi)">Libram of Voracity (+8 Agi)</option>
+                        <option value="Libram of Voracity (+8 Sta)">Libram of Voracity (+8 Sta)</option>
+                        <option value="Libram of Voracity (+8 Str)">Libram of Voracity (+8 Str)</option>
+                        <option value="Presence of Might">Presence of Might</option>
+                    </select>
+                </div>
+
+                <div class="hInput">
+                    <select name="neckenchant" id="neckenchant" onchange="updateStats()">
+                        <option value="None">None</option>
+                        <option value="Burning Star Gemstone (+5 Str)">Burning Star Gemstone (+5 Str)</option>
+                        <option value="Azerothian Ruby Gemstone (+6 Str)">Azerothian Ruby Gemstone (+6 Str)</option>
+                        <option value="Sharpened Citrine Gemstone (+4 Agi)">Sharpened Citrine Gemstone (+4 Agi)</option>
+                        <option value="Brilliant Opal Gemstone (+6 Agi)">Brilliant Opal Gemstone (+6 Agi)</option>
+                        <option value="Stunning Imperial Gemstone (+3 All Stat)">Stunning Imperial Gemstone (+3 All Stat)</option>
+                    </select>
+                </div>
+
+                <div class="hInput">
+                    <select name="shoulderenchant" id="shoulderenchant" onchange="updateStats()"> 
+                        <option value="None">None</option>
+                        <option value="Might of the Scourge">Might of the Scourge</option>
+                        <option value="Zandalar Signet of Might">Zandalar Signet of Might</option>
+                    </select>
+                </div>
+
+                <div class="hInput">
+                    <select name="backenchant" id="backenchant" onchange="updateStats()"> 
+                        <option value="None">None</option>
+                        <option value="Dodge">Dodge</option>
+                        <option value="Lesser Agility">Lesser Agility</option>
+                    </select>
+                </div>
+
+                <div class="hInput">
+                    <select name="chestenchant" id="chestenchant" onchange="updateStats()"> 
+                        <option value="None">None</option>
+                        <option value="Greater Stats">Greater Stats</option>
+                        <option value="Major Health">Major Health</option>
+                        <option value="Stats">Stats</option>
+                    </select>
+                </div>
+                            
+                <div class="hInput">
+                    <select name="wristenchant" id="wristenchant" onchange="updateStats()"> 
+                        <option value="None">None</option>
+                        <option value="Superior Stamina">Superior Stamina</option>
+                        <option value="Superior Strength">Superior Strength</option>
+                    </select>
+                </div>
+
+                <div class="hInput">
+                    <select name="handenchant" id="handenchant" onchange="updateStats()"> 
+                        <option value="None">None</option>
+                        <option value="Greater Agility">Greater Agility</option>
+                        <option value="Greater Strength">Greater Strength</option>
+                        <option value="Minor Haste">Minor Haste</option>
+                        <option value="Superior Agility">Superior Agility</option>
+                        <option value="Threat">Threat</option>
+                    </select>
+                </div>
+                    
+                <div class="hInput">
+                    <select name="beltenchant" id="beltenchant" onchange="updateStats()">
+                        <option value="None">None</option>
+                        <option value="Iron Belt Buckle (+25 arp)">Iron Belt Buckle (+25 arp)</option>
+                        <option value="Mithril Belt Buckle (+6 Agi)">Mithril Belt Buckle (+6 Agi)</option>
+                        <option value="Obsidian Belt Buckle (+10 Str)">Obsidian Belt Buckle (+10 Str)</option>
+                    </select>
+                </div>
+
+                <div class="hInput">
+                    <select name="legenchant" id="legenchant" onchange="updateStats()"> 
+                        <option value="None">None</option>
+                        <option value="Libram of Constitution">Libram of Constitution</option>
+                        <option value="Libram of Rapidity">Libram of Rapidity</option>
+                        <option value="Libram of Protection (+1% Dodge)">Libram of Protection (+1% Dodge)</option>
+                        <option value="Libram of Voracity (+8 Agi)">Libram of Voracity (+8 Agi)</option>
+                        <option value="Libram of Voracity (+8 Sta)">Libram of Voracity (+8 Sta)</option>
+                        <option value="Libram of Voracity (+8 Str)">Libram of Voracity (+8 Str)</option>
+                        <option value="Presence of Might">Presence of Might</option>
+                    </select>
+                </div>
+
+                <div class="hInput">
+                    <select name="feetenchant" id="feetenchant" onchange="updateStats()"> 
+                            <option value="None">None</option>
+                            <option value="Greater Stamina">Greater Stamina</option>
+                            <option value="Greater Agility">Greater Agility</option>
+                            <option value="Minor Speed">Minor Speed</option>
+                    </select>
+                </div>
+                <div class="hInput">
+                    <select name="ringoneenchant" id="ringoneenchant" onchange="updateStats()">
+                        <option value="None">None</option>
+                        <option value="Burning Star Gemstone (+5 Str)">Burning Star Gemstone (+5 Str)</option>
+                        <option value="Azerothian Ruby Gemstone (+6 Str)">Azerothian Ruby Gemstone (+6 Str)</option>
+                        <option value="Sharpened Citrine Gemstone (+4 Agi)">Sharpened Citrine Gemstone (+4 Agi)</option>
+                        <option value="Brilliant Opal Gemstone (+6 Agi)">Brilliant Opal Gemstone (+6 Agi)</option>
+                        <option value="Stunning Imperial Gemstone (+3 All Stat)">Stunning Imperial Gemstone (+3 All Stat)</option>
+                    </select>
+                </div>
+                <div class="hInput">
+                    <select name="ringtwoenchant" id="ringtwoenchant" onchange="updateStats()">
+                        <option value="None">None</option>
+                        <option value="Burning Star Gemstone (+5 Str)">Burning Star Gemstone (+5 Str)</option>
+                        <option value="Azerothian Ruby Gemstone (+6 Str)">Azerothian Ruby Gemstone (+6 Str)</option>
+                        <option value="Sharpened Citrine Gemstone (+4 Agi)">Sharpened Citrine Gemstone (+4 Agi)</option>
+                        <option value="Brilliant Opal Gemstone (+6 Agi)">Brilliant Opal Gemstone (+6 Agi)</option>
+                        <option value="Stunning Imperial Gemstone (+3 All Stat)">Stunning Imperial Gemstone (+3 All Stat)</option>
+                    </select>
+                </div>
+                <div class="hInput"><select disabled="true"></select></div>
+                <div class="hInput"><select disabled="true"></select></div>
+                <div class="hInput"><select disabled="true"></select></div>
+                <div class="hInput"><label> </label></div>
+
+                <div class="hInput">
+                    <select name="mhwepenchant" id="mhwepenchant" onchange="updateStats()"> 
+                        <option value="None">None</option>
+                        <option value="Agility">Agility</option>
+                        <option value="Crusader">Crusader</option>
+                        <option value="Strength">Strength</option>
+                    </select>
+                </div>
+                <div class="hInput"><label> </label></div>
+                <div class="hInput">
+                    <select name="ohwepenchant" id="ohwepenchant" onchange="updateStats()"> 
+                        <!--<option value="None">None</option>
+                        <option value="Agility">Agility</option>
+                        <option value="Crusader">Crusader</option>
+                        <option value="Strength">Strength</option>
+                        <option value="Greater Stamina">Greater Stamina</option>-->
+                    </select>
+                </div>
+            </div><!-- end of "enchants" -->
+            
+            <div id="bottomleft">
+                <div id="talents">
+                    <form>
+                        <h4>Talents</h4>                    
+                        <div class="hInput"><label>Death Wish:</label><input type="checkbox" id="deathwish" name="deathwish" value="true" checked></div>
+                        <div class="hInput"><label>Bloodthirst:</label><input type="checkbox" id="bloodthirst" name="bloodthirst" value="true" checked></div>
+                        <div class="hInput"><label>Shield Slam:</label><input type="checkbox" id="shieldslam" name="shieldslam" value="true"></div>
+                        <div class="hInput"><label>Concussion Blow:</label><input type="checkbox" id="concblow" name="concblow" value="true"></div>
+                        <div class="hInput"><label>Improved Shield Slam:</label><input class="talent-input" type="number" id="impSS" name="impSS" min="0" max="2" value="0">/2</div>
+                        <div class="hInput"><label>Deflection:</label><input class="talent-input" type="number" id="deflection" name="deflection" min="0" max="5" value="0" onchange="updateStats()">/5</div>
+                        <div class="hInput"><label>Cruelty:</label><input class="talent-input" type="number" id="cruelty" name="cruelty" min="0" max="5" value="5" onchange="updateStats()">/5</div>
+                        <div class="hInput"><label>Anticipation:</label><input class="talent-input" type="number" id="anticipation" name="anticipation" min="0" max="5" value="0" onchange="updateStats()">/5</div>
+                        <div class="hInput"><label>Shield Specialization:</label><input class="talent-input" type="number" id="shieldspec" name="shieldspec" min="0" max="5" value="5" onchange="updateStats()">/5</div>
+                        <div class="hInput"><label>Toughness:</label><input class="talent-input" type="number" id="toughness" name="toughness" min="0" max="5" value="3" onchange="updateStats()">/5</div>
+                        <div class="hInput"><label>Defensive Tactics:</label><input class="talent-input" type="number" id="deftac" name="deftac" min="0" max="3" value="0" onchange="updateStats()">/3</div>
+                        <div class="hInput"><label>Imp. Heroic Strike:</label><input class="talent-input" type="number" id="impHS" name="impHS" min="0" max="3" value="3">/3</div>
+                        <div class="hInput"><label>Imp. Sunder Armor:</label><input class="talent-input" type="number" id="impSA" name="impSA" min="0" max="3" value="0">/3</div>
+                        <div class="hInput"><label>One Handed Specialization:</label><input class="talent-input" type="number" id="1hspec" name="1hspec" min="0" max="5" value="0">/5</div>
+                        <div class="hInput"><label>Flurry:</label><input class="talent-input" type="number" id="flurry" name="flurry" min="0" max="5" value="5">/5</div>
+                        <div class="hInput"><label>Enrage:</label><input class="talent-input" type="number" id="enrage" name="enrage" min="0" max="5" value="5">/5</div>
+                        <div class="hInput"><label>Impale:</label><input class="talent-input" type="number" id="impale" name="impale" min="0" max="2" value="0">/2</div>
+                        <div class="hInput"><label>Defiance:</label><input class="talent-input" type="number" id="defiance" name="defiance" min="0" max="5" value="5">/5</div>
+                        <div class="hInput"><label>Dual Wield Specialization:</label><input class="talent-input" type="number" id="dwspec" name="dwspec" min="0" max="5" value="5">/5</div>
+                        <div class="hInput"><label>Reprisal:</label><input class="talent-input" type="number" id="reprisal" name="reprisal" min="0" max="2" value="2">/2</div>
+                        <div class="hInput"><label>Improved Overpower:</label><input class="talent-input" type="number" id="impop" name="impop" min="0" max="2" value="0">/2</div>
+                    </form>
+                </div> <!-- end of talents -->
+
+                <div id="bonuses">
+                    <form>
+                        <h4>Other Bonuses</h4>
+                        <div class="hInput"><label>(2) Set T3:</label><input type="checkbox" id="twoPieceDreadnaught" name="twoPieceDreadnaught"></div>
+                        <div class="hInput"><label>(3) Set T2.5:</label><input type="checkbox" id="threePieceConqueror" name="threePieceConqueror"></div>
+                        <div class="hInput"><label>(5) Set T2:</label><input type="checkbox" id="fivePieceWrath" name="fivePieceWrath"></div>
+                        <div class="hInput"><label>(3) Set T3.5:</label><input type="checkbox" id="threePieceBrotherhood" name="threePieceBrotherhood"></div>
+                        <div class="hInput"><label>Berserking:</label><input type="checkbox" id="berserking" name="berserking"></div>
+                        <div class="hInput"><label>Chastise:</label><input type="checkbox" id="chastise" name="chastise"></div>
+                        <div class="hInput"><label>Bloodrage:</label><input type="checkbox" id="bloodrage" name="bloodrage"></div>
+                    </form>
+                </div><!-- end of bonuses -->
+                <div id="stances">
+                    <h4> </h4>
+                    <div class="hInput">
+                        <select name="stance" id="stance">
+                            <option value="Defensive Stance">Defensive Stance</option>
+                            <option value="Battle Stance">Battle Stance</option>
+                            <option value="Berserker Stance">Berserker Stance</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            </div><!-- end of leftcol-->
+
+
+
+            <div id="middleCol">
+                <div id="buffs">
+                <h4>Buffs</h4>
+                <div class="hInput">
+                    <label>MH Stone:</label>
+                    <select name="mhstone" id="mhstone" onchange="updateStats()"> 
+                        <option value="None">None</option>
+                        <option value="Elemental">Elemental</option>
+                        <option value="Dense">Dense</option>
+                        <option value="Consecrated">Consecrated</option>
+                    </select>
+                </div>
+                <div class="hInput">
+                    <label>OH Stone:</label>
+                    <select name="ohstone" id="ohstone" onchange="updateStats()"> 
+                        <option value="None">None</option>
+                        <option value="Elemental">Elemental</option>
+                        <option value="Dense">Dense</option>
+                        <option value="Consecrated">Consecrated</option>
+                    </select>
+                </div>
+
+                <div class="hInput">
+                    <label>Strength Buff:</label>
+                    <select name="strbuff" id="strbuff" onchange="updateStats()"> 
+                        <option value="0" name="None">None</option>
+                        <option value="25" name="Elixir of Giants">Elixir of Giants</option>
+                        <option value="30" name="Juju Power">Juju Power</option>
+                    </select>
+                </div>
+
+                <div class="hInput">
+                    <label>AP Buff:</label>
+                    <select name="apbuff" id="apbuff" onchange="updateStats()"> 
+                        <option value="0" name="None">None</option>
+                        <option value="35" name="Winterfall Firewater">Winterfall Firewater</option>
+                        <option value="40" name="Juju Might">Juju Might</option>
+                    </select>
+                </div>
+
+                <div class="hInput">
+                    <label>Agility Buff:</label>
+                    <select name="agibuff" id="agibuff" onchange="updateStats()"> 
+                        <option value="None">None</option>
+                        <option value="Elixir of the Mongoose">Elixir of the Mongoose</option>
+                        <option value="Elixir of Greater Agility">Elixir of Greater Agility</option>
+                    </select>
+                </div>
+
+                <div class="hInput">
+                    <label>Extra Stat Buff:</label>
+                    <select name="statbuff" id="statbuff" onchange="updateStats()"> 
+                        <option value="None">None</option>
+                        <option value="Spirit of Zanza">Spirit of Zanza</option>
+                        <option value="Ground Scorpok Assay">Ground Scorpok Assay</option>
+                        <option value="R.O.I.D.S.">R.O.I.D.S.</option>
+                    </select>
+                </div>
+
+                <div class="hInput">
+                    <label>Food Buff:</label>
+                    <select name="foodbuff" id="foodbuff" onchange="updateStats()"> 
+                        <option value="None">None</option>
+                        <option value="Smoked Desert Dumplings/Power Mushroom">Smoked Desert Dumplings/Power Mushroom</option>
+                        <option value="Blessed Sunfruit">Blessed Sunfruit</option>
+                        <option value="Grilled Squid">Grilled Squid</option>
+                        <option value="Hardened Mushroom">Hardened Mushroom</option>
+                        <option value="Danonzo's Tel'Abim Medley">Danonzo's Tel'Abim Medley</option>
+                        <option value="Tender Wolf Steak">Tender Wolf Steak</option>
+                    </select>
+                </div>
+
+                <div class="hInput">
+                    <label>Alcohol:</label>
+                    <select name="alcohol" id="alcohol" onchange="updateStats()"> 
+                        <option value="0" name="None">None</option>
+                        <option value="15" name="Rumsay Rum Black Label">Rumsay Rum Black Label</option>
+                        <option value="25" name="Medivh's Merlot">Medivh's Merlot</option>
+                        <option value="10" name="Gordok Green Grog">Gordok Green Grog</option>
+                    </select>
+                </div>
+
+                <div class="hInput">
+                    <label>Combat Potion:</label>
+                    <select name="potion" id="potion" onchange="updateStats()"> 
+                        <option value="None">None</option>
+                        <option value="Greater Stoneshield">Greater Stoneshield</option>
+                        <option value="Mighty Rage">Mighty Rage</option>
+                        <option value="Quickness">Quickness</option>
+                    </select>
+                </div>
+
+                <div class="hInput"><label>Starting Rage:</label><input type="number" id="startRage" name="startRage" min="0" max="100" value="70"></div>
+                <div class="hInput"><label>Inspiration:</label><input type="checkbox" id="inspiration" name="inspiration" value="true" checked onchange="updateStats()"></div>
+                <div class="hInput"><label>Devotion Aura:</label><input type="checkbox" id="devo" name="devo" value="true" checked onchange="updateStats()"></div>
+                <div class="hInput"><label>Imp. LoH:</label><input type="checkbox" id="imploh" name="imploh" value="true" checked onchange="updateStats()"></div>
+
+                <br/>
+                <div class="hInput"><label>Gift of Arthas:</label><input type="checkbox" id="goa" name="goa" value="true" checked onchange="updateStats()"></div>
+                <div class="hInput"><label>Elixir of Superior Defense:</label><input type="checkbox" id="armorelixir" name="armorelixir" value="true" checked onchange="updateStats()"></div>
+                <div class="hInput"><label>Elixir of Fortitude:</label><input type="checkbox" id="hpelixir" name="hpelixir" value="true" checked onchange="updateStats()"></div>
+                <div class="hInput"><label>Flask of the Titans:</label><input type="checkbox" id="titans" name="titans" value="true" checked onchange="updateStats()"></div>
+                
+                <br/>
+                <div class="hInput"><label>Dragonslayer:</label><input type="checkbox" id="dragonslayer" name="dragonslayer" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>Spirit of Zandalar:</label><input type="checkbox" id="zandalar" name="zandalar" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>Warchief's Blessing:</label><input type="checkbox" id="wcb" name="wcb" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>DMF 10% Damage:</label><input type="checkbox" id="dmf" name="dmf" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>DM Stamina:</label><input type="checkbox" id="dmstamina" name="dmstamina" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>DM Attack Power:</label><input type="checkbox" id="dmAP" name="dmAP" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>DM Spell Crit:</label><input type="checkbox" id="dmspell" name="dmspell" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>Songflower:</label><input type="checkbox" id="songflower" name="songflower" value="false" onchange="updateStats()"></div>
+                
+                <br/>
+                <div class="hInput"><label>Battle Shout:</label><input type="checkbox" id="bshout" name="bshout" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>Leader of the Pack:</label><input type="checkbox" id="pack" name="pack" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>Trueshot Aura:</label><input type="checkbox" id="trueshot" name="trueshot" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>Mark of the Wild:</label><input type="checkbox" id="mark" name="mark" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>Power Word: Fortitude:</label><input type="checkbox" id="fortitude" name="fortitude" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>Blood Pact:</label><input type="checkbox" id="bloodpact" name="bloodpact" value="false" onchange="updateStats()"></div>
+                
+                <div class="hInput"><label>Blessing of Kings:</label><input type="checkbox" id="kings" name="kings" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>Blessing of Might:</label><input type="checkbox" id="might" name="might" value="false" onchange="updateStats()"></div>
+                
+                <div class="hInput"><label>Windfury:</label><input type="checkbox" id="windfury" name="windfury" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>Strength of Earth:</label><input type="checkbox" id="strofearth" name="strofearth" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>Grace of Air:</label><input type="checkbox" id="graceofair" name="graceofair" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>Improved Weapon Totems:</label><input type="checkbox" id="impweptotems" name="impweptotems" value="false" onchange="updateStats()"></div>
+
+            </div><!-- end of buffs-->
+            </div> <!-- end of middlecol -->
+
+            <div id="rightCol">
+                <div id="playerstats">
+                    <h4>Stats                                               Stat Deltas</h4>
+                    <div class="hInput" id="playerhpcontainer"><label>Health:</label><div class="playerstats" id="playerhp">0</div></div>
+                    <div class="hInput"><label>Strength:</label><div class="playerstats" id="playerstrength">0 + </div><input type="number" id="playerextrastrength" name="playerextrastrength" min="-100000" max="100000" value="0"></div>
+                    <div class="hInput"><label>Stamina:</label><div class="playerstats" id="playerstamina">0 + </div><input type="number" id="playerextrastamina" name="playerextrastamina" min="-100000" max="100000" value="0"></div>
+                    <div class="hInput"><label>Agility:</label><div class="playerstats" id="playeragility">0 + </div><input type="number" id="playerextraagility" name="playerextraagility" min="-100000" max="100000" value="0"></div>
+                    <div class="hInput"><label>Hit:</label><div class="playerstats" id="playerhit">0 + </div><input type="number" id="playerextrahit" name="playerextrahit" min="-100000" max="100000" value="0"></div>
+                    <div class="hInput"><label>Crit:</label><div class="playerstats" id="playercrit">0 + </div><input type="number" id="playerextracrit" name="playerextracrit" min="-100000" max="100000" value="0"></div>
+                    <div class="hInput"><label>Attackpower:</label><div class="playerstats" id="playerattackpower">0 + </div><input type="number" id="playerextraattackpower" name="playerextraattackpower" min="-100000" max="100000" value="0"></div>
+                    <div class="hInput"><label>Armor:</label><div class="playerstats" id="playerarmor">0 + </div><input type="number" id="playerextraarmor" name="playerextraarmor" min="-100000" max="100000" value="0"></div>
+                    <div class="hInput"><label>Defense:</label><div class="playerstats" id="playerdefense">0 + </div><input type="number" id="playerextradefense" name="playerextradefense" min="-100000" max="100000" value="0"></div>
+                    <div class="hInput"><label>Dodge:</label><div class="playerstats" id="playerdodge">0 + </div><input type="number" id="playerextradodge" name="playerextradodge" min="-100000" max="100000" value="0"></div>
+                    <div class="hInput"><label>Parry:</label><div class="playerstats" id="playerparry">0 + </div><input type="number" id="playerextraparry" name="playerextraparry" min="-100000" max="100000" value="0"></div>
+                    <div class="hInput"><label>Block:</label><div class="playerstats" id="playerblock">0 + </div><input type="number" id="playerextrablock" name="playerextrablock" min="-100000" max="100000" value="0"></div>
+                    <div class="hInput"><label>Blockvalue:</label><div class="playerstats" id="playerblockvalue">0 + </div><input type="number" id="playerextrablockvalue" name="playerextrablockvalue" min="-100000" max="100000" value="0"></div>
+                    <div class="hInput"><label>Mainhand Skill:</label><div class="playerstats" id="playermhskill">0 + </div><input type="number" id="playerextramhskill" name="playerextramhskill" min="-100000" max="100000" value="0"></div>
+                    <div class="hInput"><label>Offhand Skill:</label><div class="playerstats" id="playerohskill">0 + </div><input type="number" id="playerextraohskill" name="playerextraohskill" min="-100000" max="100000" value="0"></div>
+                    <div class="hInput"><label>Haste:</label><div class="playerstats" id="playerhaste">0 + </div><input type="number" id="playerextrahaste" name="playerextrahaste" min="-100000" max="100000" value="0"></div>
+                    <div class="hInput"><label>Arp:</label><div class="playerstats" id="playerarp">0 + </div><input type="number" id="playerextraarp" name="playerextraarp" min="-100000" max="100000" value="0"></div>
+                </div> <!-- end of playerstats-->
+                <div id="bossSettings">
+                    <form>
+                        <h4>Boss Settings</h4>
+                        <div class="hInput"><label>Swing Dmg:</label><input type="number" id="swingMin" name="swingMin" min="0" max="20000" value="4000"> - <input type="number" class="inputSwing" id="swingMax" name="Swing Max" min="0" max="20000" value="4000"><br/></div>
+                        <div class="hInput"><label>Swing Timer:</label><input type="number" id="swingTimer" name="swingTimer" min="0" max="10" value="2"><br/></div>
+                        <div class="hInput"><label>Base Armor:</label><input type="number" id="bossarmor" name="armor" min="0" max="10000" value="3731"><br/></div>
+                        <div class="hInput"><label>Curse of Recklessness:</label><input type="checkbox" id="curseofrecklessness" value="true"><br/></div>
+                        <div class="hInput"><label>Faerie Fire:</label><input type="checkbox" id="faeriefire" value="true"><br/></div>
+                        <div class="hInput"><label>Improved Expose Armor:</label><input type="checkbox" id="iea" value="false"><br/></div>
+                        <div class="hInput"><label>Shar'tateth:</label><input type="checkbox" id="shart" value="false"><br/></div>
+                        <div class="hInput"><label>CoR,FF,SA Applied At (s):</label><input type="number" id="debuffdelay" min="0" max="10000" value="0"><br/></div>
+                        <div class="hInput"><label>Shart Applied At (s):</label></label><input type="number" id="shartdelay" min="0" max="10000" value="10"><br/></div>
+                        <div class="hInput"><label>IEA Applied At (s):</label></label><input type="number" id="ieadelay" min="0" max="10000" value="10"><br/></div>
+                        <div class="hInput"><label>Battle Shout Targets:</label></label><input type="number" id="bshouttargets" min="0" max="10" value="5"><br/></div>
+                    </form>
+                </div> <!-- end of bossSettings-->
+                <div id="calcSettings">
+                    <form>
+                        <h4>Calc Settings</h4>
+                        <div class="hInput"><label>Iterations:</label><input type="number" id="iterations" name="iterations" min="1" max="100000" value="10000"></div>
+                        <div class="hInput"><label>Fight length (s):</label><input type="number" id="fightLength" name="fightLength" min="1" max="120" value="12" required ></div>
+                        <div class="hInput"><label>Threat Threshold:</label></div>
+                        <div class="hInput"><input type="number" id="TBPvalue" name="TBPvalue" min="0" max="100000" value="2000"> threat at <input class="inputSwing" type="number" id="TBPtime" name="TBPtime" min="0" max="300" value="3.0">s.</div>
+                        <br/>
+                        <div class="hInput">
+                            <label>Graph Style:</label>                    
+                            <select name="lineSelect" id="lineSelect">
+                                <option value="spline">Smooth (spline)</option>
+                                <option value="hv">Batched (step-function)</option>
+                                <option value="linear">Linear</option>
+                            </select>
+                        </div>
+                    <!--<div class="hInput"><label>First batch ends at:</label><input type="number" id="firstbatch" name="firstbatch" min="0" max="400" value="0"><label> ms</label></div> -->
+                        </br>
+                    </form>
+                    <div id="calcButton" class="hInput"><button onclick="main()">Calc</button></div>
+                    <div id="errorContainer"></div>
+                    <div id="barContainer"> <div id="progressBar"> </div></div>
+            </div> <!-- end of calcSettings -->
+
+        </div> <!-- end of rightcol -->
+        <div id="resultsHeader"></div>
+        <div id="resultContainer">
+            <div id="generalStats"></div>
+            <div id="abilitytps"></div>
+            <div id="statistics"></div>
+        </div>
+    </div> <!-- end of grid -->
+    <div id="plotContainer"> </div> 
+</div> <!-- end of bodydiv -->
+</body>
+</html>
