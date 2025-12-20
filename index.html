@@ -798,26 +798,26 @@
                 <div id="talents">
                     <form>
                         <h4>Talents</h4>                    
-                        <div class="hInput"><label>Death Wish:</label><input type="checkbox" id="deathwish" name="deathwish" value="true" checked></div>
-                        <div class="hInput"><label>Bloodthirst:</label><input type="checkbox" id="bloodthirst" name="bloodthirst" value="true" checked></div>
-                        <div class="hInput"><label>Shield Slam:</label><input type="checkbox" id="shieldslam" name="shieldslam" value="true"></div>
-                        <div class="hInput"><label>Concussion Blow:</label><input type="checkbox" id="concblow" name="concblow" value="true"></div>
-                        <div class="hInput"><label>Improved Shield Slam:</label><input class="talent-input" type="number" id="impSS" name="impSS" min="0" max="2" value="0">/2</div>
+                        <div class="hInput"><label>Death Wish:</label><input type="checkbox" id="deathwish" name="deathwish" value="true" checked onchange="updateStats()"></div>
+                        <div class="hInput"><label>Bloodthirst:</label><input type="checkbox" id="bloodthirst" name="bloodthirst" value="true" checked onchange="updateStats()"></div>
+                        <div class="hInput"><label>Shield Slam:</label><input type="checkbox" id="shieldslam" name="shieldslam" value="true" onchange="updateStats()"></div>
+                        <div class="hInput"><label>Concussion Blow:</label><input type="checkbox" id="concblow" name="concblow" value="true" onchange="updateStats()"></div>
+                        <div class="hInput"><label>Improved Shield Slam:</label><input class="talent-input" type="number" id="impSS" name="impSS" min="0" max="2" value="0" onchange="updateStats()">/2</div>
                         <div class="hInput"><label>Deflection:</label><input class="talent-input" type="number" id="deflection" name="deflection" min="0" max="5" value="0" onchange="updateStats()">/5</div>
                         <div class="hInput"><label>Cruelty:</label><input class="talent-input" type="number" id="cruelty" name="cruelty" min="0" max="5" value="5" onchange="updateStats()">/5</div>
                         <div class="hInput"><label>Anticipation:</label><input class="talent-input" type="number" id="anticipation" name="anticipation" min="0" max="3" value="0" onchange="updateStats()">/3</div>
                         <div class="hInput"><label>Shield Specialization:</label><input class="talent-input" type="number" id="shieldspec" name="shieldspec" min="0" max="5" value="5" onchange="updateStats()">/5</div>
                         <div class="hInput"><label>Toughness:</label><input class="talent-input" type="number" id="toughness" name="toughness" min="0" max="5" value="3" onchange="updateStats()">/5</div>
                         <div class="hInput"><label>Defensive Tactics:</label><input class="talent-input" type="number" id="deftac" name="deftac" min="0" max="3" value="0" onchange="updateStats()">/3</div>
-                        <div class="hInput"><label>Imp. Heroic Strike:</label><input class="talent-input" type="number" id="impHS" name="impHS" min="0" max="3" value="3">/3</div>
-                        <div class="hInput"><label>One Handed Specialization:</label><input class="talent-input" type="number" id="1hspec" name="1hspec" min="0" max="5" value="0">/5</div>
-                        <div class="hInput"><label>Flurry:</label><input class="talent-input" type="number" id="flurry" name="flurry" min="0" max="5" value="5">/5</div>
-                        <div class="hInput"><label>Enrage:</label><input class="talent-input" type="number" id="enrage" name="enrage" min="0" max="5" value="5">/5</div>
-                        <div class="hInput"><label>Impale:</label><input class="talent-input" type="number" id="impale" name="impale" min="0" max="2" value="0">/2</div>
-                        <div class="hInput"><label>Defiance:</label><input class="talent-input" type="number" id="defiance" name="defiance" min="0" max="5" value="5">/5</div>
-                        <div class="hInput"><label>Dual Wield Specialization:</label><input class="talent-input" type="number" id="dwspec" name="dwspec" min="0" max="5" value="5">/5</div>
-                        <div class="hInput"><label>Reprisal:</label><input class="talent-input" type="number" id="reprisal" name="reprisal" min="0" max="2" value="2">/2</div>
-                        <div class="hInput"><label>Improved Overpower:</label><input class="talent-input" type="number" id="impop" name="impop" min="0" max="2" value="0">/2</div>
+                        <div class="hInput"><label>Imp. Heroic Strike:</label><input class="talent-input" type="number" id="impHS" name="impHS" min="0" max="3" value="3" onchange="updateStats()">/3</div>
+                        <div class="hInput"><label>One Handed Specialization:</label><input class="talent-input" type="number" id="1hspec" name="1hspec" min="0" max="5" value="0" onchange="updateStats()">/5</div>
+                        <div class="hInput"><label>Flurry:</label><input class="talent-input" type="number" id="flurry" name="flurry" min="0" max="5" value="5" onchange="updateStats()">/5</div>
+                        <div class="hInput"><label>Enrage:</label><input class="talent-input" type="number" id="enrage" name="enrage" min="0" max="5" value="5" onchange="updateStats()">/5</div>
+                        <div class="hInput"><label>Impale:</label><input class="talent-input" type="number" id="impale" name="impale" min="0" max="2" value="0" onchange="updateStats()">/2</div>
+                        <div class="hInput"><label>Defiance:</label><input class="talent-input" type="number" id="defiance" name="defiance" min="0" max="5" value="5" onchange="updateStats()">/5</div>
+                        <div class="hInput"><label>Dual Wield Specialization:</label><input class="talent-input" type="number" id="dwspec" name="dwspec" min="0" max="5" value="5" onchange="updateStats()">/5</div>
+                        <div class="hInput"><label>Reprisal:</label><input class="talent-input" type="number" id="reprisal" name="reprisal" min="0" max="2" value="2" onchange="updateStats()">/2</div>
+                        <div class="hInput"><label>Improved Overpower:</label><input class="talent-input" type="number" id="impop" name="impop" min="0" max="2" value="0" onchange="updateStats()">/2</div>
                     </form>
 
                     <div id="furyprotButton" class="hInput"><button style=" font-size:20px;height:40px;width:200px;color:darksalmon" onclick="furyprotTalents()">Furyprot Talents</button></div>
@@ -827,14 +827,14 @@
                 <div id="bonuses">
                     <form>
                         <h4>Other Bonuses</h4>
-                        <div class="hInput"><label>(2) Set T3:</label><input type="checkbox" id="twoPieceDreadnaught" name="twoPieceDreadnaught"></div>
-                        <div class="hInput"><label>(3) Set T2.5:</label><input type="checkbox" id="threePieceConqueror" name="threePieceConqueror"></div>
-                        <div class="hInput"><label>(5) Set T2:</label><input type="checkbox" id="fivePieceWrath" name="fivePieceWrath"></div>
-                        <div class="hInput"><label>(3) Set T3.5:</label><input type="checkbox" id="threePieceBrotherhood" name="threePieceBrotherhood"></div>
-                        <div class="hInput"><label>(2) Set Dreadslayer:</label><input type="checkbox" id="twoPieceDreadslayer" name="twoPieceDreadslayer"></div>
-                        <div class="hInput"><label>Berserking:</label><input type="checkbox" id="berserking" name="berserking"></div>
-                        <div class="hInput"><label>Chastise:</label><input type="checkbox" id="chastise" name="chastise"></div>
-                        <div class="hInput"><label>Bloodrage:</label><input type="checkbox" id="bloodrage" name="bloodrage"></div>
+                        <div class="hInput"><label>(2) Set T3:</label><input type="checkbox" id="twoPieceDreadnaught" name="twoPieceDreadnaught" value="false" onchange="updateStats()"></div>
+                        <div class="hInput"><label>(3) Set T2.5:</label><input type="checkbox" id="threePieceConqueror" name="threePieceConqueror" value="false" onchange="updateStats()"></div>
+                        <div class="hInput"><label>(5) Set T2:</label><input type="checkbox" id="fivePieceWrath" name="fivePieceWrath" value="false" onchange="updateStats()"></div>
+                        <div class="hInput"><label>(3) Set T3.5:</label><input type="checkbox" id="threePieceBrotherhood" name="threePieceBrotherhood" value="false" onchange="updateStats()"></div>
+                        <div class="hInput"><label>(2) Set Dreadslayer:</label><input type="checkbox" id="twoPieceDreadslayer" name="twoPieceDreadslayer" value="false" onchange="updateStats()"></div>
+                        <div class="hInput"><label>Berserking:</label><input type="checkbox" id="berserking" name="berserking" value="false" onchange="updateStats()"></div>
+                        <div class="hInput"><label>Chastise:</label><input type="checkbox" id="chastise" name="chastise" value="false" onchange="updateStats()"></div>
+                        <div class="hInput"><label>Bloodrage:</label><input type="checkbox" id="bloodrage" name="bloodrage" value="false" onchange="updateStats()"></div>
                     </form>
                 </div><!-- end of bonuses -->
                 <div id="stances">

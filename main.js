@@ -68,6 +68,7 @@ function furyprotTalents() {
     document.getElementById("bloodthirst").checked = true
     document.getElementById("shieldslam").checked = false;
     document.getElementById("concblow").checked = false;
+    updateStats();
 }
 
 function deftacTalents() {
@@ -89,6 +90,7 @@ function deftacTalents() {
     document.getElementById("concblow").checked = true
     document.getElementById("deathwish").checked = false;
     document.getElementById("bloodthirst").checked = false;
+    updateStats();
 }
 
 function saveInput()
