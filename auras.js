@@ -406,6 +406,27 @@ class EskhandarMH extends Aura {
         }
     }
 }
+
+class BulwarkofEE extends Aura {
+    handleEvent(owner, event, events, config) {
+        if (event.type == "damage" && ["hit", "block", "crit", "crush", "crit block"].includes(event.hit)
+            && event.target == "Tank") {
+            let rng = Math.random()
+            if (rng < 3/100) { // 3% chance to proc
+                this.duration = this.maxDuration;
+                events.push({
+                    type: "buff gained",
+                    timestamp: event.timestamp,
+                    name: this.name,
+                    stacks: this.stacks,
+                    target: "Tank",
+                    source: this.source,
+                });
+            }
+        }
+    }
+}
+
 class QuelMH extends Aura {
     handleEvent(owner, event, events, config) {
         if (event.type == "damage" && event.ability != "OH Swing" && config.landedHits.includes(event.hit)) {
@@ -826,6 +847,18 @@ if(globals.tankStats.weapons.eskMH) {
         maxDuration: 5000,
         hastePerc: 1.30,
         trackUptime: true,
+
+        target: "Tank",
+        source: "Tank",
+    }))
+}
+
+if(globals.tankStats.weapons.bulwarkEE) {
+    tankAuras.push(new BulwarkofEE({
+        name: "Bulwark of Enduring Earth",
+        maxDuration: 10000,
+        armorMod: 300,
+        blockValue: 30,
 
         target: "Tank",
         source: "Tank",

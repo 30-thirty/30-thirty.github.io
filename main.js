@@ -49,6 +49,48 @@ async function updateProgressbar(progressPerc) {
     await sleep(0);
 }
 
+function furyprotTalents() {
+    document.getElementById("deflection").value = 0;
+    document.getElementById("cruelty").value = 5;
+    document.getElementById("anticipation").value = 0;
+    document.getElementById("shieldspec").value = 5;
+    document.getElementById("toughness").value = 5;
+    document.getElementById("deftac").value = 0;
+    document.getElementById("enrage").value = 5;
+    document.querySelector("#impSS").value = 0;
+    document.querySelector("#impHS").value = 0;
+    document.querySelector("#impale").value = 0;
+    document.querySelector("#defiance").value = 5;
+    document.querySelector("#dwspec").value = 5;
+    document.querySelector("#reprisal").value = 0;
+    document.querySelector("#impop").value = 0;
+    document.getElementById("deathwish").checked = true;
+    document.getElementById("bloodthirst").checked = true
+    document.getElementById("shieldslam").checked = false;
+    document.getElementById("concblow").checked = false;
+}
+
+function deftacTalents() {
+    document.getElementById("deflection").value = 0;
+    document.getElementById("cruelty").value = 2;
+    document.getElementById("anticipation").value = 3;
+    document.getElementById("shieldspec").value = 4;
+    document.getElementById("toughness").value = 5;
+    document.getElementById("deftac").value = 3;
+    document.getElementById("enrage").value = 0;
+    document.querySelector("#impSS").value = 2;
+    document.querySelector("#impHS").value = 3;
+    document.querySelector("#impale").value = 2;
+    document.querySelector("#defiance").value = 5;
+    document.querySelector("#dwspec").value = 0;
+    document.querySelector("#reprisal").value = 0;
+    document.querySelector("#impop").value = 2;
+    document.getElementById("shieldslam").checked = true;
+    document.getElementById("concblow").checked = true
+    document.getElementById("deathwish").checked = false;
+    document.getElementById("bloodthirst").checked = false;
+}
+
 function saveInput()
 {
     // Tank Settings
@@ -113,9 +155,14 @@ function saveInput()
     
     // Other Bonuses
     localStorage.setItem("twoPieceDreadnaught", document.querySelector("#twoPieceDreadnaught").checked)
+    localStorage.setItem("twoPieceDreadslayer", document.querySelector("#twoPieceDreadslayer").checked)
+    localStorage.setItem("threePieceBrotherhood", document.querySelector("#threePieceBrotherhood").checked)
     localStorage.setItem("threePieceConqueror", document.getElementById("threePieceConqueror").checked)
     localStorage.setItem("fivePieceWrath", document.querySelector("#fivePieceWrath").checked)
     localStorage.setItem("berserking", document.querySelector("#berserking").checked)
+    localStorage.setItem("chastise", document.querySelector("#chastise").checked)
+    localStorage.setItem("bloodrage", document.querySelector("#bloodrage").checked)
+
     
     // Buffs
     localStorage.setItem("mhstone", document.getElementById("mhstone").selectedIndex);
@@ -208,14 +255,15 @@ function loadInput()
     document.querySelector("#mainhand").selectedIndex = localStorage.getItem("mainhand") ? localStorage.getItem("mainhand") : 27;
     document.querySelector("#offhand").selectedIndex = localStorage.getItem("offhand") ? localStorage.getItem("offhand") : 21;
 
-    document.querySelector("#headenchant").selectedIndex = localStorage.getItem("headenchant") ? Math.min(localStorage.getItem("headenchant"), 5) : 6;
+    document.querySelector("#headenchant").selectedIndex = localStorage.getItem("headenchant") ? localStorage.getItem("headenchant") : 6;
     document.querySelector("#neckenchant").selectedIndex = localStorage.getItem("neckenchant") ? localStorage.getItem("neckenchant") : 5;
     document.querySelector("#shoulderenchant").selectedIndex = localStorage.getItem("shoulderenchant") ? localStorage.getItem("shoulderenchant") : 1;
     document.querySelector("#backenchant").selectedIndex = localStorage.getItem("backenchant") ? localStorage.getItem("backenchant") : 1;
     document.querySelector("#chestenchant").selectedIndex = localStorage.getItem("chestenchant") ? localStorage.getItem("chestenchant") : 1;
     document.querySelector("#wristenchant").selectedIndex = localStorage.getItem("wristenchant") ? localStorage.getItem("wristenchant") : 1;
     document.querySelector("#handenchant").selectedIndex = localStorage.getItem("handenchant") ? localStorage.getItem("handenchant") : 4;
-    document.querySelector("#legenchant").selectedIndex = localStorage.getItem("legenchant") ? Math.min(localStorage.getItem("legenchant"), 5) : 5;
+    document.querySelector("#beltenchant").selectedIndex = localStorage.getItem("beltenchant") ? localStorage.getItem("beltenchant") : 2;
+    document.querySelector("#legenchant").selectedIndex = localStorage.getItem("legenchant") ? localStorage.getItem("legenchant") : 5;
     document.querySelector("#feetenchant").selectedIndex = localStorage.getItem("feetenchant") ? localStorage.getItem("feetenchant") : 3;
     document.querySelector("#ringoneenchant").selectedIndex = localStorage.getItem("ringoneenchant") ? localStorage.getItem("ringoneenchant") : 5;
     document.querySelector("#ringtwoenchant").selectedIndex = localStorage.getItem("ringtwoenchant") ? localStorage.getItem("ringtwoenchant") : 5;
@@ -253,9 +301,10 @@ function loadInput()
     document.querySelector("#threePieceConqueror").checked = localStorage.getItem("threePieceConqueror") == "true" ? true : false;
     document.querySelector("#fivePieceWrath").checked = localStorage.getItem("fivePieceWrath") == "true" ? true : false;
     document.querySelector("#threePieceBrotherhood").checked = localStorage.getItem("threePieceBrotherhood") == "true" ? true : false;
+    document.querySelector("#twoPieceDreadslayer").checked = localStorage.getItem("twoPieceDreadslayer") == "true" ? true : false;
     document.querySelector("#berserking").checked = localStorage.getItem("berserking") == "true" ? true : false;
     document.querySelector("#chastise").checked = localStorage.getItem("chastise") == "true" ? true : false;
-    document.querySelector("#bloodrage").checked = localStorage.getItem("bloodrage") == true ? true : false;
+    document.querySelector("#bloodrage").checked = localStorage.getItem("bloodrage") == "true" ? true : false;
 
 
     // Buffs

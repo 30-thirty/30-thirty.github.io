@@ -60,7 +60,7 @@ let races = {
     block: 0,
     blockvalue: 0,
 
-    skill: 5,
+    skill: 3,
     skilltype: ["Swords", "Maces"],
 },
     "Night Elf": {
@@ -123,7 +123,7 @@ let races = {
     block: 0,
     blockvalue: 0,
 
-    skill: 5,
+    skill: 3,
     skilltype: ["Axes"]
 },
     "Goblin": {
@@ -144,7 +144,7 @@ let races = {
     block: 0,
     blockvalue: 0,
 
-    skill: 5,
+    skill: 3,
     skilltype: ["Maces", "Daggers"]
 },
     "Tauren": {
@@ -421,6 +421,24 @@ let heads = {
     skill: 0,
     skilltype: 'none'
 },
+    "Forgotten Hide Helm": {
+       "strength": 35,
+       "stamina": 22,
+       "agility": 22,
+       "hit": 0,
+       "crit": 2,
+       "haste": 0,
+       "attackpower": 0,
+       "armor": 366,
+       "parry": 0,
+       "dodge": 0,
+       "defense": 0,
+       "block": 0,
+       "blockvalue": 0,
+       "skill": 0,
+       "skilltype": 0,
+       "arp": 0
+    },
     "Fury Visor": {
     strength: 18,
     stamina: 0,
@@ -7187,6 +7205,24 @@ let shields = {
         "armor": 2964,
         "blockvalue": 70,
         "block": 3
+    },
+    "Bulwark of Enduring Earth": {
+       "strength": 0,
+       "stamina": 24,
+       "agility": 0,
+       "hit": 0,
+       "crit": 0,
+       "haste": 0,
+       "attackpower": 0,
+       "armor": 3565,
+       "parry": 0,
+       "dodge": 0,
+       "defense": 0,
+       "block": 2,
+       "blockvalue": 92,
+       "skill": 0,
+       "skilltype": 'none',
+       "arp": 0
     },
     "Buru's Skull Fragment": {
         "strength": 11,

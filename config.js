@@ -12,6 +12,7 @@ let weaponlists = {
     "Shields": `
     <option value="Aegis of the Blood God">Aegis of the Blood God</option>
     <option value="Blessed Qiraji Bulwark">Blessed Qiraji Bulwark</option>
+    <option value="Bulwark of Enduring Earth">Bulwark of Enduring Earth</option>
     <option value="Buru's Skull Fragment">Buru's Skull Fragment</option>
     <option value="Draconian Deflector">Draconian Deflector</option>
     <option value="Drillborer Disk">Drillborer Disk</option>
@@ -280,7 +281,7 @@ function updateStats()
     let armor = 0;
     let parry = 0;
     let dodge = 0;
-    let defense = Math.round(anticipation*2);
+    let defense = Math.round(anticipation < 3 ? anticipation*7 : 21);
     let block = 0;
     let blockvalue = 0;
     let arp = 0;
@@ -378,6 +379,8 @@ function updateStats()
         _startRage = Math.min(100, _startRage + 45 + Math.random()*30);
         _mrp = true;
     }
+
+    arp += document.querySelector("#twoPieceDreadslayer").checked ? 150 : 0;
 
     extrahp += document.getElementById("hpelixir").checked ? 120 : 0;
     extrahp += document.getElementById("titans").checked ? 1200 : 0;
@@ -616,6 +619,7 @@ function updateStats()
                 eskMH: mainhand == "Eskhandar's Right Claw",
                 msaMH: mainhand == "Misplaced Servo Arm",
                 msaOH: offhand == "Misplaced Servo Arm",
+                bulwarkEE: offhand == "Bulwark of Enduring Earth",
             },
 
             trinkets: {
@@ -633,6 +637,7 @@ function updateStats()
                 threePieceConqueror: document.getElementById("threePieceConqueror").checked,
                 fivePieceWrath: document.querySelector("#fivePieceWrath").checked,
                 threePieceBrotherhood: document.querySelector("#threePieceBrotherhood").checked,
+                twoPieceDreadslayer: document.querySelector("#twoPieceDreadslayer").checked,
 
                 threatenchant: document.getElementById("handenchant").value == "Threat",
                 berserking: document.getElementById("berserking").checked,

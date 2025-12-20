@@ -109,6 +109,7 @@
                                 <option value="Dreadslayer Horns (vs Demons)">Dreadslayer Horns (vs Demons)</option>
                                 <option value="Expert Goldminer's Helmet">Expert Goldminer's Helmet</option>
                                 <option value="Eye of Rend">Eye of Rend</option>
+                                <option value="Forgotten Hide Helm">Forgotten Hide Helm</option>
                                 <option value="Fury Visor">Fury Visor</option>
                                 <option value="Helm of Domination">Helm of Domination</option>
                                 <option value="Helm of Endless Rage">Helm of Endless Rage</option>
@@ -172,7 +173,7 @@
                                 <option value="Dreadnaught Pauldrons">Dreadnaught Pauldrons</option>
                                 <option value="Dreadnaught Pauldrons (DPS)">Dreadnaught Pauldrons (DPS)</option>
                                 <option value="Pauldrons of Might">Pauldrons of Might</option>
-                                <option value="Pauldrons of Might (DPS)">Pauldrons of Might</option>
+                                <option value="Pauldrons of Might (DPS)">Pauldrons of Might (DPS)</option>
                                 <option value="Pauldrons of the Unrelenting">Pauldrons of the Unrelenting</option>
                                 <option value="Pauldrons of Wrath">Pauldrons of Wrath</option>
                                 <option value="Pauldrons of Wrath (DPS)">Pauldrons of Wrath (DPS)</option>
@@ -270,7 +271,7 @@
                                 <option value="Berserker Bracers">Berserker Bracers</option>
                                 <option value="Blackmist Armguards">Blackmist Armguards</option>
                                 <option value="Bracelets of Wrath">Bracelets of Wrath</option>
-                                <option value="Bindings of Wrath (DPS)">Bindings of Wrath</option>
+                                <option value="Bindings of Wrath (DPS)">Bindings of Wrath (DPS)</option>
                                 <option value="Bracers of Brutality">Bracers of Brutality</option>
                                 <option value="Bracers of Heroism">Bracers of Heroism</option>
                                 <option value="Bracers of Might">Bracers of Might</option>
@@ -804,7 +805,7 @@
                         <div class="hInput"><label>Improved Shield Slam:</label><input class="talent-input" type="number" id="impSS" name="impSS" min="0" max="2" value="0">/2</div>
                         <div class="hInput"><label>Deflection:</label><input class="talent-input" type="number" id="deflection" name="deflection" min="0" max="5" value="0" onchange="updateStats()">/5</div>
                         <div class="hInput"><label>Cruelty:</label><input class="talent-input" type="number" id="cruelty" name="cruelty" min="0" max="5" value="5" onchange="updateStats()">/5</div>
-                        <div class="hInput"><label>Anticipation:</label><input class="talent-input" type="number" id="anticipation" name="anticipation" min="0" max="5" value="0" onchange="updateStats()">/5</div>
+                        <div class="hInput"><label>Anticipation:</label><input class="talent-input" type="number" id="anticipation" name="anticipation" min="0" max="3" value="0" onchange="updateStats()">/3</div>
                         <div class="hInput"><label>Shield Specialization:</label><input class="talent-input" type="number" id="shieldspec" name="shieldspec" min="0" max="5" value="5" onchange="updateStats()">/5</div>
                         <div class="hInput"><label>Toughness:</label><input class="talent-input" type="number" id="toughness" name="toughness" min="0" max="5" value="3" onchange="updateStats()">/5</div>
                         <div class="hInput"><label>Defensive Tactics:</label><input class="talent-input" type="number" id="deftac" name="deftac" min="0" max="3" value="0" onchange="updateStats()">/3</div>
@@ -818,6 +819,9 @@
                         <div class="hInput"><label>Reprisal:</label><input class="talent-input" type="number" id="reprisal" name="reprisal" min="0" max="2" value="2">/2</div>
                         <div class="hInput"><label>Improved Overpower:</label><input class="talent-input" type="number" id="impop" name="impop" min="0" max="2" value="0">/2</div>
                     </form>
+
+                    <div id="furyprotButton" class="hInput"><button style=" font-size:20px;height:40px;width:200px;color:darksalmon" onclick="furyprotTalents()">Furyprot Talents</button></div>
+                    <div id="deftacButton" class="hInput"><button style=" font-size:20px;height:40px;width:200px;color:darksalmon" onclick="deftacTalents()">Deftac Talents</button></div>
                 </div> <!-- end of talents -->
 
                 <div id="bonuses">
@@ -827,6 +831,7 @@
                         <div class="hInput"><label>(3) Set T2.5:</label><input type="checkbox" id="threePieceConqueror" name="threePieceConqueror"></div>
                         <div class="hInput"><label>(5) Set T2:</label><input type="checkbox" id="fivePieceWrath" name="fivePieceWrath"></div>
                         <div class="hInput"><label>(3) Set T3.5:</label><input type="checkbox" id="threePieceBrotherhood" name="threePieceBrotherhood"></div>
+                        <div class="hInput"><label>(2) Set Dreadslayer:</label><input type="checkbox" id="twoPieceDreadslayer" name="twoPieceDreadslayer"></div>
                         <div class="hInput"><label>Berserking:</label><input type="checkbox" id="berserking" name="berserking"></div>
                         <div class="hInput"><label>Chastise:</label><input type="checkbox" id="chastise" name="chastise"></div>
                         <div class="hInput"><label>Bloodrage:</label><input type="checkbox" id="bloodrage" name="bloodrage"></div>
