@@ -2788,6 +2788,24 @@ let capes = {
     skill: 0,
     skilltype: 'none'
 },
+    "Pelt of the Great Howler": {
+        "strength": 22,
+        "stamina": 0,
+        "agility": 0,
+        "hit": 1,
+        "crit": 0,
+        "haste": 0,
+        "attackpower": 0,
+        "armor": 51,
+        "parry": 0,
+        "dodge": 0,
+        "defense": 0,
+        "block": 0,
+        "blockvalue": 0,
+        "skill": 0,
+        "skilltype": 'none',
+        "arp": 0
+    },
     "Phantasmal Cloak": {
     strength: 12,
     stamina: 11,
@@ -2935,6 +2953,24 @@ let capes = {
     skill: 0,
     skilltype: 'none'
 },
+    "Veil of Nightmare": {
+        "strength": 0,
+        "stamina": 12,
+        "agility": 0,
+        "hit": 0,
+        "crit": 1,
+        "haste": 0,
+        "attackpower": 32,
+        "armor": 57,
+        "parry": 0,
+        "dodge": 0,
+        "defense": 0,
+        "block": 0,
+        "blockvalue": 0,
+        "skill": 0,
+        "skilltype": 'none',
+        "arp": 0
+    },
     "Windshear Cape": {
     strength: 8,
     stamina: 14,
@@ -8972,6 +9008,27 @@ let weapons = {
        "blockvalue": 0,
        "block": 0
     },
+    "Anasterian's Legacy": {
+        "min": 54,
+        "max": 101,
+        "swingtimer": 1.5,
+        "strength": 0,
+        "stamina": 12,
+        "agility": 9,
+        "hit": 0,
+        "crit": 0,
+        "haste": 0,
+        "attackpower": 0,
+        "armor": 0,
+        "parry": 0,
+        "dodge": 0,
+        "defense": 0,
+        "skill": 4,
+        "skilltype": ["Swords"],
+        "blockvalue": 0,
+        "block": 0,
+        "arp": 0
+    },
     "Blackguard": {
        "min": 65,
        "max": 121,
@@ -9492,6 +9549,27 @@ let weapons = {
        "blockvalue": 0,
        "block": 0
     },
+    "Tempest's Rage": {
+        "min": 59,
+        "max": 110,
+        "swingtimer": 1.7,
+        "strength": 0,
+        "stamina": 0,
+        "agility": 0,
+        "hit": 0,
+        "crit": 0,
+        "haste": 0,
+        "attackpower": 0,
+        "armor": 0,
+        "parry": 0,
+        "dodge": 0,
+        "defense": 0,
+        "skill": 4,
+        "skilltype": ["Swords"],
+        "blockvalue": 0,
+        "block": 0,
+        "arp": 0
+    },
     "Teebu's Blazing Longsword": {
        "min": 96,
        "max": 178,
@@ -9719,6 +9797,22 @@ let enchants = {
        "defense": 0,
        "armor": 0,
        "parry": 0
+    },
+    "Fortitude of the Scourge": {
+        "strength": 0,
+        "stamina": 16,
+        "agility": 0,
+        "crit": 0,
+        "hit": 0,
+        "attackpower": 0,
+        "haste": 0,
+        "arp": 0,
+        "dodge": 0,
+        "block": 0,
+        "blockvalue": 0,
+        "defense": 0,
+        "armor": 100,
+        "parry": 0
     },
     "Greater Agility": {
        "strength": 0,

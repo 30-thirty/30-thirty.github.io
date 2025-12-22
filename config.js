@@ -104,12 +104,14 @@ let weaponlists = {
     <option value="Timeworn Mace">Timeworn Mace</option>`,
 
     "Swords": `<option value="Ancient Qiraji Ripper">Ancient Qiraji Ripper</option>
+    <option value="Anasterian's Legacy">Anasterian's Legacy</option>
     <option value="Blackguard">Blackguard</option>
     <option value="Bloodlord's Defender">Bloodlord's Defender</option>
     <option value="Brutality Blade">Brutality Blade</option>
     <option value="Cho'Rush's Blade">Cho'Rush's Blade</option>
     <option value="Chromatically Tempered Sword">Chromatically Tempered Sword</option>
     <option value="Cold Forged Blade">Cold Forged Blade</option>
+    <option value="Crystal Sword of the Blossom">Crystal Sword of the Blossom</option>
     <option value="Dal'Rend's Sacred Charge">Dal'Rend's Sacred Charge</option>
     <option value="Dal'Rend's Tribal Guardian">Dal'Rend's Tribal Guardian</option>
     <option value="Dark Iron Reaver">Dark Iron Reaver</option>
@@ -129,6 +131,7 @@ let weaponlists = {
     <option value="Skullforge Reaver">Skullforge Reaver</option>
     <option value="Sword of Zeal">Sword of Zeal</option>
     <option value="Zulian Slicer">Zulian Slicer</option>
+    <option value="Tempest's Rage">Tempest's Rage</option>
     <option value="The Hungering Cold">The Hungering Cold</option>
     <option value="Thunderfury">Thunderfury</option>
     <option value="Warblade of the Hakkari (MH)">Warblade of the Hakkari (MH)</option>
@@ -457,6 +460,8 @@ function updateStats()
     armor += document.getElementById("potion").value == "Greater Stoneshield" ? 2000 : 0;
     armor += document.getElementById("devo").checked ? Math.floor(918.75) : 0; // Assumed improved
     armor += document.getElementById("armorelixir").checked ? 450 : 0;
+    armor += document.getElementById("scrollprot4").checked ? 240 : 0;
+    armor += document.getElementById("crystalward").checked ? 200 : 0;
     armor += mark ? Math.floor(384.75) : 0;
 
     let staminaMultiplier = (document.getElementById("dmstamina").checked ? 1.15 : 1)*(document.getElementById("zandalar").checked ? 1.15 : 1)*(document.getElementById("kings").checked ? 1.1 : 1)
@@ -558,8 +563,9 @@ function updateStats()
             
             MHWepSkill: mhwepskill,
             OHWepSkill: _dualWield ? ohwepskill : 0,
-            damageMod: document.querySelector("#dmf").checked ? stance == "Defensive Stance" ? 0.99 : 1.1 : stance == "Defensive Stance" ? 0.9 : 1.0, // Defensive Stance + dmf
-            physDmgMod: 1 + 0.02*Number(document.getElementById("1hspec").value), // passive phys damage mods
+            damageMod: (document.querySelector("#dmf").checked ? 1.1 : 1)*(stance == "Defensive Stance" ? 0.9 : 1.0)*(document.querySelector("champion").checked ? 1.05 : 1),
+
+            physDmgMod: (1+0.02*Number(document.getElementById("1hspec").value))*(document.querySelector("champion").checked ? 1.05 : 1),
             hastePerc: hastePerc,
             arp: arp,
 
@@ -617,6 +623,8 @@ function updateStats()
                 dbMH: mainhand == "Deathbringer",
                 dbOH: offhand == "Deathbringer",
                 eskMH: mainhand == "Eskhandar's Right Claw",
+                tempMH: mainhand == "Tempest's Rage",
+                tempOH: offhand == "Tempest's Rage",
                 msaMH: mainhand == "Misplaced Servo Arm",
                 msaOH: offhand == "Misplaced Servo Arm",
                 bulwarkEE: offhand == "Bulwark of Enduring Earth",

@@ -88,6 +88,7 @@
                         <option value="Gnome">Gnome</option>
                         <option value="Human">Human</option>
                         <option value="Night Elf">Night Elf</option>
+                        <option value="High Elf">High Elf</option>
                         <option value="Orc">Orc</option>
                         <option value="Goblin">Goblin</option>
                         <option value="Tauren">Tauren</option>
@@ -173,6 +174,7 @@
                                 <option value="Drake Talon Pauldrons">Drake Talon Pauldrons</option>
                                 <option value="Dreadnaught Pauldrons">Dreadnaught Pauldrons</option>
                                 <option value="Dreadnaught Pauldrons (DPS)">Dreadnaught Pauldrons (DPS)</option>
+                                <option value="Dreadslayer Shoulderblades">Dreadslayer Shoulderblades</option>
                                 <option value="Pauldrons of Might">Pauldrons of Might</option>
                                 <option value="Pauldrons of Might (DPS)">Pauldrons of Might (DPS)</option>
                                 <option value="Pauldrons of the Unrelenting">Pauldrons of the Unrelenting</option>
@@ -213,6 +215,7 @@
                                 <option value="Eskhandar's Pelt">Eskhandar's Pelt</option>
                                 <option value="Felforged Nathrezan Veil">Felforged Nathrezan Veil</option>
                                 <option value="Onyxia Scale Cloak">Onyxia Scale Cloak</option>
+                                <option value="Pelt of the Great Howler">Pelt of the Great Howler</option>
                                 <option value="Phantasmal Cloak">Phantasmal Cloak</option>
                                 <option value="Puissant Cape">Puissant Cape</option>
                                 <option value="Sandstorm Cloak">Sandstorm Cloak</option>
@@ -220,6 +223,7 @@
                                 <option value="Stoneskin Gargoyle Cape">Stoneskin Gargoyle Cape</option>
                                 <option value="Stormpike Soldier's Cloak">Stormpike Soldier's Cloak</option>
                                 <option value="Zulian Tigerhide Cloak">Zulian Tigerhide Cloak</option>
+                                <option value="Veil of Nightmare">Veil of Nightmare</option>
                                 <option value="Windshear Cape">Windshear Cape</option>
                                 <option value="Wing of the Time-Lord">Wing of the Time-Lord</option>
                             </select>
@@ -302,7 +306,7 @@
                                 <option value="None">None</option>
                                 <option value="Aged Core Leather Gloves">Aged Core Leather Gloves</option>
                                 <option value="Devilsaur Gauntlets">Devilsaur Gauntlets</option>
-                                <option value="Dragonclaw Gauntlerts">Dragonclaw Gauntlets</option>
+                                <option value="Dragonclaw Gauntlets">Dragonclaw Gauntlets</option>
                                 <option value="Dreadnaught Gauntlets">Dreadnaught Gauntlets</option>
                                 <option value="Dreadnaught Gloves (DPS)">Dreadnaught Gloves (DPS)</option>
                                 <option value="Edgemaster's Handguards">Edgemaster's Handguards</option>
@@ -679,6 +683,7 @@
                 <div class="hInput">
                     <select name="shoulderenchant" id="shoulderenchant" onchange="updateStats()"> 
                         <option value="None">None</option>
+                        <option value="Fortitude of the Scourge">Fortitude of the Scourge</option>
                         <option value="Might of the Scourge">Might of the Scourge</option>
                         <option value="Zandalar Signet of Might">Zandalar Signet of Might</option>
                     </select>
@@ -951,7 +956,9 @@
                 <br/>
                 <div class="hInput"><label>Gift of Arthas:</label><input type="checkbox" id="goa" name="goa" value="true" checked onchange="updateStats()"></div>
                 <div class="hInput"><label>Elixir of Superior Defense:</label><input type="checkbox" id="armorelixir" name="armorelixir" value="true" checked onchange="updateStats()"></div>
+                <div class="hInput"><label>Scroll of Protection IV:</label><input type="checkbox" id="scrollprot4" name="scrollprot4" value="true" checked onchange="updateStats()"></div>
                 <div class="hInput"><label>Elixir of Fortitude:</label><input type="checkbox" id="hpelixir" name="hpelixir" value="true" checked onchange="updateStats()"></div>
+                <div class="hInput"><label>Crystal Ward:</label><input type="checkbox" id="crystalward" name="crystalward" value="true" checked onchange="updateStats()"></div>
                 <div class="hInput"><label>Flask of the Titans:</label><input type="checkbox" id="titans" name="titans" value="true" checked onchange="updateStats()"></div>
                 
                 <br/>
@@ -979,6 +986,7 @@
                 <div class="hInput"><label>Strength of Earth:</label><input type="checkbox" id="strofearth" name="strofearth" value="false" onchange="updateStats()"></div>
                 <div class="hInput"><label>Grace of Air:</label><input type="checkbox" id="graceofair" name="graceofair" value="false" onchange="updateStats()"></div>
                 <div class="hInput"><label>Improved Weapon Totems:</label><input type="checkbox" id="impweptotems" name="impweptotems" value="false" onchange="updateStats()"></div>
+                <div class="hInput"><label>Holy Champion:</label><input type="checkbox" id="champion" name="champion" value="false" onchange="updateStats()"></div>
 
             </div><!-- end of buffs-->
             </div> <!-- end of middlecol -->

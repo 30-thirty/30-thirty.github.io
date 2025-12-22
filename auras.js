@@ -407,6 +407,44 @@ class EskhandarMH extends Aura {
     }
 }
 
+class TempestsMH extends Aura {
+    handleEvent(owner, event, events, config) {
+        if (event.type == "damage" && event.ability != "OH Swing" && config.landedHits.includes(event.hit)) {
+            let rng = Math.random()
+            if (rng < owner.stats.MHSwing*0.4/(60*1000)) { // swing*ppm/(60*1000)
+                this.duration = this.maxDuration;
+                events.push({
+                    type: "buff gained",
+                    timestamp: event.timestamp,
+                    name: this.name,
+                    stacks: this.stacks,
+                    source: this.source,
+                    target: this.target,
+                });
+            }
+        }
+    }
+}
+
+class TempestsOH extends Aura {
+    handleEvent(owner, event, events, config) {
+        if (event.type == "damage" && event.ability == "OH Swing" && config.landedHits.includes(event.hit)) {
+            let rng = Math.random()
+            if (rng < owner.stats.MHSwing*0.4/(60*1000)) { // swing*ppm/(60*1000)
+                this.duration = this.maxDuration;
+                events.push({
+                    type: "buff gained",
+                    timestamp: event.timestamp,
+                    name: this.name,
+                    stacks: this.stacks,
+                    source: this.source,
+                    target: this.target,
+                });
+            }
+        }
+    }
+}
+
 class BulwarkofEE extends Aura {
     handleEvent(owner, event, events, config) {
         if (event.type == "damage" && ["hit", "block", "crit", "crush", "crit block"].includes(event.hit)
@@ -805,7 +843,7 @@ if(globals.tankStats.bonuses.chastise) {
         }))
 }
 
-if(globals.tankStats.bonuses.bloodrage) {
+if(globals.tankStats.bonuses.bloodrage && globals.tankStats.talents.enrage > 0) {
         tankAuras.push(new PrePullAura({
         name: "Enrage",
         maxDuration: 8000,
@@ -852,6 +890,30 @@ if(globals.tankStats.weapons.eskMH) {
         source: "Tank",
     }))
 }
+
+    if(globals.tankStats.weapons.tempMH) {
+        tankAuras.push(new TempestsMH({
+            name: "Tempest's Rage",
+            maxDuration: 20000,
+            hastePerc: 1.15,
+            trackUptime: true,
+
+            target: "Tank",
+            source: "Tank",
+        }))
+    }
+
+    if(globals.tankStats.weapons.tempOH) {
+        tankAuras.push(new TempestsOH({
+            name: "Tempest's Rage",
+            maxDuration: 20000,
+            hastePerc: 1.15,
+            trackUptime: true,
+
+            target: "Tank",
+            source: "Tank",
+        }))
+    }
 
 if(globals.tankStats.weapons.bulwarkEE) {
     tankAuras.push(new BulwarkofEE({
