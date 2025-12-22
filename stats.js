@@ -3826,7 +3826,7 @@ let hands = {
        "blockvalue": 0,
        "block": 0
     },
-    "Gloves of Wrath": {
+    "Gloves of Wrath (DPS)": {
        "strength": 20,
        "stamina": 16,
        "agility": 0,
