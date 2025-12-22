@@ -6350,6 +6350,24 @@ let trinkets = {
        "blockvalue": 0,
        "block": 0
     },
+    "Glyph of Deflection": {
+        "strength": 0,
+        "stamina": 0,
+        "agility": 0,
+        "hit": 0,
+        "crit": 0,
+        "haste": 0,
+        "attackpower": 0,
+        "armor": 0,
+        "parry": 0,
+        "dodge": 0,
+        "defense": 0,
+        "block": 3,
+        "blockvalue": 0,
+        "skill": 0,
+        "skilltype": 'none',
+        "arp": 0
+    },
     "Hand of Justice": {
        "crit": 0,
        "hit": 0,

@@ -634,6 +634,7 @@ function updateStats()
                 kots: (trinketone == "Kiss of the Spider") || (trinkettwo == "Kiss of the Spider"),
                 earthstrike: (trinketone == "Earthstrike") || (trinkettwo == "Earthstrike"),
                 diamondflask: (trinketone == "Diamond Flask") || (trinkettwo == "Diamond Flask"),
+                glyph: (trinketone == "Glyph of Deflection") || (trinkettwo == "Glyph of Deflection"),
                 jomgabbar: (trinketone == "Jom Gabbar") || (trinkettwo == "Jom Gabbar"),
                 slayerscrest: (trinketone == "Slayer's Crest") || (trinkettwo == "Slayer's Crest"),
                 hoj: (trinketone == "Hand of Justice") || (trinkettwo == "Hand of Justice"),

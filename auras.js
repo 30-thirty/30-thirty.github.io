@@ -949,7 +949,7 @@ if(globals.tankStats.weapons.bulwarkEE) {
 }
 
     if(globals.tankStats.trinkets.shawl) {
-        tankAuras.push(new BulwarkofEE({
+        tankAuras.push(new ShawlOfCastellan({
             name: "Shawl of the Castellan",
             maxDuration: 5000,
             dodge: 35,
@@ -1016,6 +1016,17 @@ if(globals.tankStats.trinkets.slayerscrest) {
         source: "Tank",
     }));
 }
+
+    if(globals.tankStats.trinkets.glyph) {
+        tankAuras.push(new PrePullAura({
+            name: "Glyph of Deflection",
+            maxDuration: 20000,
+            blockValue: 235,
+
+            target: "Tank",
+            source: "Tank",
+        }));
+    }
 
 if(globals.tankStats.trinkets.jomgabbar) {
     tankAuras.push(new JomGabbar({
