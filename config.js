@@ -427,8 +427,8 @@ function updateStats()
     spellcrit += document.getElementById("dmspell").checked ? 3 : 0;
     spellcrit += document.getElementById("songflower").checked ? 5 : 0;
 
-    strength += document.getElementById("strofearth").checked ? 77 : 0;
-    agility += document.getElementById("graceofair").checked ? 77 : 0;
+    strength += (document.getElementById("strofearth").checked ? 77 : 0)*(document.getElementById("impweptotems").checked ? 1.25 : 1);
+    agility += (document.getElementById("graceofair").checked ? 77 : 0)*(document.getElementById("impweptotems").checked ? 1.25 : 1);
 
     // Stat deltas input by user
     let extrastrength    = Number(document.getElementById("playerextrastrength").value);
