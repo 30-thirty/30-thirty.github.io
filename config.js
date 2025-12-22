@@ -657,6 +657,7 @@ function updateStats()
                 twoPieceDreadnaught: document.querySelector("#twoPieceDreadnaught").checked,
                 threePieceConqueror: document.getElementById("threePieceConqueror").checked,
                 fivePieceWrath: document.querySelector("#fivePieceWrath").checked,
+                threePieceWrath: document.querySelector("#threePieceWrath").checked,
                 threePieceBrotherhood: document.querySelector("#threePieceBrotherhood").checked,
                 twoPieceDreadslayer: document.querySelector("#twoPieceDreadslayer").checked,
 

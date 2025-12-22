@@ -165,6 +165,7 @@ function saveInput()
     localStorage.setItem("twoPieceDreadslayer", document.querySelector("#twoPieceDreadslayer").checked)
     localStorage.setItem("threePieceBrotherhood", document.querySelector("#threePieceBrotherhood").checked)
     localStorage.setItem("threePieceConqueror", document.getElementById("threePieceConqueror").checked)
+    localStorage.setItem("threePieceWrath", document.querySelector("#threePieceWrath").checked)
     localStorage.setItem("fivePieceWrath", document.querySelector("#fivePieceWrath").checked)
     localStorage.setItem("berserking", document.querySelector("#berserking").checked)
     localStorage.setItem("chastise", document.querySelector("#chastise").checked)
@@ -313,6 +314,7 @@ function loadInput()
     document.querySelector("#twoPieceDreadnaught").checked = localStorage.getItem("twoPieceDreadnaught") == "true" ? true : false;
     document.querySelector("#threePieceConqueror").checked = localStorage.getItem("threePieceConqueror") == "true" ? true : false;
     document.querySelector("#fivePieceWrath").checked = localStorage.getItem("fivePieceWrath") == "true" ? true : false;
+    document.querySelector("#threePieceWrath").checked = localStorage.getItem("threePieceWrath") == "true" ? true : false;
     document.querySelector("#threePieceBrotherhood").checked = localStorage.getItem("threePieceBrotherhood") == "true" ? true : false;
     document.querySelector("#twoPieceDreadslayer").checked = localStorage.getItem("twoPieceDreadslayer") == "true" ? true : false;
     document.querySelector("#berserking").checked = localStorage.getItem("berserking") == "true" ? true : false;

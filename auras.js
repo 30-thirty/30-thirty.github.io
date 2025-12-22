@@ -327,6 +327,23 @@ class ShawlOfCastellan extends Aura {
     }
 }
 
+class ThreePieceWrath extends Aura {
+    handleEvent(owner, event, events, config) {
+        if (event.type == "damage" && event.ability == "Overpower" && config.landedHits.includes(event.hit)) {
+                this.duration = this.maxDuration;
+                events.push({
+                    type: "buff gained",
+                    timestamp: event.timestamp,
+                    name: this.name,
+                    stacks: this.stacks,
+                    target: "Tank",
+                    source: this.source,
+                });
+        }
+    }
+}
+
+
 class CrusaderMH extends Aura {
     constructor(input) {
         super(input);
@@ -754,6 +771,18 @@ if(globals.tankStats.talents.enrage > 0) {
         source: "Tank",
         }));
 }
+
+    if(globals.tankStats.bonuses.threePieceWrath) {
+        tankAuras.push(new ThreePieceWrath({
+            name: "Three Piece Wrath",
+            maxDuration: 5000,
+            hastePerc: 1.15,
+
+            trackUptime: true,
+            target: "Tank",
+            source: "Tank",
+        }));
+    }
 
 if(globals.tankStats.talents.deathwish) {
     tankAuras.push(new PrePullAura({
