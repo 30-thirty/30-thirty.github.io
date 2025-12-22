@@ -637,7 +637,8 @@ function updateStats()
                 jomgabbar: (trinketone == "Jom Gabbar") || (trinkettwo == "Jom Gabbar"),
                 slayerscrest: (trinketone == "Slayer's Crest") || (trinkettwo == "Slayer's Crest"),
                 hoj: (trinketone == "Hand of Justice") || (trinkettwo == "Hand of Justice"),
-                shieldrender: (trinketone == "Shieldrender Talisman") || (trinkettwo == "Shieldrender Talisman")
+                shieldrender: (trinketone == "Shieldrender Talisman") || (trinkettwo == "Shieldrender Talisman"),
+                shawl: (trinketone == "Shawl of the Castellan") || (trinkettwo == "Shawl of the Castellan")
             },
 
             bonuses: {

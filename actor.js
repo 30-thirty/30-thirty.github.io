@@ -78,6 +78,18 @@ class Actor {
         return haste
     }
 
+    getDodge() {
+        let dodge = this.stats.dodge;
+        this.auras.forEach(aura => {
+            if (aura.duration > 0) {
+                if (aura.dodge > 0) {
+                    dodge += aura.dodge
+                }
+            }
+        })
+        return dodge
+    }
+
     getBlockValue() {
         let blockValue = this.stats.blockValue;
         this.auras.forEach(aura => {

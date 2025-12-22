@@ -17,6 +17,7 @@ class Aura {
         if (!input.APMod) this.APMod = 0; else this.APMod = input.APMod; // additive
         if (!input.strMod) this.strMod = 0; else this.strMod = input.strMod; // additive
         if (!input.critMod) this.critMod = 0; else this.critMod = input.critMod; // percentage
+        if (!input.dodge) this.dodge = 0; else this.dodge = input.dodge; // percentage
         if (!input.damageMod) this.damageMod = 1; else this.damageMod = input.damageMod; // multiplicative
         if (!input.hastePerc) this.hastePerc = 1; else this.hastePerc = input.hastePerc; // multiplicative
         if (!input.percArmorMod) this.percArmorMod = 1; else this.percArmorMod = input.percArmorMod; // percentage
@@ -302,6 +303,26 @@ class OverpowerHelper extends Aura {
                 target: "Tank",
                 source: this.source,
                 });
+        }
+    }
+}
+
+class ShawlOfCastellan extends Aura {
+    handleEvent(owner, event, events, config) {
+        if (event.type == "damage" && ["hit", "block", "crit", "crush", "crit block"].includes(event.hit)
+            && event.target == "Tank") {
+            let rng = Math.random()
+            if (rng < 1/100) { // 1% chance to proc
+                this.duration = this.maxDuration;
+                events.push({
+                    type: "buff gained",
+                    timestamp: event.timestamp,
+                    name: this.name,
+                    stacks: this.stacks,
+                    target: "Tank",
+                    source: this.source,
+                });
+            }
         }
     }
 }
@@ -926,6 +947,17 @@ if(globals.tankStats.weapons.bulwarkEE) {
         source: "Tank",
     }))
 }
+
+    if(globals.tankStats.trinkets.shawl) {
+        tankAuras.push(new BulwarkofEE({
+            name: "Shawl of the Castellan",
+            maxDuration: 5000,
+            dodge: 35,
+
+            target: "Tank",
+            source: "Tank",
+        }))
+    }
 
 if(globals.tankStats.weapons.qsMH) {
     tankAuras.push(new QuelMH({
