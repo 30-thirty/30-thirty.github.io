@@ -16,6 +16,7 @@ class Ability {
         this.threatScaling = threatScaling
         // TODO: spellCrit
         this.currentCooldown = 0
+        this.secondsPassed = 0
     }
 
     //if the ability or swing hits, returns threat.
@@ -284,5 +285,27 @@ class Whirlwind extends Ability {
         if (attacker.stance != "Berserker Stance") return false;
         else return (this.currentCooldown <= 0 && (attacker.GCD <= 0 || this.onGCD == false) && attacker.rage > this.rageCost);
     }
+}
+
+class Bloodrage extends Ability {
+
+    use(attacker, defender) {
+        // give 1 rage
+        updateRage(attacker, "hit", this.rageCost)
+        this.secondsPassed += 1;
+
+        let spellCastEvent = {
+            type: "spell cast",
+            name: this.name,
+            ability: this.name,
+            threat: 1,
+        }
+        return spellCastEvent
+    }
+
+    isUsable(attacker,defender) {
+        return (this.secondsPassed < 10 && this.currentCooldown <= 0)
+    }
+
 }
 

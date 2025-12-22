@@ -54,6 +54,7 @@ function furyprotTalents() {
     document.getElementById("cruelty").value = 5;
     document.getElementById("anticipation").value = 0;
     document.getElementById("shieldspec").value = 5;
+    document.getElementById("impblood").value = 2;
     document.getElementById("toughness").value = 5;
     document.getElementById("deftac").value = 0;
     document.getElementById("enrage").value = 5;
@@ -77,6 +78,7 @@ function deftacTalents() {
     document.getElementById("cruelty").value = 2;
     document.getElementById("anticipation").value = 3;
     document.getElementById("shieldspec").value = 4;
+    document.getElementById("impblood").value = 2;
     document.getElementById("toughness").value = 5;
     document.getElementById("deftac").value = 3;
     document.getElementById("enrage").value = 0;
@@ -149,6 +151,7 @@ function saveInput()
     localStorage.setItem("cruelty", document.getElementById("cruelty").value)
     localStorage.setItem("anticipation", document.getElementById("anticipation").value)
     localStorage.setItem("shieldspec", document.getElementById("shieldspec").value)
+    localStorage.setItem("impblood", document.getElementById("impblood").value)
     localStorage.setItem("toughness", document.getElementById("toughness").value)
     localStorage.setItem("deftac", document.getElementById("deftac").value)
     localStorage.setItem("impSS", document.querySelector("#impSS").value)
@@ -259,7 +262,7 @@ function loadInput()
     document.querySelector("#ohweptypelist").selectedIndex = localStorage.getItem("ohweptypelist") ? localStorage.getItem("ohweptypelist") : 1;
     updateMHWeaponList(false);
     updateOHWeaponList(false);
-    document.querySelector("#mainhand").selectedIndex = localStorage.getItem("mainhand") ? localStorage.getItem("mainhand") : 31;
+    document.querySelector("#mainhand").selectedIndex = localStorage.getItem("mainhand") ? localStorage.getItem("mainhand") : 30;
     document.querySelector("#offhand").selectedIndex = localStorage.getItem("offhand") ? localStorage.getItem("offhand") : 21;
 
     document.querySelector("#headenchant").selectedIndex = localStorage.getItem("headenchant") ? localStorage.getItem("headenchant") : 6;
@@ -293,6 +296,7 @@ function loadInput()
     document.getElementById("cruelty").value = localStorage.getItem("cruelty") ? localStorage.getItem("cruelty") : 5;
     document.getElementById("anticipation").value = localStorage.getItem("anticipation") ? localStorage.getItem("anticipation") : 0;
     document.getElementById("shieldspec").value = localStorage.getItem("shieldspec") ? localStorage.getItem("shieldspec") : 0;
+    document.getElementById("impblood").value = localStorage.getItem("impblood") ? localStorage.getItem("impblood") : 2;
     document.getElementById("toughness").value = localStorage.getItem("toughness") ? localStorage.getItem("toughness") : 5;
     document.getElementById("deftac").value = localStorage.getItem("deftac") ? localStorage.getItem("deftac") : 0;
     document.querySelector("#impSS").value = localStorage.getItem("impSS") ? localStorage.getItem("impSS") : 0;
@@ -312,21 +316,21 @@ function loadInput()
     document.querySelector("#twoPieceDreadslayer").checked = localStorage.getItem("twoPieceDreadslayer") == "true" ? true : false;
     document.querySelector("#berserking").checked = localStorage.getItem("berserking") == "true" ? true : false;
     document.querySelector("#chastise").checked = localStorage.getItem("chastise") == "true" ? true : false;
-    document.querySelector("#bloodrage").checked = localStorage.getItem("bloodrage") == "true" ? true : false;
+    document.querySelector("#bloodrage").checked = localStorage.getItem("bloodrage") == "false" ? false : true;
 
 
     // Buffs
     document.getElementById("mhstone").selectedIndex = localStorage.getItem("mhstone") ? localStorage.getItem("mhstone") : 0;
     document.getElementById("ohstone").selectedIndex = localStorage.getItem("ohstone") ? localStorage.getItem("ohstone") : 0;
-    document.getElementById("strbuff").selectedIndex = localStorage.getItem("strbuff") ? localStorage.getItem("strbuff") : 0;
-    document.getElementById("apbuff").selectedIndex = localStorage.getItem("apbuff") ? localStorage.getItem("apbuff") : 0;
-    document.getElementById("agibuff").selectedIndex = localStorage.getItem("agibuff") ? localStorage.getItem("agibuff") : 0;
-    document.getElementById("statbuff").selectedIndex = localStorage.getItem("statbuff") ? localStorage.getItem("statbuff") : 0;
-    document.getElementById("foodbuff").selectedIndex = localStorage.getItem("foodbuff") ? localStorage.getItem("foodbuff") : 0;
-    document.getElementById("alcohol").selectedIndex = localStorage.getItem("alcohol") ? localStorage.getItem("alcohol") : 0;
-    document.getElementById("potion").selectedIndex = localStorage.getItem("potion") ? localStorage.getItem("potion") : 0;
+    document.getElementById("strbuff").selectedIndex = localStorage.getItem("strbuff") ? localStorage.getItem("strbuff") : 2;
+    document.getElementById("apbuff").selectedIndex = localStorage.getItem("apbuff") ? localStorage.getItem("apbuff") : 1;
+    document.getElementById("agibuff").selectedIndex = localStorage.getItem("agibuff") ? localStorage.getItem("agibuff") : 1;
+    document.getElementById("statbuff").selectedIndex = localStorage.getItem("statbuff") ? localStorage.getItem("statbuff") : 3;
+    document.getElementById("foodbuff").selectedIndex = localStorage.getItem("foodbuff") ? localStorage.getItem("foodbuff") : 1;
+    document.getElementById("alcohol").selectedIndex = localStorage.getItem("alcohol") ? localStorage.getItem("alcohol") : 2;
+    document.getElementById("potion").selectedIndex = localStorage.getItem("potion") ? localStorage.getItem("potion") : 2;
 
-    document.getElementById("inspiration").checked = localStorage.getItem("inspiration") == "true" ? true : false;
+    document.getElementById("inspiration").checked = localStorage.getItem("inspiration") == "false" ? false : true;
     document.getElementById("devo").checked = localStorage.getItem("devo") == "true" ? true : false;
     document.getElementById("imploh").checked = localStorage.getItem("imploh") == "true" ? true : false;
 
@@ -344,16 +348,16 @@ function loadInput()
     document.getElementById("dmAP").checked = localStorage.getItem("dmAP") == "true" ? true : false;
     document.getElementById("dmspell").checked = localStorage.getItem("dmspell") == "true" ? true : false;
     document.getElementById("songflower").checked = localStorage.getItem("songflower") == "true" ? true : false;
-    document.getElementById("bshout").checked = localStorage.getItem("bshout") == "true" ? true : false;
+    document.getElementById("bshout").checked = localStorage.getItem("bshout") == "false" ? false : true;
     document.getElementById("pack").checked = localStorage.getItem("pack") == "true" ? true : false;
     document.getElementById("trueshot").checked = localStorage.getItem("trueshot") == "true" ? true : false;
-    document.getElementById("mark").checked = localStorage.getItem("mark") == "true" ? true : false;
-    document.getElementById("fortitude").checked = localStorage.getItem("fortitude") == "true" ? true : false;
+    document.getElementById("mark").checked = localStorage.getItem("mark") == "false" ? false : true;
+    document.getElementById("fortitude").checked = localStorage.getItem("fortitude") == "false" ? false : true;
     document.getElementById("bloodpact").checked = localStorage.getItem("bloodpact") == "true" ? true : false;
-    document.getElementById("kings").checked = localStorage.getItem("kings") == "true" ? true : false;
-    document.getElementById("might").checked = localStorage.getItem("might") == "true" ? true : false;
-    document.getElementById("windfury").checked = localStorage.getItem("windfury") == "true" ? true : false;
-    document.getElementById("strofearth").checked = localStorage.getItem("strofearth") == "true" ? true : false;
+    document.getElementById("kings").checked = localStorage.getItem("kings") == "false" ? false : true;
+    document.getElementById("might").checked = localStorage.getItem("might") == "false" ? false : true;
+    document.getElementById("windfury").checked = localStorage.getItem("windfury") == "false" ? false : true;
+    document.getElementById("strofearth").checked = localStorage.getItem("strofearth") == "false" ? false : true;
     document.getElementById("graceofair").checked = localStorage.getItem("graceofair") == "true" ? true : false;
     document.getElementById("impweptotems").checked = localStorage.getItem("impweptotems") == "true" ? true : false;
     document.getElementById("champion").checked = localStorage.getItem("champion") == "true" ? true : false;

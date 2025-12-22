@@ -43,6 +43,8 @@ self.addEventListener('message', function(e) {
 
     let playerAbilities = [];
 
+    if (globals.tankStats.bonuses.bloodrage) playerAbilities.push(new Bloodrage("Bloodrage", 1000, -1, false));
+
     if (globals.tankStats.talents.concblow) playerAbilities.push(new ConcussionBlow("Concussion Blow",20000,-10,true))
     if(globals.tankStats.talents.shieldslam && !globals.tankStats.dualWield)
         playerAbilities.push(new ShieldSlam("Shield Slam", 6000 - globals.tankStats.talents.impSS*750, 20, true));

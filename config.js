@@ -226,6 +226,7 @@ function updateStats()
     let toughness = Number(document.getElementById("toughness").value);
     let deftac = Number(document.getElementById("deftac").value);
     let shieldspec = Number(document.getElementById("shieldspec").value);
+    let impblood = Number(document.getElementById("impblood").value);
     let impHS = Number(document.getElementById("impHS").value);
     let defiance = Number(document.getElementById("defiance").value);
     let impale = Number(document.getElementById("impale").value);
@@ -383,6 +384,13 @@ function updateStats()
         _startRage = Math.min(100, _startRage + 45 + Math.random()*30);
         _mrp = true;
     }
+
+    let _bloodrage = false;
+    if(document.getElementById("bloodrage").checked) {
+        _startRage += 10 + (impblood == 2 ? 5 : impblood == 1 ? 1 : 0);
+        _bloodrage = true;
+    }
+
 
     arp += document.querySelector("#twoPieceDreadslayer").checked ? 150 : 0;
 
@@ -606,6 +614,7 @@ function updateStats()
                 toughness: toughness,
                 deftac: deftac,
                 shieldspec: shieldspec,
+                impblood: impblood,
                 impHS: impHS,
                 defiance: defiance,
                 impale: impale,
@@ -654,7 +663,6 @@ function updateStats()
                 threatenchant: document.getElementById("handenchant").value == "Threat",
                 berserking: document.getElementById("berserking").checked,
                 chastise: document.getElementById("chastise").checked,
-                bloodrage: document.getElementById("bloodrage").checked,
                 goa: document.getElementById("goa").checked,
 
                 windfury: document.querySelector("#windfury").checked,
@@ -663,6 +671,7 @@ function updateStats()
                 crusaderMH: mhwepenchant == "Crusader",
                 crusaderOH: ohwepenchant == "Crusader",
                 mrp: _mrp,
+                bloodrage: _bloodrage,
                 quickness: document.getElementById("potion").value == "Quickness",
                 timelord: (cape == "Wing of the Time-Lord"),
             },
