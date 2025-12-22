@@ -456,13 +456,13 @@ function updateStats()
     strength *= document.getElementById("kings").checked ? 1.1 : 1;
 
     armor += agility*2;
-    armor *= document.getElementById("inspiration").checked ? 1.25 : 1;
     armor += document.getElementById("potion").value == "Greater Stoneshield" ? 2000 : 0;
     armor += document.getElementById("devo").checked ? Math.floor(918.75) : 0; // Assumed improved
     armor += document.getElementById("armorelixir").checked ? 450 : 0;
     armor += document.getElementById("scrollprot4").checked ? 240 : 0;
     armor += document.getElementById("crystalward").checked ? 200 : 0;
     armor += mark ? Math.floor(384.75) : 0;
+    armor *= document.getElementById("inspiration").checked ? 1.25 : 1;
 
     let staminaMultiplier = (document.getElementById("dmstamina").checked ? 1.15 : 1)*(document.getElementById("zandalar").checked ? 1.15 : 1)*(document.getElementById("kings").checked ? 1.1 : 1)
     let strengthMultiplier = (document.getElementById("zandalar").checked ? 1.15 : 1)*(document.getElementById("kings").checked ? 1.1 : 1)
