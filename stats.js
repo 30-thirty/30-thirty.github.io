@@ -6363,7 +6363,7 @@ let trinkets = {
         "dodge": 0,
         "defense": 0,
         "block": 3,
-        "blockvalue": 0,
+        "blockvalue": 23,
         "skill": 0,
         "skilltype": 'none',
         "arp": 0

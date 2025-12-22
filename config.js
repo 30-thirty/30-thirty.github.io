@@ -664,6 +664,7 @@ function updateStats()
                 berserking: document.getElementById("berserking").checked,
                 chastise: document.getElementById("chastise").checked,
                 goa: document.getElementById("goa").checked,
+                sapper: document.getElementById("sapper").checked,
 
                 windfury: document.querySelector("#windfury").checked,
                 wcb: _wcb,

@@ -17,6 +17,7 @@ class Ability {
         // TODO: spellCrit
         this.currentCooldown = 0
         this.secondsPassed = 0
+        this.used = false;
     }
 
     //if the ability or swing hits, returns threat.
@@ -307,5 +308,32 @@ class Bloodrage extends Ability {
         return (this.secondsPassed < 10 && this.currentCooldown <= 0)
     }
 
+}
+
+class Sapper extends Ability {
+    use(attacker, defender) {
+        let damage = 450 + Math.random()*301;
+        let rng = Math.random();
+        if (rng < 0.83) {
+            rng = Math.random();
+            if (rng >= 0.69875 && rng < 0.9225) damage*= 0.75;
+            if (rng >= 0.9225 && rng < 0.9900) damage*= 0.5;
+            if (rng >= 0.99) damage*= 0.25;
+        }
+        let damageEvent = {
+            "type": "damage",
+            "hit": "hit",
+            "damage": damage,
+        }
+        damageEvent.threat = 0;
+        damageEvent.threat = this.threatCalculator(damageEvent, attacker);
+        damageEvent.ability = "Goblin Sapper Charge";
+        this.used = true;
+        return damageEvent;
+    }
+
+    isUsable(attacker, defender) {
+        return !this.used
+    }
 }
 

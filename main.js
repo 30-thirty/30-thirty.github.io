@@ -169,6 +169,7 @@ function saveInput()
     localStorage.setItem("berserking", document.querySelector("#berserking").checked)
     localStorage.setItem("chastise", document.querySelector("#chastise").checked)
     localStorage.setItem("bloodrage", document.querySelector("#bloodrage").checked)
+    localStorage.setItem("sapper", document.querySelector("#sapper").checked)
 
     
     // Buffs
@@ -317,6 +318,7 @@ function loadInput()
     document.querySelector("#berserking").checked = localStorage.getItem("berserking") == "true" ? true : false;
     document.querySelector("#chastise").checked = localStorage.getItem("chastise") == "true" ? true : false;
     document.querySelector("#bloodrage").checked = localStorage.getItem("bloodrage") == "false" ? false : true;
+    document.querySelector("#sapper").checked = localStorage.getItem("sapper") == "true" ? true : false
 
 
     // Buffs

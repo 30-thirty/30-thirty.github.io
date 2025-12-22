@@ -43,6 +43,8 @@ self.addEventListener('message', function(e) {
 
     let playerAbilities = [];
 
+    if (globals.tankStats.bonuses.sapper) playerAbilities.push(new Sapper("Goblin Sapper Charge", 60000, 0, false));
+
     if (globals.tankStats.bonuses.bloodrage) playerAbilities.push(new Bloodrage("Bloodrage", 1000, -1, false));
 
     if (globals.tankStats.talents.concblow) playerAbilities.push(new ConcussionBlow("Concussion Blow",20000,-10,true))

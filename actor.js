@@ -138,7 +138,7 @@ class Actor {
     }
 
     reset() {
-        this.abilities.forEach(ability => { ability.currentCooldown = 0; });
+        this.abilities.forEach(ability => { ability.currentCooldown = 0; ability.used = false; ability.secondsPassed = 0; });
         this.auras.forEach(aura => {
             aura.stacks = 0;
             aura.duration = 0;
