@@ -379,6 +379,7 @@ function updateStats()
     stamina += Number(document.getElementById("alcohol").value);
 
     let _startRage = Number(document.querySelector("#startRage").value);
+    if (document.getElementById("reck").checked) _startRage = Math.max(_startRage, 25);
     let _mrp = false;
     if(document.getElementById("potion").value == "Mighty Rage") {
         _startRage = Math.min(100, _startRage + 45 + Math.random()*30);
@@ -572,9 +573,9 @@ function updateStats()
             
             MHWepSkill: mhwepskill,
             OHWepSkill: _dualWield ? ohwepskill : 0,
-            damageMod: (document.querySelector("#dmf").checked ? 1.1 : 1)*(stance == "Defensive Stance" ? 0.9 : 1.0)*(document.getElementById("kings").checked ? 1.05 : 1),
+            damageMod: (document.querySelector("#dmf").checked ? 1.1 : 1)*(stance == "Defensive Stance" ? 0.9 : 1.0)*(document.getElementById("champion").checked ? 1.05 : 1),
 
-            physDmgMod: (1+0.02*Number(document.getElementById("1hspec").value))*(document.getElementById("kings").checked ? 1.05 : 1),
+            physDmgMod: 1+0.02*Number(document.getElementById("1hspec").value),
             hastePerc: hastePerc,
             arp: arp,
 
@@ -666,6 +667,7 @@ function updateStats()
                 berserking: document.getElementById("berserking").checked,
                 chastise: document.getElementById("chastise").checked,
                 goa: document.getElementById("goa").checked,
+                reck: document.getElementById("reck").checked,
                 sapper: document.getElementById("sapper").checked,
 
                 windfury: document.querySelector("#windfury").checked,
@@ -692,7 +694,8 @@ function updateStats()
             MHSwing: Number(document.querySelector("#swingTimer").value)*1000,
             
             MHWepSkill: 315,
-            damageMod: stance == "Defensive Stance" ? 0.9 : stance == "Berseker Stance" ? 1.1 : 1.0, // def stance vs zerk stance vs battle stance
+            damageMod: (stance == "Defensive Stance" ? 0.9 : 1.0)*(stance == "Berserker Stance" ? 1.1 : 1.0)*(document.getElementById("champion").checked ? 0.95 : 1),
+
             physDmgMod: 1,
             hastePerc: 1,
             arp: 0,

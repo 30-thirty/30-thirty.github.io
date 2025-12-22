@@ -170,7 +170,7 @@ function saveInput()
     localStorage.setItem("fivePieceWrath", document.querySelector("#fivePieceWrath").checked)
     localStorage.setItem("berserking", document.querySelector("#berserking").checked)
     localStorage.setItem("chastise", document.querySelector("#chastise").checked)
-    localStorage.setItem("bloodrage", document.querySelector("#bloodrage").checked)
+    localStorage.setItem("reck", document.querySelector("#reck").checked)
     localStorage.setItem("sapper", document.querySelector("#sapper").checked)
 
     
@@ -322,6 +322,7 @@ function loadInput()
     document.querySelector("#berserking").checked = localStorage.getItem("berserking") == "true" ? true : false;
     document.querySelector("#chastise").checked = localStorage.getItem("chastise") == "true" ? true : false;
     document.querySelector("#bloodrage").checked = localStorage.getItem("bloodrage") == "false" ? false : true;
+    document.querySelector("#reck").checked = localStorage.getItem("reck") == "true" ? true : false;
     document.querySelector("#sapper").checked = localStorage.getItem("sapper") == "true" ? true : false
 
 
@@ -369,10 +370,10 @@ function loadInput()
     document.getElementById("champion").checked = localStorage.getItem("champion") == "true" ? true : false;
 
     // Boss Settings
-    document.querySelector("#swingMin").value = localStorage.getItem("swingMin") ? localStorage.getItem("swingMin") : 4000;
-    document.querySelector("#swingMax").value = localStorage.getItem("swingMax") ? localStorage.getItem("swingMax") : 4000;
+    document.querySelector("#swingMin").value = localStorage.getItem("swingMin") ? localStorage.getItem("swingMin") : 5491;
+    document.querySelector("#swingMax").value = localStorage.getItem("swingMax") ? localStorage.getItem("swingMax") : 7280;
     document.querySelector("#swingTimer").value = localStorage.getItem("swingTimer") ? localStorage.getItem("swingTimer") : 2;
-    document.querySelector("#bossarmor").value = localStorage.getItem("bossarmor") ? localStorage.getItem("bossarmor") : 3731;
+    document.querySelector("#bossarmor").value = localStorage.getItem("bossarmor") ? localStorage.getItem("bossarmor") : 4211;
     document.querySelector("#debuffdelay").value = localStorage.getItem("debuffdelay") ? localStorage.getItem("debuffdelay") : 0;
     document.querySelector("#curseofrecklessness").checked = localStorage.getItem("curseofrecklessness") == "false" ? false : true;
     document.querySelector("#faeriefire").checked = localStorage.getItem("faeriefire") == "false" ? false : true;

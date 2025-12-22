@@ -1057,6 +1057,30 @@ if(globals.tankStats.trinkets.slayerscrest) {
         }));
     }
 
+    if(globals.tankStats.bonuses.reck) {
+        tankAuras.push(new PrePullAura({
+            name: "Recklessness",
+            maxDuration: 12000,
+            critMod: 100,
+
+
+            target: "Tank",
+            source: "Tank",
+        }));
+    }
+
+    if(globals.tankStats.bonuses.reck) {
+        bossAuras.push(new PrePullAura({
+            name: "Recklessness",
+            maxDuration: 12000,
+            damageMod: 1.20,
+
+
+            target: "Boss",
+            source: "Tank",
+        }));
+    }
+
 if(globals.tankStats.trinkets.jomgabbar) {
     tankAuras.push(new JomGabbar({
         name: "Jom Gabbar",
@@ -1124,5 +1148,7 @@ if(globals.tankStats.trinkets.lgg) {
             source: "Other",
         }));
     }
+
+
 
 }

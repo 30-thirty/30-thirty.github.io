@@ -35,7 +35,7 @@ function twoRollTankBossTable(attacker, defender, damage, op) {
     let dodge = defender.getDodge() - 0.1 * (wepSkill - defender.defense);
     let blockValue = defender.getBlockValue();
     let block = Math.min(5, 5 + (defender.defense - wepSkill) * 0.1);
-    let crit = attacker.stats.crit - 0.04 * (wepSkill - 300) - 3;
+    let crit = attacker.getCrit() - 0.04 * (wepSkill - 300) - 3;
     if (op) crit += attacker.talents.impop*0.25;
     let rng = 100*Math.random();
     let type = "";
@@ -82,7 +82,7 @@ function rollTankBossTable(attacker, defender, damage, yellow = false, dualWield
     let dodge = defender.getDodge() - 0.1 * (wepSkill - defender.defense);
     let blockValue = defender.getBlockValue();
     let block = Math.min(5, 5 + (defender.defense - wepSkill) * 0.1);
-    let crit = attacker.stats.crit - 0.04 * (wepSkill - 300) - 3;
+    let crit = attacker.getCrit() - 0.04 * (wepSkill - 300) - 3;
     let glance = 40;
     let glanceMod = getGlanceMod(wepSkill);
 

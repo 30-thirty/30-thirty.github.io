@@ -78,6 +78,18 @@ class Actor {
         return haste
     }
 
+    getCrit() {
+        let crit = this.stats.crit;
+        this.auras.forEach(aura => {
+            if (aura.duration > 0) {
+                if (aura.critMod > 0) {
+                    crit += aura.critMod
+                }
+            }
+        })
+        return crit;
+    }
+
     getDodge() {
         let dodge = this.stats.dodge;
         this.auras.forEach(aura => {
