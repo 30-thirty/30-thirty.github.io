@@ -196,6 +196,27 @@ class GiftofArthasProc extends Proc {
 
 }
 
+class FourPieceHeroismProc extends Proc {
+    handleEvent(source, target, event, events, config) {
+        let rng = Math.random();
+        if (event.type == "damage" && config.landedHits.includes(event.hit) ) {
+            if (rng < 3*source.stats.MHSwing/(60*1000)) { // swing*3ppm/(60*1000))
+                let procEvent = {
+                    "type": "four-piece heroism",
+                    "source": event.ability,
+                    "threat": 10*source.threatMod,
+                    "ability": this.name,
+                    "timestamp": event.timestamp,
+                }
+                events.push(procEvent);
+               source.addRage(10,true);
+
+            }
+        }
+    }
+
+}
+
 class WindfuryProc extends Proc {
     constructor(input) {
         super(input)
@@ -301,6 +322,14 @@ function getTankProcs(globals) {
         ret.push(
             new HoJProc({
                 name: "Wing of the Time-Lord",
+            })
+        )
+    }
+
+    if(globals.tankStats.bonuses.fourPieceHeroism) {
+        ret.push(
+            new FourPieceHeroismProc({
+                name: "Four Piece Heroism",
             })
         )
     }

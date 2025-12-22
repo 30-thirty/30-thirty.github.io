@@ -655,6 +655,7 @@ function updateStats()
 
             bonuses: {
                 twoPieceDreadnaught: document.querySelector("#twoPieceDreadnaught").checked,
+                fourPieceHeroism: document.querySelector("#fourPieceHeroism").checked,
                 threePieceConqueror: document.getElementById("threePieceConqueror").checked,
                 fivePieceWrath: document.querySelector("#fivePieceWrath").checked,
                 threePieceWrath: document.querySelector("#threePieceWrath").checked,
