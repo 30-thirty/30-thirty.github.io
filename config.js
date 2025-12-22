@@ -230,6 +230,7 @@ function updateStats()
     let defiance = Number(document.getElementById("defiance").value);
     let impale = Number(document.getElementById("impale").value);
     let dwspec = Number(document.getElementById("dwspec").value);
+    let imprev = Number(document.getElementById("imprev").value);
     let reprisal = Number(document.getElementById("reprisal").value);
     let impop = Number(document.getElementById("impop").value);
 
@@ -609,6 +610,7 @@ function updateStats()
                 defiance: defiance,
                 impale: impale,
                 dwspec: dwspec,
+                imprev: imprev,
                 reprisal: reprisal,
                 impop: impop,
             },

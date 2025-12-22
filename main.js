@@ -62,6 +62,7 @@ function furyprotTalents() {
     document.querySelector("#impale").value = 0;
     document.querySelector("#defiance").value = 5;
     document.querySelector("#dwspec").value = 5;
+    document.querySelector("#imprev").value = 0;
     document.querySelector("#reprisal").value = 0;
     document.querySelector("#impop").value = 0;
     document.getElementById("deathwish").checked = true;
@@ -84,6 +85,7 @@ function deftacTalents() {
     document.querySelector("#impale").value = 2;
     document.querySelector("#defiance").value = 5;
     document.querySelector("#dwspec").value = 0;
+    document.querySelector("#imprev").value = 0;
     document.querySelector("#reprisal").value = 0;
     document.querySelector("#impop").value = 2;
     document.getElementById("shieldslam").checked = true;
@@ -250,8 +252,8 @@ function loadInput()
     document.querySelector("#feet").selectedIndex = localStorage.getItem("feet") ? localStorage.getItem("feet") : 17;
     document.querySelector("#ringone").selectedIndex = localStorage.getItem("ringone") ? localStorage.getItem("ringone") : 9;
     document.querySelector("#ringtwo").selectedIndex = localStorage.getItem("ringtwo") ? localStorage.getItem("ringtwo") : 23;
-    document.querySelector("#trinketone").selectedIndex = localStorage.getItem("trinketone") ? localStorage.getItem("trinketone") : 8;
-    document.querySelector("#trinkettwo").selectedIndex = localStorage.getItem("trinkettwo") ? localStorage.getItem("trinkettwo") : 9;
+    document.querySelector("#trinketone").selectedIndex = localStorage.getItem("trinketone") ? localStorage.getItem("trinketone") : 9;
+    document.querySelector("#trinkettwo").selectedIndex = localStorage.getItem("trinkettwo") ? localStorage.getItem("trinkettwo") : 10;
     document.querySelector("#ranged").selectedIndex = localStorage.getItem("ranged") ? localStorage.getItem("ranged") : 25;
     document.querySelector("#mhweptypelist").selectedIndex = localStorage.getItem("mhweptypelist") ? localStorage.getItem("mhweptypelist") : 4;
     document.querySelector("#ohweptypelist").selectedIndex = localStorage.getItem("ohweptypelist") ? localStorage.getItem("ohweptypelist") : 1;
@@ -298,6 +300,7 @@ function loadInput()
     document.querySelector("#impale").value = localStorage.getItem("impale") ? localStorage.getItem("impale") : 0; 
     document.querySelector("#defiance").value = localStorage.getItem("defiance") ? localStorage.getItem("defiance") : 5; 
     document.querySelector("#dwspec").value = localStorage.getItem("dwspec") ? localStorage.getItem("dwspec") : 5;
+    document.querySelector("#imprev").value = localStorage.getItem("imprev") ? localStorage.getItem("imprev") : 0;
     document.querySelector("#reprisal").value = localStorage.getItem("reprisal") ? localStorage.getItem("reprisal") : 0;
     document.querySelector("#impop").value = localStorage.getItem("impop") ? localStorage.getItem("impop") : 0;
 
