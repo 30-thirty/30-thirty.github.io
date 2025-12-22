@@ -57,6 +57,7 @@ function furyprotTalents() {
     document.getElementById("impblood").value = 2;
     document.getElementById("toughness").value = 5;
     document.getElementById("deftac").value = 0;
+    document.getElementById("1hspec").value = 0;
     document.getElementById("enrage").value = 5;
     document.querySelector("#impSS").value = 0;
     document.querySelector("#impHS").value = 0;
@@ -81,6 +82,7 @@ function deftacTalents() {
     document.getElementById("impblood").value = 2;
     document.getElementById("toughness").value = 5;
     document.getElementById("deftac").value = 3;
+    document.getElementById("1hspec").value = 5;
     document.getElementById("enrage").value = 0;
     document.querySelector("#impSS").value = 2;
     document.querySelector("#impHS").value = 3;
@@ -153,6 +155,7 @@ function saveInput()
     localStorage.setItem("shieldspec", document.getElementById("shieldspec").value)
     localStorage.setItem("impblood", document.getElementById("impblood").value)
     localStorage.setItem("toughness", document.getElementById("toughness").value)
+    localStorage.setItem("1hspec", document.getElementById("1hspec").value)
     localStorage.setItem("deftac", document.getElementById("deftac").value)
     localStorage.setItem("impSS", document.querySelector("#impSS").value)
     localStorage.setItem("impHS", document.querySelector("#impHS").value)
@@ -301,6 +304,7 @@ function loadInput()
     document.getElementById("shieldspec").value = localStorage.getItem("shieldspec") ? localStorage.getItem("shieldspec") : 0;
     document.getElementById("impblood").value = localStorage.getItem("impblood") ? localStorage.getItem("impblood") : 2;
     document.getElementById("toughness").value = localStorage.getItem("toughness") ? localStorage.getItem("toughness") : 5;
+    document.getElementById("1hspec").value = localStorage.getItem("1hspec") ? localStorage.getItem("1hspec") : 0;
     document.getElementById("deftac").value = localStorage.getItem("deftac") ? localStorage.getItem("deftac") : 0;
     document.querySelector("#impSS").value = localStorage.getItem("impSS") ? localStorage.getItem("impSS") : 0;
     document.querySelector("#impHS").value = localStorage.getItem("impHS") ? localStorage.getItem("impHS") : 0;
