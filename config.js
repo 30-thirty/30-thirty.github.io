@@ -563,9 +563,9 @@ function updateStats()
             
             MHWepSkill: mhwepskill,
             OHWepSkill: _dualWield ? ohwepskill : 0,
-            damageMod: (document.querySelector("#dmf").checked ? 1.1 : 1)*(stance == "Defensive Stance" ? 0.9 : 1.0)*(document.querySelector("champion").checked ? 1.05 : 1),
+            damageMod: (document.querySelector("#dmf").checked ? 1.1 : 1)*(stance == "Defensive Stance" ? 0.9 : 1.0)*(document.getElementById("kings").checked ? 1.05 : 1),
 
-            physDmgMod: (1+0.02*Number(document.getElementById("1hspec").value))*(document.querySelector("champion").checked ? 1.05 : 1),
+            physDmgMod: (1+0.02*Number(document.getElementById("1hspec").value))*(document.getElementById("kings").checked ? 1.05 : 1),
             hastePerc: hastePerc,
             arp: arp,
 
