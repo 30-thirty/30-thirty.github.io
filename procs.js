@@ -175,6 +175,25 @@ class MSA extends Proc {
     }
 }
 
+class ShieldrenderProc extends Proc {
+    handleEvent(source, target, event, events, config) {
+        let rng = Math.random();
+        if (event.type == "damage" && config.landedHits.includes(event.hit) && (["Heroic Strike", "MH Swing", "OH Swing"].includes(event.ability))) {
+            if (rng < 0.07) { // 7% chance to proc
+                let procEvent = {
+                    "type": "proc",
+                    "source": event.ability,
+                    "ability": this.name,
+                    "timestamp": event.timestamp,
+                }
+                events.push(procEvent);
+                source.auras.forEach(aura => { if (aura.name == "Shieldrender Talisman") aura.handleEvent(source, procEvent, events, config)})
+            }
+        }
+    }
+
+}
+
 class GiftofArthasProc extends Proc {
     handleEvent(source, target, event, events, config) {
         let rng = Math.random();
@@ -209,7 +228,7 @@ class FourPieceHeroismProc extends Proc {
                     "timestamp": event.timestamp,
                 }
                 events.push(procEvent);
-               source.addRage(10,true);
+                source.addRage(10,true);
 
             }
         }
@@ -330,6 +349,14 @@ function getTankProcs(globals) {
         ret.push(
             new FourPieceHeroismProc({
                 name: "Four Piece Heroism",
+            })
+        )
+    }
+
+    if(globals.tankStats.trinkets.shieldrender) {
+        ret.push(
+            new ShieldrenderProc({
+                name: "Shieldrender Talisman",
             })
         )
     }

@@ -55,7 +55,8 @@ class Actor {
         this.auras.forEach(aura => {
             if (aura.duration > 0) {
                 if (aura.arp > 0) {
-                    arp += aura.arp * aura.stacks;
+                    if (aura.stacks > 0) arp += aura.arp * aura.stacks;
+                    else arp += aura.arp;
                 }
             }
         });

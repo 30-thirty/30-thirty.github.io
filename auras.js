@@ -619,6 +619,23 @@ class GiftofArthas extends Aura {
     }
 }
 
+class Shieldrender extends Aura {
+
+    handleEvent(owner, event, events, config) {
+        if (event.type == "proc" && event.ability == "Shieldrender Talisman") {
+            this.duration = this.maxDuration;
+            events.push({
+                type: "buff gained",
+                timestamp: event.timestamp,
+                name: this.name,
+                stacks: 1,
+                target: this.target,
+                source: this.source,
+            })
+        }
+    }
+}
+
 class WindfuryBuff extends Aura {
     constructor(input) {
         super(input)
@@ -919,6 +936,18 @@ if(globals.tankStats.bonuses.goa) {
         source: "Tank",
     }))
 }
+
+    if(globals.tankStats.trinkets.shieldrender) {
+        tankAuras.push(new Shieldrender({
+            name: "Shieldrender Talisman",
+            maxDuration: 3000,
+            arp: 100000,
+
+            trackUptime: true,
+            target: "Tank",
+            source: "Tank",
+        }))
+    }
 
 if(globals.tankStats.bonuses.berserking) {
     tankAuras.push(new PrePullAura({

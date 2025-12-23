@@ -6498,6 +6498,24 @@ let trinkets = {
         "skilltype": 'none',
         "arp": 0
     },
+    "Shieldrender Talisman": {
+        "strength": 0,
+        "stamina": 0,
+        "agility": 0,
+        "hit": 0,
+        "crit": 0,
+        "haste": 0,
+        "attackpower": 84,
+        "armor": 0,
+        "parry": 0,
+        "dodge": 0,
+        "defense": 0,
+        "block": 0,
+        "blockvalue": 0,
+        "skill": 0,
+        "skilltype": 'none',
+        "arp": 0
+    },
     "Slayer's Crest": {
        "crit": 0,
        "hit": 0,
