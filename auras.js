@@ -23,6 +23,7 @@ class Aura {
         if (!input.percArmorMod) this.percArmorMod = 1; else this.percArmorMod = input.percArmorMod; // percentage
         if (!input.armorMod) this.armorMod = 0; else this.armorMod = input.armorMod; // additive
         if (!input.defenseMod) this.defenseMod = 0; else this.defenseMod = input.defenseMod; // additive
+        if (!input.arp) this.arp = 0; else this.arp = input.arp = input.arp; // additive
     }
 
     handleGameTick(ms, owner, events, config) {
@@ -303,6 +304,46 @@ class OverpowerHelper extends Aura {
                 target: "Tank",
                 source: this.source,
                 });
+        }
+    }
+}
+
+class InsightOfQiraji extends Aura {
+    constructor(input) {
+        super(input);
+    }
+    handleEvent(owner, event, events, config) {
+        let badge = owner.auras.find((aura) => aura.name == "Badge of the Swarmguard");
+        if (badge == null || undefined) {
+            this.duration = 0;
+            return;
+        }
+        if (badge.duration <= 0) {
+            this.duration = 0;
+            events.push({
+                type: "buff lost",
+                timestamp: event.timestamp,
+                name: this.name,
+                stacks: this.stacks,
+                source: this.source,
+                target: this.target,
+            });
+        }
+
+        if (event.type == "damage" && config.landedHits.includes(event.hit) && badge.duration > 0 && event.target == "Boss") {
+            let rng = Math.random()
+            if (rng < 10*owner.stats.MHSwing / (60 * 1000)) { // swing*ppm/(60*1000)
+                this.duration = badge.duration;
+                this.stacks = Math.min(this.stacks+1, 6);
+                events.push({
+                    type: "buff gained",
+                    timestamp: event.timestamp,
+                    name: this.name,
+                    stacks: this.stacks,
+                    target: "Tank",
+                    source: this.source,
+                });
+            }
         }
     }
 }
@@ -728,6 +769,16 @@ const defaultTankAuras = [
 
         target: "Tank",
         source: "Tank",
+    }),
+    new InsightOfQiraji({
+        name: "Insight of the Qiraji",
+        maxDuration: 30000,
+        arp: 200,
+        scalingStacks: true,
+        maxStacks: 6,
+
+        target: "Tank",
+        source: "Tank",
     })
 ]
 
@@ -1012,6 +1063,18 @@ if(globals.tankStats.trinkets.kots) {
         source: "Tank",
     }));
 }
+
+if(globals.tankStats.trinkets.badge) {
+    tankAuras.push(new PrePullAura({
+        name: "Badge of the Swarmguard",
+        maxDuration: 30000,
+
+        target: "Tank",
+        source: "Tank",
+    }));
+}
+
+
 
 if(globals.tankStats.trinkets.diamondflask) {
     tankAuras.push(new PrePullAura({

@@ -50,6 +50,18 @@ class Actor {
         return Math.max(0, this.armor * percArmorMod);
     }
 
+    getArp() {
+        let arp = this.stats.arp;
+        this.auras.forEach(aura => {
+            if (aura.duration > 0) {
+                if (aura.arp > 0) {
+                    arp += aura.arp * aura.stacks;
+                }
+            }
+        });
+        return arp;
+    }
+
     getAP() {
         let AP = this.stats.AP;
         this.auras.forEach(aura => {

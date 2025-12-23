@@ -54,7 +54,7 @@ class MHSwing extends Ability {
         // Heroic Strike
         if (attacker.isHeroicStrikeQueued && attacker.rage > (15 - attacker.stats.talents.impHS - (attacker.stats.bonuses.threePieceBrotherhood ? 5 : 0))) {
             let damage = this.weaponSwingRoll(attacker) + 157 + defender.additivePhysBonus;
-            damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.arp)) * attacker.getDamageMod();
+            damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.getArp())) * attacker.getDamageMod();
             damageEvent = rollAttack(attacker, defender, damage, true);
             this.staticThreat = 175;
             damageEvent.threat = this.threatCalculator(damageEvent, attacker);
@@ -66,7 +66,7 @@ class MHSwing extends Ability {
         // White Swing
         else {
             let damage = this.weaponSwingRoll(attacker) + defender.additivePhysBonus;
-            damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.arp)) * attacker.getDamageMod();
+            damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.getArp())) * attacker.getDamageMod();
             damageEvent = rollAttack(attacker, defender, damage, false, attacker.stats.dualWield);
             
             damageEvent.threat = 0;
@@ -97,7 +97,7 @@ class OHSwing extends Ability {
     use(attacker, defender) {
         let damage = Math.random()*(attacker.stats.OHMax - attacker.stats.OHMin) + attacker.stats.OHMin + attacker.getAP()*attacker.stats.OHSwing/(14*1000); // swing timer is in ms
         damage = damage*(0.5 + 0.025*attacker.stats.talents.dwspec) +  defender.additivePhysBonus;
-        damage *=(1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.arp)) * attacker.getDamageMod();
+        damage *=(1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.getArp())) * attacker.getDamageMod();
         let damageEvent = rollAttack(attacker, defender, damage, false, true, true);
         damageEvent.threat = 0;
         damageEvent.threat = this.threatCalculator(damageEvent, attacker);
@@ -120,7 +120,7 @@ class OHSwing extends Ability {
 class Bloodthirst extends Ability {
     use(attacker, defender) {
         let damage = 0.35 *attacker.getAP() + 200  + defender.additivePhysBonus;
-        damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.arp)) * attacker.getDamageMod();
+        damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.getArp())) * attacker.getDamageMod();
         let damageEvent = rollAttack(attacker, defender, damage, true, false, false, true);
         damageEvent.threat = 0;
         damageEvent.threat = this.threatCalculator(damageEvent, attacker);
@@ -137,7 +137,7 @@ class Revenge extends Ability {
         let damage = Math.random()*18 + 81 + defender.additivePhysBonus; // Rank6: 81-99 dmg
         damage += attacker.stats.bonuses.twoPieceDreadnaught ? 75 : 0;
         damage *= attacker.stats.talents.reprisal == 0 ? 1 : 1+attacker.stats.talents.reprisal*0.25;
-        damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.arp)) * attacker.getDamageMod();
+        damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.getArp())) * attacker.getDamageMod();
         let damageEvent = rollAttack(attacker, defender, damage, true, false, false, true);
         damageEvent.threat = 0;
         damageEvent.threat = this.threatCalculator(damageEvent, attacker);
@@ -162,7 +162,7 @@ class Revenge extends Ability {
 class Overpower extends Ability {
     use(attacker, defender) {
         let damage = this.weaponSwingRoll(attacker) + 35 + defender.additivePhysBonus;
-        damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.arp)) * attacker.getDamageMod();
+        damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.getArp())) * attacker.getDamageMod();
         let damageEvent = rollAttack(attacker, defender, damage, true, false, false, true);
         damageEvent.threat = 0;
         damageEvent.threat = this.threatCalculator(damageEvent, attacker);
@@ -240,7 +240,7 @@ class BattleShout extends Ability {
 class ShieldSlam extends Ability {
     use(attacker, defender) {
         let damage = Math.random()*15 + 303 + attacker.getBlockValue() + 0.15 * attacker.getAP();
-        damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.arp)) * attacker.getDamageMod();
+        damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.getArp())) * attacker.getDamageMod();
         let damageEvent = rollAttack(attacker, defender, damage, true, false, false, true);
         damageEvent.threat = 0;
         damageEvent.threat = 1.5 * this.threatCalculator(damageEvent, attacker);
@@ -272,7 +272,7 @@ class ConcussionBlow extends Ability {
 class Whirlwind extends Ability {
     use(attacker, defender) {
         let damage= this.weaponSwingRoll(attacker);
-         damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.arp)) * attacker.getDamageMod();
+         damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.getArp())) * attacker.getDamageMod();
         let damageEvent = rollAttack(attacker, defender, damage, true, false, false, true);
         damageEvent.threat = 0;
         damageEvent.threat = this.threatCalculator(damageEvent, attacker);
