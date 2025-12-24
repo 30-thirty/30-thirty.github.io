@@ -14,6 +14,7 @@ class Aura {
         if (!input.maxStacks) this.maxStacks = -1; else this.maxStacks = input.maxStacks;
         if (!input.scalingStacks) this.scalingStacks = false; else this.scalingStacks = input.scalingStacks;
 
+        if (!input.blockValue) this.blockValue = 0; else this.blockValue = input.blockValue; // additive
         if (!input.APMod) this.APMod = 0; else this.APMod = input.APMod; // additive
         if (!input.strMod) this.strMod = 0; else this.strMod = input.strMod; // additive
         if (!input.critMod) this.critMod = 0; else this.critMod = input.critMod; // percentage

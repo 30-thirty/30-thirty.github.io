@@ -128,6 +128,7 @@ function rollBossTankTable(attacker, defender, damage, yellow = false) {
     let dodge = defender.getDodge() - 0.04 * (wepSkill - defender.defense);
     let blockValue = defender.getBlockValue();
     let block = Math.max(0, defender.stats.block + (wepSkill - defender.defense) * 0.04);
+
     let crit  = Math.max(0, attacker.stats.crit + 0.04 * (wepSkill - defender.defense));
     let crush = (wepSkill - Math.min(300, defender.defense)) * 2 - 15;
 
