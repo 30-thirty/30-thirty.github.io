@@ -58,6 +58,7 @@ self.addEventListener('message', function(e) {
     playerAbilities.push(new HeroicStrike("Heroic Strike", 0, 15, false, 175))
     if(globals.tankStats.stance == "Battle Stance") playerAbilities.push(new Overpower("Overpower",5000,5,true))
     if(globals.tankStats.stance == "Berserker Stance") playerAbilities.push(new Whirlwind("Whirlwind", 10000, 25-(globals.tankStats.bonuses.threePieceBrotherhood ? 5 : 0), true))
+    if (globals.tankStats.stance == "Defensive Stance") playerAbilities.push(new Revenge("Revenge", 5000 - 500*globals.tankStats.talents.imprev, 5, true, 355))
     playerAbilities.push(new SunderArmor("Sunder Armor", 0, 10 - (globals.tankStats.bonuses.threePieceBrotherhood ? 5 : 0), true, 260))
 
     if(globals.tankStats.dualWield) {
