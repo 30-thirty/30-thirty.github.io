@@ -19,6 +19,7 @@ class Aura {
         if (!input.strMod) this.strMod = 0; else this.strMod = input.strMod; // additive
         if (!input.critMod) this.critMod = 0; else this.critMod = input.critMod; // percentage
         if (!input.dodge) this.dodge = 0; else this.dodge = input.dodge; // percentage
+        if (!input.block) this.block = 0; else this.blockValue = input.block; // percentage
         if (!input.damageMod) this.damageMod = 1; else this.damageMod = input.damageMod; // multiplicative
         if (!input.hastePerc) this.hastePerc = 1; else this.hastePerc = input.hastePerc; // multiplicative
         if (!input.percArmorMod) this.percArmorMod = 1; else this.percArmorMod = input.percArmorMod; // percentage
@@ -345,6 +346,37 @@ class InsightOfQiraji extends Aura {
                     source: this.source,
                 });
             }
+        }
+    }
+}
+
+class ShieldBlock extends Aura {
+    constructor(input) {
+        super(input);
+    }
+    handleEvent(owner, event, events, config) {
+        if (event.type == "damage" && ["block"].includes(event.hit) && event.target == "Tank") {
+            this.duration = 0;
+            events.push({
+                type: "buff lost",
+                timestamp: event.timestamp,
+                name: this.name,
+                stacks: this.stacks,
+                source: this.source,
+                target: this.target,
+            });
+        }
+
+        if (event.type == "damage" && event.ability == "Shield Slam") {
+            this.duration = this.maxDuration;
+            events.push({
+                type: "buff gained",
+                timestamp: event.timestamp,
+                name: this.name,
+                stacks: this.stacks,
+                target: this.target,
+                source: this.source,
+            });
         }
     }
 }
@@ -827,6 +859,17 @@ if(globals.tankStats.talents.flurry > 0) {
         target: "Tank",
         source: "Tank",
         }));
+}
+
+if(globals.tankStats.talents.impSS > 0) {
+    tankAuras.push(new ShieldBlock({
+        name: "Shield Block",
+        maxDuration: 4500,
+        block: 0.35*globals.tankStats.talents.impSS,
+
+        target: "Tank",
+        source: "Tank",
+    }));
 }
 
 if(globals.tankStats.talents.enrage > 0) {

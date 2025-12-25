@@ -130,6 +130,19 @@ class Actor {
         return blockValue;
     }
 
+    getBlock() {
+        let block = this.stats.block;
+        this.auras.forEach(aura => {
+            if(aura.duration > 0) {
+                if(aura.block > 0) {
+                    block += aura.block;
+                }
+            }
+        })
+
+        return block;
+    }
+
     // Physical dmg mod
     getDamageMod() {
         let damageMod = this.damageMod
