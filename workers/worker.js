@@ -53,7 +53,7 @@ self.addEventListener('message', function(e) {
     else if (globals.tankStats.talents.bloodthirst)
         playerAbilities.push(new Bloodthirst("Bloodthirst", 6000, 30, true));
 
-    if (globals.tankStats.stance == "Defensive Stance") playerAbilities.push(new Revenge("Revenge", 5000 - 500*globals.tankStats.talents.imprev, 5, true, 273, 2.25))
+    if (globals.tankStats.stance == "Defensive Stance") playerAbilities.push(new Revenge("Revenge", 5000 - 500*globals.tankStats.talents.imprev, 5, true, 355))
 
     playerAbilities.push(new HeroicStrike("Heroic Strike", 0, 15, false, 175))
     if(globals.tankStats.stance == "Battle Stance") playerAbilities.push(new Overpower("Overpower",5000,5,true))
