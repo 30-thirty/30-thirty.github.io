@@ -227,6 +227,7 @@ function updateStats()
     let deftac = Number(document.getElementById("deftac").value);
     let shieldspec = Number(document.getElementById("shieldspec").value);
     let impblood = Number(document.getElementById("impblood").value);
+    let ohspec = Number(document.getElementById("1hspec").value);
     let impHS = Number(document.getElementById("impHS").value);
     let defiance = Number(document.getElementById("defiance").value);
     let impale = Number(document.getElementById("impale").value);
@@ -576,7 +577,7 @@ function updateStats()
             OHWepSkill: _dualWield ? ohwepskill : 0,
             damageMod: (document.querySelector("#dmf").checked ? 1.1 : 1)*(stance == "Defensive Stance" ? 0.9 : 1.0)*(document.getElementById("champion").checked ? 1.05 : 1),
 
-            physDmgMod: 1+0.02*Number(document.getElementById("1hspec").value),
+            physDmgMod: 1, // + 0.02*Number(document.getElementById("1hspec").value),
             hastePerc: hastePerc,
             arp: arp,
 
@@ -624,6 +625,7 @@ function updateStats()
                 imprev: imprev,
                 reprisal: reprisal,
                 impop: impop,
+                ohspec: ohspec,
             },
             weapons: {
                 thunderfuryMH: mainhand == "Thunderfury",

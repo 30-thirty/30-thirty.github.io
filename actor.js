@@ -13,6 +13,7 @@ class Actor {
         this.armor = stats.baseArmor
         this.defense = stats.defense
         this.GCD = 0
+        this.lastWFproc = -1501;
         this.rage = stats.startRage
         this.stance = stats.stance
 
@@ -182,6 +183,7 @@ class Actor {
             aura.duration = 0;
         })
         this.GCD = 0
+        this.lastWFproc = -1501;
         this.rage = this.stats.startRage
         this.isHeroicStrikeQueued = false
         this.IEA = false

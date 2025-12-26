@@ -54,7 +54,7 @@ class MHSwing extends Ability {
         // Heroic Strike
         if (attacker.isHeroicStrikeQueued && attacker.rage > (15 - attacker.stats.talents.impHS - (attacker.stats.bonuses.threePieceBrotherhood ? 5 : 0))) {
             let damage = this.weaponSwingRoll(attacker) + 157 + defender.additivePhysBonus;
-            damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.getArp())) * attacker.getDamageMod();
+            damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.getArp())) * attacker.getDamageMod()*(1 + (attacker.name == "Tank" ? (0.01*attacker.stats.talents.ohspec) : 0));
             damageEvent = rollAttack(attacker, defender, damage, true);
             this.staticThreat = 175;
             damageEvent.threat = this.threatCalculator(damageEvent, attacker);
@@ -66,7 +66,7 @@ class MHSwing extends Ability {
         // White Swing
         else {
             let damage = this.weaponSwingRoll(attacker) + defender.additivePhysBonus;
-            damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.getArp())) * attacker.getDamageMod();
+            damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.getArp())) * attacker.getDamageMod()*(1 + (attacker.name == "Tank" ? (0.01*attacker.stats.talents.ohspec) : 0));
             damageEvent = rollAttack(attacker, defender, damage, false, attacker.stats.dualWield);
             
             damageEvent.threat = 0;
@@ -97,7 +97,7 @@ class OHSwing extends Ability {
     use(attacker, defender) {
         let damage = Math.random()*(attacker.stats.OHMax - attacker.stats.OHMin) + attacker.stats.OHMin + attacker.getAP()*attacker.stats.OHSwing/(14*1000); // swing timer is in ms
         damage = damage*(0.5 + 0.025*attacker.stats.talents.dwspec) +  defender.additivePhysBonus;
-        damage *=(1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.getArp())) * attacker.getDamageMod();
+        damage *=(1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.getArp())) * attacker.getDamageMod()*(1 + (attacker.name == "Tank" ? (0.01*attacker.stats.talents.ohspec) : 0));
         let damageEvent = rollAttack(attacker, defender, damage, false, true, true);
         damageEvent.threat = 0;
         damageEvent.threat = this.threatCalculator(damageEvent, attacker);

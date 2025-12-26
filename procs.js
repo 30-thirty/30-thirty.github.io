@@ -15,7 +15,6 @@ class Proc {
 
 }
 
-let lastWFproc = 0;
 
 class ThunderfuryMH extends Proc {
     handleEvent(source, target, event, events, config) {
@@ -241,8 +240,8 @@ class WindfuryProc extends Proc {
         super(input)
     }
     handleEvent(source, target, event, events, config) {
-        if (event.type == "damage" && event.ability != "OH Swing" && config.landedHits.includes(event.hit) && event.timestamp>lastWFproc+1500) {
-            lastWFproc = event.timestamp;
+        if (event.type == "damage" && event.ability != "OH Swing" && config.landedHits.includes(event.hit) && event.timestamp>source.lastWFproc+1500) {
+            source.lastWFproc = event.timestamp;
             let rng = Math.random()
             if (rng < 0.2) {
                 let procEvent = {
