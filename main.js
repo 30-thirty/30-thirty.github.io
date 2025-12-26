@@ -59,6 +59,7 @@ function furyprotTalents() {
     document.getElementById("deftac").value = 0;
     document.getElementById("1hspec").value = 0;
     document.getElementById("enrage").value = 5;
+    document.getElementById("flurry").value = 5;
     document.querySelector("#impSS").value = 0;
     document.querySelector("#impHS").value = 0;
     document.querySelector("#impale").value = 0;
@@ -84,6 +85,7 @@ function deftacTalents() {
     document.getElementById("deftac").value = 3;
     document.getElementById("1hspec").value = 5;
     document.getElementById("enrage").value = 0;
+    document.getElementById("flurry").value = 0;
     document.querySelector("#impSS").value = 2;
     document.querySelector("#impHS").value = 3;
     document.querySelector("#impale").value = 2;
@@ -336,7 +338,7 @@ function loadInput()
     document.getElementById("strbuff").selectedIndex = localStorage.getItem("strbuff") ? localStorage.getItem("strbuff") : 2;
     document.getElementById("apbuff").selectedIndex = localStorage.getItem("apbuff") ? localStorage.getItem("apbuff") : 1;
     document.getElementById("agibuff").selectedIndex = localStorage.getItem("agibuff") ? localStorage.getItem("agibuff") : 1;
-    document.getElementById("statbuff").selectedIndex = localStorage.getItem("statbuff") ? localStorage.getItem("statbuff") : 3;
+    document.getElementById("statbuff").selectedIndex = localStorage.getItem("statbuff") ? localStorage.getItem("statbuff") : 2;
     document.getElementById("foodbuff").selectedIndex = localStorage.getItem("foodbuff") ? localStorage.getItem("foodbuff") : 1;
     document.getElementById("alcohol").selectedIndex = localStorage.getItem("alcohol") ? localStorage.getItem("alcohol") : 2;
     document.getElementById("potion").selectedIndex = localStorage.getItem("potion") ? localStorage.getItem("potion") : 2;
@@ -349,6 +351,7 @@ function loadInput()
     document.getElementById("armorelixir").checked = localStorage.getItem("armorelixir") == "true" ? true : false;
     document.getElementById("scrollprot4").checked = localStorage.getItem("scrollprot4") == "true" ? true : false;
     document.getElementById("crystalward").checked = localStorage.getItem("crystalward") == "true" ? true : false;
+    document.getElementById("zanza").checked = localStorage.getItem("zanza") == "true" ? true : false;
     document.getElementById("hpelixir").checked = localStorage.getItem("hpelixir") == "true" ? true : false;
     document.getElementById("titans").checked = localStorage.getItem("titans") == "true" ? true : false;
     document.getElementById("dragonslayer").checked = localStorage.getItem("dragonslayer") == "true" ? true : false;

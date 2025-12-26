@@ -366,7 +366,6 @@ function updateStats()
     let statbuff = document.getElementById("statbuff").value
     agility += statbuff == "Ground Scorpok Assay" ? 25 : 0;
     strength += statbuff == "R.O.I.D.S." ? 25 : 0;
-    stamina += statbuff == "Spirit of Zanza" ? 50 : 0;
 
     let foodbuff = document.getElementById("foodbuff").value
     strength += foodbuff == "Smoked Desert Dumplings/Power Mushroom" ? 25 : 0;
@@ -377,6 +376,8 @@ function updateStats()
     stamina += foodbuff == "Tender Wolf Steak" ? 12 : 0;
     
     stamina += Number(document.getElementById("alcohol").value);
+
+    if (document.getElementById("zanza").checked) stamina += 50;
 
     let _startRage = Number(document.querySelector("#startRage").value);
     if (document.getElementById("reck").checked) _startRage = Math.max(_startRage, 25);
