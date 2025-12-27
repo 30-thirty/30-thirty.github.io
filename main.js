@@ -143,8 +143,6 @@ function saveInput()
     localStorage.setItem("startRage", document.querySelector("#startRage").value)
     localStorage.setItem("deathwish", document.querySelector("#deathwish").checked)
     localStorage.setItem("windfury", document.querySelector("#windfury").checked)
-    localStorage.setItem("wcb", document.querySelector("#wcb").checked)
-    localStorage.setItem("dmf", document.querySelector("#dmf").checked)
 
     // Talents 
     localStorage.setItem("deathwish", document.getElementById("deathwish").checked);
@@ -200,14 +198,6 @@ function saveInput()
     localStorage.setItem("crystalward", document.getElementById("crystalward").checked);
     localStorage.setItem("hpelixir", document.getElementById("hpelixir").checked);
     localStorage.setItem("titans", document.getElementById("titans").checked);
-    localStorage.setItem("dragonslayer", document.getElementById("dragonslayer").checked);
-    localStorage.setItem("zandalar", document.getElementById("zandalar").checked);
-    localStorage.setItem("wcb", document.getElementById("wcb").checked);
-    localStorage.setItem("dmf", document.getElementById("dmf").checked);
-    localStorage.setItem("dmstamina", document.getElementById("dmstamina").checked);
-    localStorage.setItem("dmAP", document.getElementById("dmAP").checked);
-    localStorage.setItem("dmspell", document.getElementById("dmspell").checked);
-    localStorage.setItem("songflower", document.getElementById("songflower").checked);
     localStorage.setItem("bshout", document.getElementById("bshout").checked);
     localStorage.setItem("pack", document.getElementById("pack").checked);
     localStorage.setItem("trueshot", document.getElementById("trueshot").checked);
@@ -291,9 +281,6 @@ function loadInput()
 
     document.querySelector("#startRage").value = localStorage.getItem("startRage") ? localStorage.getItem("startRage") : 70;
     document.querySelector("#windfury").checked = localStorage.getItem("windfury") == "true" ? true : false;
-    document.querySelector("#wcb").checked = localStorage.getItem("wcb") == "true" ? true : false;
-    document.querySelector("#dmf").checked = localStorage.getItem("dmf") == "true" ? true : false;
-
     // Talents 
     document.getElementById("deathwish").checked = localStorage.getItem("deathwish") == "false" ? false : true;
     document.getElementById("bloodthirst").checked = localStorage.getItem("bloodthirst") == "false" ? false : true;
@@ -354,14 +341,6 @@ function loadInput()
     document.getElementById("zanza").checked = localStorage.getItem("zanza") == "true" ? true : false;
     document.getElementById("hpelixir").checked = localStorage.getItem("hpelixir") == "true" ? true : false;
     document.getElementById("titans").checked = localStorage.getItem("titans") == "true" ? true : false;
-    document.getElementById("dragonslayer").checked = localStorage.getItem("dragonslayer") == "true" ? true : false;
-    document.getElementById("zandalar").checked = localStorage.getItem("zandalar") == "true" ? true : false;
-    document.getElementById("wcb").checked = localStorage.getItem("wcb") == "true" ? true : false;
-    document.getElementById("dmf").checked = localStorage.getItem("dmf") == "true" ? true : false;
-    document.getElementById("dmstamina").checked = localStorage.getItem("dmstamina") == "true" ? true : false;
-    document.getElementById("dmAP").checked = localStorage.getItem("dmAP") == "true" ? true : false;
-    document.getElementById("dmspell").checked = localStorage.getItem("dmspell") == "true" ? true : false;
-    document.getElementById("songflower").checked = localStorage.getItem("songflower") == "true" ? true : false;
     document.getElementById("bshout").checked = localStorage.getItem("bshout") == "false" ? false : true;
     document.getElementById("pack").checked = localStorage.getItem("pack") == "true" ? true : false;
     document.getElementById("trueshot").checked = localStorage.getItem("trueshot") == "true" ? true : false;

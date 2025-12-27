@@ -402,8 +402,6 @@ function updateStats()
     extrahp += document.getElementById("chestenchant").value == "Major Health" ? 100 : 0;
     extrahp += legenchant == "Libram of Constitution" ? 100 : 0;
     extrahp += headenchant == "Libram of Constitution" ? 100 : 0;
-    let _wcb = document.querySelector("#wcb").checked;
-    extrahp += _wcb ? 300 : 0;
 
     crit += document.getElementById("pack").checked ? 3 : 0;
 
@@ -416,18 +414,6 @@ function updateStats()
 
     stamina += document.getElementById("fortitude").checked ? 70 : 0; // Assumed improved
     stamina += document.getElementById("bloodpact").checked ? 42 : 0;
-    
-    attackpower += document.getElementById("dragonslayer").checked ? 140 : 0;
-    crit += document.getElementById("dragonslayer").checked ? 5 : 0;
-    attackpower += document.getElementById("dmAP").checked ? 200 : 0;
-    crit += document.getElementById("songflower").checked ? 5 : 0;
-    stamina += document.getElementById("songflower").checked ? 15 : 0;
-    agility += document.getElementById("songflower").checked ? 15 : 0;
-    strength += document.getElementById("songflower").checked ? 15 : 0;
-    
-    spellcrit += document.getElementById("dragonslayer").checked ? 10 : 0;
-    spellcrit += document.getElementById("dmspell").checked ? 3 : 0;
-    spellcrit += document.getElementById("songflower").checked ? 5 : 0;
 
     strength += (document.getElementById("strofearth").checked ? 77 : 0)*(document.getElementById("impweptotems").checked ? 1.25 : 1);
     agility += (document.getElementById("graceofair").checked ? 77 : 0)*(document.getElementById("impweptotems").checked ? 1.25 : 1);
@@ -459,10 +445,6 @@ function updateStats()
 
 
     // Multiplicative buffs last, except for armor
-    stamina *= document.getElementById("dmstamina").checked ? 1.15 : 1;
-    stamina *= document.getElementById("zandalar").checked ? 1.15 : 1;
-    agility *= document.getElementById("zandalar").checked ? 1.15 : 1;
-    strength *= document.getElementById("zandalar").checked ? 1.15 : 1;
     stamina *= document.getElementById("kings").checked ? 1.1 : 1;
     agility *= document.getElementById("kings").checked ? 1.1 : 1;
     strength *= document.getElementById("kings").checked ? 1.1 : 1;
@@ -476,9 +458,9 @@ function updateStats()
     armor += mark ? Math.floor(384.75) : 0;
     armor *= document.getElementById("inspiration").checked ? 1.25 : 1;
 
-    let staminaMultiplier = (document.getElementById("dmstamina").checked ? 1.15 : 1)*(document.getElementById("zandalar").checked ? 1.15 : 1)*(document.getElementById("kings").checked ? 1.1 : 1)
-    let strengthMultiplier = (document.getElementById("zandalar").checked ? 1.15 : 1)*(document.getElementById("kings").checked ? 1.1 : 1)
-    let agilityMultiplier = (document.getElementById("zandalar").checked ? 1.15 : 1)*(document.getElementById("kings").checked ? 1.1 : 1)
+    let staminaMultiplier = (document.getElementById("kings").checked ? 1.1 : 1)
+    let strengthMultiplier = (document.getElementById("kings").checked ? 1.1 : 1)
+    let agilityMultiplier = (document.getElementById("kings").checked ? 1.1 : 1)
 
     agilityMultiplier *= document.getElementById("race").value == "High Elf" ? 1.02 : 1;
     extrastamina *= staminaMultiplier;
@@ -505,7 +487,6 @@ function updateStats()
     blockvalue = _dualWield ? 0 : blockvalue
 
     let hastePerc = extrahaste*haste;
-        hastePerc *= _wcb ? 1.15 : 1;
 
     let calcedthreatMod = 1.3;
     if (deftac > 0 && stance != "Defensive Stance") {
@@ -575,7 +556,7 @@ function updateStats()
             
             MHWepSkill: mhwepskill,
             OHWepSkill: _dualWield ? ohwepskill : 0,
-            damageMod: (document.querySelector("#dmf").checked ? 1.1 : 1)*(stance == "Defensive Stance" ? 0.9 : 1.0)*(document.getElementById("champion").checked ? 1.05 : 1),
+            damageMod: (stance == "Defensive Stance" ? 0.9 : 1.0)*(document.getElementById("champion").checked ? 1.05 : 1),
 
             physDmgMod: 1, // + 0.02*Number(document.getElementById("1hspec").value),
             hastePerc: hastePerc,
@@ -675,8 +656,6 @@ function updateStats()
                 sapper: document.getElementById("sapper").checked,
 
                 windfury: document.querySelector("#windfury").checked,
-                wcb: _wcb,
-                dmf: document.querySelector("#dmf").checked,
                 crusaderMH: mhwepenchant == "Crusader",
                 crusaderOH: ohwepenchant == "Crusader",
                 mrp: _mrp,
