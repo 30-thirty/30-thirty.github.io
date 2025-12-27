@@ -1442,7 +1442,7 @@ let chests = {
        "blockvalue": 0,
        "block": 3
     },
-    "Chestplate of Might DPS)": {
+    "Chestplate of Might (DPS)": {
        "strength": 32,
        "stamina": 18,
        "agility": 0,
