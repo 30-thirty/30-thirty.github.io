@@ -506,7 +506,7 @@ function updateStats()
     document.getElementById("playercrit").innerHTML = `${Math.round(crit*10)/10} `;
     let trueshot = document.getElementById("trueshot").checked
     if (trueshot) {
-        document.getElementById("playerattackpower").innerHTML = `${Math.round(attackpower = (attackpower + strength*2)*1.05 + 55)} `;
+        document.getElementById("playerattackpower").innerHTML = `${Math.round((attackpower + strength*2)*1.05 + 55)} `;
     } else {
         document.getElementById("playerattackpower").innerHTML = `${Math.round(attackpower + strength*2)} `;
     }
@@ -562,7 +562,7 @@ function updateStats()
             hastePerc: hastePerc,
             arp: arp,
 
-            AP: attackpower + strength*2,
+            AP: trueshot ? (attackpower + strength*2)*1.05 + 55 : attackpower + strength*2,
             crit: crit,
             spellcrit: spellcrit,
             hit: hit,
