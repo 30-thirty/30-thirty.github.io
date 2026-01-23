@@ -506,7 +506,7 @@ function updateStats()
     document.getElementById("playercrit").innerHTML = `${Math.round(crit*10)/10} `;
     let trueshot = document.getElementById("trueshot").checked
     if (trueshot) {
-        document.getElementById("playerattackpower").innerHTML = `${Math.round((attackpower + strength*2)*1.05 + 55)} `;
+        document.getElementById("playerattackpower").innerHTML = `${Math.round((attackpower + strength*2)*1.03 + 30)} `;
     } else {
         document.getElementById("playerattackpower").innerHTML = `${Math.round(attackpower + strength*2)} `;
     }
