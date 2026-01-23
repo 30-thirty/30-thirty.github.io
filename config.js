@@ -490,10 +490,10 @@ function updateStats()
 
     let calcedthreatMod = 1.3;
     if (deftac > 0 && stance != "Defensive Stance") {
-       calcedthreatMod = 0.8 * (1+(0.6*deftac)*(1.3*(1+0.03*defiance)-1));
+       calcedthreatMod = 0.8 * (1+(0.6*deftac)*(1.3*(1+0.04*defiance)-1));
     }
     else if (stance == "Defensive Stance") {
-         calcedthreatMod *= (1 + 0.03*defiance);
+         calcedthreatMod *= (1 + 0.04*defiance);
     } else calcedthreatMod = 0.8
     calcedthreatMod *= (document.getElementById("handenchant").value == "Threat" ? 1.02 : 1);
 

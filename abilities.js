@@ -239,11 +239,11 @@ class BattleShout extends Ability {
 
 class ShieldSlam extends Ability {
     use(attacker, defender) {
-        let damage = Math.random()*15 + 303 + attacker.getBlockValue() + 0.15 * attacker.getAP();
+        let damage = Math.random()*15 + 303 + attacker.getBlockValue() + 0.20 * attacker.getAP();
         damage *= (1 - armorReduction(attacker.stats.level, defender.getArmor() - attacker.getArp())) * attacker.getDamageMod();
         let damageEvent = rollAttack(attacker, defender, damage, true, false, false, true);
         damageEvent.threat = 0;
-        damageEvent.threat = 1.5 * this.threatCalculator(damageEvent, attacker);
+        damageEvent.threat = 1.75 * this.threatCalculator(damageEvent, attacker);
         damageEvent.ability = this.name;
 
         // Remove rage
