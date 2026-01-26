@@ -7612,6 +7612,26 @@ let weapons = {
        "blockvalue": 0,
        "block": 0
     },
+    "Bloodmoon, Sickle of the Murderous Flight": {
+       "min": 96,
+       "max": 162,
+       "swingtimer": 1.8,
+       "strength": 0,
+       "stamina": 0,
+       "agility": 12,
+       "hit": 2,
+       "crit": 0,
+       "attackpower": 20,
+       "haste": 0,
+       "arp": 0,
+       "armor": 0,
+       "parry": 0,
+       "dodge": 0,
+       "defense": 0,
+       "skill": 0,
+       "blockvalue": 0,
+       "block": 0
+    },
     "Bone Slicing Hatchet": {
        "min": 48,
        "max": 90,

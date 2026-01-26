@@ -30,6 +30,7 @@ let weaponlists = {
     <option value="Axe of the Deep Woods">Axe of the Deep Woods</option>
     <option value="Axe of Dormant Slumber">Axe of Dormant Slumber</option>
     <option value="Blessed Qiraji War Axe">Blessed Qiraji War Axe</option>
+    <option value="Bloodmoon, Sickle of the Murderous Flight">Bloodmoon, Sickle of the Murderous Flight</option>
     <option value="Bone Slicing Hatchet">Bone Slicing Hatchet</option>
     <option value="Crul'Shorukh, Edge of Chaos">Crul'Shorukh, Edge of Chaos</option>
     <option value="Dark Iron Destroyer">Dark Iron Destroyer</option>
