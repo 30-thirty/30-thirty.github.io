@@ -20,7 +20,7 @@ class ThunderfuryMH extends Proc {
     handleEvent(source, target, event, events, config) {
         if (event.type == "damage" && event.ability != "OH Swing" && config.landedHits.includes(event.hit)) {
             let rng = Math.random()
-            if (rng < 0.25*0.83) { // 0.83 derives from 17% chance to resist 
+            if (rng < source.stats.fortune*0.25*0.83) { // 0.83 derives from 17% chance to resist
                 rng = Math.random(); // Two-roll
                 let critMod = rng < source.stats.spellcrit/100 ? 1.5 : 1;
                 let damage = this.damage*source.damageMod*critMod; // don't count enrage, use default 0.9 only
@@ -44,7 +44,7 @@ class ThunderfuryOH extends Proc {
     handleEvent(source, target, event, events, config) {
         if (event.type == "damage" && event.ability == "OH Swing" && config.landedHits.includes(event.hit)) {
             let rng = Math.random()
-            if (rng < 0.25*0.83) { // 0.83 derives from 17% chance to resist 
+            if (rng < source.stats.fortune*0.25*0.83) { // 0.83 derives from 17% chance to resist
                 rng = Math.random(); // Two-roll
                 let critMod = rng < source.stats.spellcrit/100 ? 1.5 : 1;
                 let damage = this.damage*source.damageMod*critMod; // don't count enrage, use default 0.9 only
@@ -68,7 +68,7 @@ class PerdsMH extends Proc {
     handleEvent(source, target, event, events, config) {
         if (event.type == "damage" && event.ability != "OH Swing" && config.landedHits.includes(event.hit)) {
             let rng = Math.random()
-            if (rng < 0.039*0.83) { // 0.83 derives from 17% chance to resist [CITATION NEEDED] for the proc rate
+            if (rng < source.stats.fortune*0.039*0.83) { // 0.83 derives from 17% chance to resist [CITATION NEEDED] for the proc rate
                 rng = Math.random(); // Two-roll
                 let critMod = rng < source.stats.spellcrit/100 ? 1.5 : 1;
                 let damage = this.damage*source.damageMod*critMod; // don't count enrage, use default 0.9 only
@@ -90,7 +90,7 @@ class PerdsOH extends Proc {
     handleEvent(source, target, event, events, config) {
         if (event.type == "damage" && event.ability == "OH Swing" && config.landedHits.includes(event.hit)) {
             let rng = Math.random()
-            if (rng < 0.039*0.83) { // 0.83 derives from 17% chance to resist 
+            if (rng < source.stats.fortune*0.039*0.83) { // 0.83 derives from 17% chance to resist
                 rng = Math.random(); // Two-roll
                 let critMod = rng < source.stats.spellcrit/100 ? 1.5 : 1;
                 let damage = this.damage*source.damageMod*critMod; // don't count enrage, use default 0.9 only
@@ -112,7 +112,7 @@ class DeathbringerMH extends Proc {
     handleEvent(source, target, event, events, config) {
         if (event.type == "damage" && event.ability != "OH Swing" && config.landedHits.includes(event.hit)) {
             let rng = Math.random()
-            if (rng < 0.04*0.83) { // 0.83 derives from 17% chance to resist
+            if (rng < source.stats.fortune*0.04*0.83) { // 0.83 derives from 17% chance to resist
                 rng = Math.random(); // Two-roll
                 let critMod = rng < source.stats.spellcrit/100 ? 1.5 : 1;
                 let damage = this.damage*source.damageMod*critMod; // don't count enrage, use default 0.9 only
@@ -134,7 +134,7 @@ class DeathbringerOH extends Proc {
     handleEvent(source, target, event, events, config) {
         if (event.type == "damage" && event.ability == "OH Swing" && config.landedHits.includes(event.hit)) {
             let rng = Math.random()
-            if (rng < 0.04*0.83) { // 0.83 derives from 17% chance to resist 
+            if (rng < source.stats.fortune*0.04*0.83) { // 0.83 derives from 17% chance to resist
                 rng = Math.random(); // Two-roll
                 let critMod = rng < source.stats.spellcrit/100 ? 1.5 : 1;
                 let damage = this.damage*source.damageMod*critMod; // don't count enrage, use default 0.9 only
@@ -156,7 +156,7 @@ class MSA extends Proc {
     handleEvent(source, target, event, events, config) {
         if (event.type == "damage" && config.landedHits.includes(event.hit)) {
             let rng = Math.random()
-            if (rng < 0.0933*0.83) { // 0.83 derives from 17% chance to resist
+            if (rng < source.stats.fortune*0.0933*0.83) { // 0.83 derives from 17% chance to resist
                 rng = Math.random(); // Two-roll
                 let critMod = 1; // MSA doesn't scale with spellcrit
                 let damage = this.damage*source.damageMod*critMod; // don't count enrage, use default 0.9 only
@@ -178,7 +178,7 @@ class ShieldrenderProc extends Proc {
     handleEvent(source, target, event, events, config) {
         let rng = Math.random();
         if (event.type == "damage" && config.landedHits.includes(event.hit) && (["Heroic Strike", "MH Swing", "OH Swing"].includes(event.ability))) {
-            if (rng < 0.07) { // 7% chance to proc
+            if (rng < source.stats.fortune*0.07) { // 7% chance to proc
                 let procEvent = {
                     "type": "proc",
                     "source": event.ability,
@@ -268,7 +268,7 @@ class HoJProc extends Proc {
     handleEvent(source, target, event, events, config) {
         if (event.type == "damage" && event.ability != "Sunder Armor" && config.landedHits.includes(event.hit)) {
             let rng = Math.random()
-            let chance = this.name == "Hand of Justice" ? 0.02 : 0.01
+            let chance = this.name == "Hand of Justice" ? source.stats.fortune*0.02 : source.stats.fortune*0.01
             if (rng < chance) {
                 let procEvent = {
                     "type": "extra attack",

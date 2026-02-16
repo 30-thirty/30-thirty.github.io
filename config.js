@@ -292,6 +292,7 @@ function updateStats()
     let block = 0;
     let blockvalue = 0;
     let arp = 0;
+    let fortune = 1;
     let extrahp = 1509; // Base hp for all races
     let stance = document.getElementById("stance").value;
 
@@ -436,6 +437,7 @@ function updateStats()
     let extraohskill     = Number(document.getElementById("playerextraohskill").value);
     let extrahaste       = 1 + Number(document.getElementById("playerextrahaste").value)/100;
     let extraarp         = Number(document.getElementById("playerextraarp").value);
+    let extrafortune     = Number(document.getElementById("playerextrafortune").value);
 
     // Set bonuses
     if(mainhand == "Dal'Rend's Sacred Charge" && offhand == "Dal'Rend's Tribal Guardian") attackpower += 50;
@@ -521,6 +523,7 @@ function updateStats()
     document.getElementById("playerohskill").innerHTML = `${ohwepskill} `;
     document.getElementById("playerhaste").innerHTML = `${hastePerc} `;
     document.getElementById("playerarp").innerHTML = `${arp} `;
+    document.getElementById("playerfortune").innerHTML = `${0} `;
 
     // Add stat deltas to stats, note str -> ap/blockvalue interaction not accounted for.
     strength += extrastrength;
@@ -538,6 +541,7 @@ function updateStats()
     mhwepskill += extramhskill;
     ohwepskill += extraohskill;
     arp += extraarp;
+    fortune += extrafortune/100;
 
     
     let globals = {
@@ -562,6 +566,7 @@ function updateStats()
             physDmgMod: 1, // + 0.02*Number(document.getElementById("1hspec").value),
             hastePerc: hastePerc,
             arp: arp,
+            fortune: fortune,
 
             AP: trueshot ? (attackpower + strength*2)*1.05 + 55 : attackpower + strength*2,
             crit: crit,
