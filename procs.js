@@ -200,7 +200,6 @@ class GiftofArthasProc extends Proc {
             if (rng < 0.3*0.83) { // 17% chance to resist
                 let procEvent = {
                     type: "proc",
-                    threat: 90*target.threatMod, // Target of the melee is the tank
                     source: event.ability,
                     ability: this.name,
                     timestamp: event.timestamp,
