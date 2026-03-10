@@ -8874,7 +8874,7 @@ let weapons = {
        "defense": 0,
        "skill": 0,
        "skilltype": 'none',
-       "blockvalue": 0,
+       "blockvalue": 21,
        "block": 2,
        "arp": 0
     },
