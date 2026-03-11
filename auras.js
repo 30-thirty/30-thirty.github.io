@@ -220,29 +220,22 @@ class Enrage extends Aura {
         super(input);
     }
     handleEvent(owner, event, events, config) {
-        if (event.type == "damage" && ["Bloodthirst", "MH Swing", "OH Swing", "Revenge", "Heroic Strike"].includes(event.ability)) {
-            if (this.duration == 0) {
-                events.push({
-                    "type": "buff lost",
-                    "timestamp": event["timestamp"],
-                    "name": this.name,
-                    "stacks": this.stacks,
-                    "source": this.source,
-                    "target": this.target,
-                    });
-            }
-        }
 
         if (event.type == "damage" && event.hit == "crit" && event.target == "Tank") {
-            this.duration = this.maxDuration;
-            events.push({
-                type: "buff gained",
-                timestamp: event.timestamp, 
-                name: this.name,
-                stacks: this.stacks,
-                target: this.target,
-                source: this.source,
+            let enrageprepull = owner.auras.find(aura => (aura.name == "Enrage" && aura.maxDuration == 26000));
+            if (enrageprepull != null) {
+                if (enrageprepull.duration == 0) {
+                    this.duration = this.maxDuration;
+                    events.push({
+                        type: "buff gained",
+                        timestamp: event.timestamp,
+                        name: this.name,
+                        stacks: this.stacks,
+                        target: this.target,
+                        source: this.source,
                 });
+                }
+            }
         }
     }
 }
@@ -721,8 +714,13 @@ class PrePullAura extends Aura {
             owner.hastePerc *= this.hastePerc;
             return;
         }
+
         if (this.duration <= 0) return;
         this.duration = this.duration - config.timeStep;
+        if(this.trackUptime) {
+            if(!owner.uptimes[`${this.name}`]) owner.uptimes[`${this.name}`] = 0;
+            owner.uptimes[`${this.name}`] += config.timeStep;
+        }
         if (this.duration <= 0) {
             events.push({
             "type": "buff lost",
@@ -876,7 +874,7 @@ if(globals.tankStats.talents.enrage > 0) {
     tankAuras.push(new Enrage({
         name: "Enrage",
         maxDuration: 8000,
-        damageMod: 1 + 0.05*globals.tankStats.talents.enrage,
+        damageMod: 1 + 0.04*globals.tankStats.talents.enrage,
 
         trackUptime: true,
         target: "Tank",
@@ -1017,11 +1015,35 @@ if(globals.tankStats.bonuses.chastise) {
         }))
 }
 
-if(globals.tankStats.bonuses.bloodrage && globals.tankStats.talents.enrage > 0) {
+if(globals.tankStats.bonuses.bloodrage && globals.tankStats.talents.enrage > 0 && !globals.tankStats.trinkets.claw) {
         tankAuras.push(new PrePullAura({
         name: "Enrage",
         maxDuration: 8000,
-        damageMod: 1 + 0.05*globals.tankStats.talents.enrage,
+        damageMod: 1 + 0.04*globals.tankStats.talents.enrage,
+
+        trackUptime: true,
+        target: "Tank",
+        source: "Tank",
+        }));
+}
+
+if(globals.tankStats.trinkets.claw) {
+        tankAuras.push(new PrePullAura({
+        name: "Claw of the Befouler",
+        maxDuration: 15000,
+        strMod: 225,
+
+        trackUptime: false,
+        target: "Tank",
+        source: "Tank",
+        }));
+}
+
+if(globals.tankStats.bonuses.bloodrage && globals.tankStats.talents.enrage > 0 && globals.tankStats.trinkets.claw) {
+        tankAuras.push(new PrePullAura({
+        name: "Enrage",
+        maxDuration: 26000,
+        damageMod: 1 + 0.04*globals.tankStats.talents.enrage,
 
         trackUptime: true,
         target: "Tank",

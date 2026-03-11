@@ -6270,6 +6270,22 @@ let trinkets = {
        "blockvalue": 0,
        "block": 0
     },
+    "Claw of the Befouler": {
+       "crit": 0,
+       "hit": 0,
+       "strength": 0,
+       "stamina": 0,
+       "agility": 0,
+       "attackpower": 0,
+       "haste": 0,
+       "arp": 0,
+       "dodge": 0,
+       "parry": 0,
+       "defense": 0,
+       "armor": 0,
+       "blockvalue": 0,
+       "block": 0
+    },
     "Counterattack Lodestone": {
        "crit": 0,
        "hit": 0,

@@ -635,6 +635,7 @@ function updateStats()
             trinkets: {
                 kots: (trinketone == "Kiss of the Spider") || (trinkettwo == "Kiss of the Spider"),
                 badge: (trinketone == "Badge of the Swarmguard") || (trinkettwo == "Badge of the Swarmguard"),
+                claw: (trinketone == "Claw of the Befouler") || (trinkettwo == "Claw of the Befouler"),
                 earthstrike: (trinketone == "Earthstrike") || (trinkettwo == "Earthstrike"),
                 diamondflask: (trinketone == "Diamond Flask") || (trinkettwo == "Diamond Flask"),
                 glyph: (trinketone == "Glyph of Deflection") || (trinkettwo == "Glyph of Deflection"),
