@@ -1189,6 +1189,26 @@ let necks = {
 
     skill: 0,
     skilltype: 'none'
+},    "Rage of Mugamba" : {
+    strength: 8,
+    stamina: 13,
+    agility: 8,
+
+    hit: 0,
+    crit: 0,
+    haste: 0,
+    arp: 0,
+    attackpower: 0,
+
+    armor: 0,
+    parry: 0,
+    dodge: 0,
+    defense: 6,
+    block: 2,
+    blockvalue: 0,
+
+    skill: 0,
+    skilltype: 'none'
 },
     "Sadist's Collar" : {
     strength: 0,
@@ -1887,6 +1907,24 @@ let chests = {
        "parry": 0,
        "defense": 0,
        "armor": 229,
+       "skill": 0,
+       "skilltype": 0,
+       "blockvalue": 0,
+       "block": 0
+    },
+    "Veteran's Plate Armor": {
+       "crit": 1,
+       "hit": 1,
+       "strength": 29,
+       "stamina": 43,
+       "agility": 25,
+       "attackpower": 0,
+       "haste": 0,
+       "arp": 0,
+       "dodge": 0,
+       "parry": 0,
+       "defense": 0,
+       "armor": 1027,
        "skill": 0,
        "skilltype": 0,
        "blockvalue": 0,
@@ -3983,6 +4021,24 @@ let hands = {
        "parry": 1,
        "defense": 0,
        "armor": 441,
+       "skill": 0,
+       "skilltype": 0,
+       "blockvalue": 0,
+       "block": 0
+    },
+    "Veteran's Plate Gauntlets": {
+       "crit": 1,
+       "hit": 0,
+       "strength": 20,
+       "stamina": 32,
+       "agility": 17,
+       "attackpower": 0,
+       "haste": 1,
+       "arp": 0,
+       "dodge": 0,
+       "parry": 0,
+       "defense": 0,
+       "armor": 643,
        "skill": 0,
        "skilltype": 0,
        "blockvalue": 0,

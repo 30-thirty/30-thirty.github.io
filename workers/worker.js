@@ -82,6 +82,8 @@ self.addEventListener('message', function(e) {
     let results = {};
     let tps = [];
     let dps = [];
+    let tpsmax = 0;
+    let tpsmin = 10000000000;
     let dtps = [];
     let rageGained = [];
     let rageSpent = [];
@@ -184,6 +186,8 @@ self.addEventListener('message', function(e) {
         }
 
         tps.push(threat/globals.config.simDuration)
+        tpsmax = threat/globals.config.simDuration > tpsmax ? threat/globals.config.simDuration : tpsmax
+        tpsmin = threat/globals.config.simDuration < tpsmin ? threat/globals.config.simDuration : tpsmin
         dps.push(damage/globals.config.simDuration)
         rageGained.push(Tank.rageGained/globals.config.simDuration)
         Tank.rageGained = 0
@@ -202,6 +206,8 @@ self.addEventListener('message', function(e) {
     }
     ret = {
         tps: tps,
+        tpsmax: tpsmax,
+        tpsmin: tpsmin,
         dps: dps,
         dtps: dtps,
         rageGained: rageGained,
