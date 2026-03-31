@@ -894,10 +894,22 @@ if(globals.tankStats.talents.enrage > 0) {
         }));
     }
 
-if(globals.tankStats.talents.deathwish) {
+if(globals.tankStats.talents.deathwish  && !globals.tankStats.trinkets.claw) {
     tankAuras.push(new PrePullAura({
         name: "Death Wish",
         maxDuration: 28500, // uses a gcd
+        damageMod: 1.2,
+        percArmorMod: -20,
+
+        target: "Tank",
+        source: "Tank",
+    }));
+}
+
+if(globals.tankStats.talents.deathwish && globals.tankStats.trinkets.claw) {
+    tankAuras.push(new PrePullAura({
+        name: "Death Wish",
+        maxDuration: 27000, // uses a gcd
         damageMod: 1.2,
         percArmorMod: -20,
 
@@ -1015,7 +1027,7 @@ if(globals.tankStats.bonuses.chastise) {
         }))
 }
 
-if(globals.tankStats.bonuses.bloodrage && globals.tankStats.talents.enrage > 0 && !globals.tankStats.trinkets.claw) {
+if(globals.tankStats.bonuses.bloodrage && globals.tankStats.talents.enrage > 0) {
         tankAuras.push(new PrePullAura({
         name: "Enrage",
         maxDuration: 8000,
@@ -1030,22 +1042,10 @@ if(globals.tankStats.bonuses.bloodrage && globals.tankStats.talents.enrage > 0 &
 if(globals.tankStats.trinkets.claw) {
         tankAuras.push(new PrePullAura({
         name: "Claw of the Befouler",
-        maxDuration: 15000,
-        strMod: 225,
+        maxDuration: 13500,
+        strMod: 175,
 
         trackUptime: false,
-        target: "Tank",
-        source: "Tank",
-        }));
-}
-
-if(globals.tankStats.bonuses.bloodrage && globals.tankStats.talents.enrage > 0 && globals.tankStats.trinkets.claw) {
-        tankAuras.push(new PrePullAura({
-        name: "Enrage",
-        maxDuration: 26000,
-        damageMod: 1 + 0.04*globals.tankStats.talents.enrage,
-
-        trackUptime: true,
         target: "Tank",
         source: "Tank",
         }));

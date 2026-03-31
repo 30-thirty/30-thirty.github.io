@@ -73,6 +73,7 @@ let weaponlists = {
     <option value="Scarlet Kris">Scarlet Kris</option>
     <option value="Scout's Blade">Scout's Blade</option>
     <option value="Shadowsong's Sorrow">Shadowsong's Sorrow</option>
+    <option value="The Herald of Nightmares">The Herald of Nightmares</option>
     <option value="The Lobotomizer">The Lobotomizer</option>
     <option value="The Thunderwood Poker">The Thunderwood Poker</option>`,
 

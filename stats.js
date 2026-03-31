@@ -8548,6 +8548,26 @@ let weapons = {
        "blockvalue": 0,
        "block": 0
     },
+    "The Herald of Nightmares": {
+       "min": 57,
+       "max": 105,
+       "swingtimer": 1.3,
+       "strength": 0,
+       "stamina": 0,
+       "agility": 10,
+       "hit": 0,
+       "crit": 0,
+       "attackpower": 0,
+       "haste": 1,
+       "arp": 0,
+       "armor": 0,
+       "parry": 1,
+       "dodge": 0,
+       "defense": 0,
+       "skill": 0,
+       "blockvalue": 0,
+       "block": 0
+    },
     "The Lobotomizer": {
        "min": 59,
        "max": 111,
