@@ -210,7 +210,6 @@ function saveInput()
     localStorage.setItem("strofearth", document.getElementById("strofearth").checked);
     localStorage.setItem("graceofair", document.getElementById("graceofair").checked);
     localStorage.setItem("impweptotems", document.getElementById("impweptotems").checked);
-    localStorage.setItem("champion", document.getElementById("champion").checked);
 
     // Boss Settings
     localStorage.setItem("swingMin", document.querySelector("#swingMin").value)
@@ -353,7 +352,6 @@ function loadInput()
     document.getElementById("strofearth").checked = localStorage.getItem("strofearth") == "false" ? false : true;
     document.getElementById("graceofair").checked = localStorage.getItem("graceofair") == "true" ? true : false;
     document.getElementById("impweptotems").checked = localStorage.getItem("impweptotems") == "true" ? true : false;
-    document.getElementById("champion").checked = localStorage.getItem("champion") == "true" ? true : false;
 
     // Boss Settings
     document.querySelector("#swingMin").value = localStorage.getItem("swingMin") ? localStorage.getItem("swingMin") : 5491;
