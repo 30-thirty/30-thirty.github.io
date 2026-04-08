@@ -153,7 +153,9 @@ function rollBossTankTable(attacker, defender, damage, yellow = false) {
         type = "block";
     }
     else if (!yellow && rng < miss + parry + dodge + block + crit) {
-        damage *= 2;
+        if (defender.stats.bonuses.t3Pvp) {
+            damage*=1.94
+        } else damage *= 2;
         type = "crit";
     }
     else if (!yellow && rng < miss + parry + dodge + block + crit + crush) {

@@ -417,6 +417,7 @@ function updateStats()
 
     stamina += document.getElementById("fortitude").checked ? 70 : 0; // Assumed improved
     stamina += document.getElementById("bloodpact").checked ? 42 : 0;
+    stamina += document.getElementById("t3pvp").checked ? 35 : 0;
 
     strength += (document.getElementById("strofearth").checked ? 77 : 0)*(document.getElementById("impweptotems").checked ? 1.25 : 1);
     agility += (document.getElementById("graceofair").checked ? 77 : 0)*(document.getElementById("impweptotems").checked ? 1.25 : 1);
@@ -655,6 +656,7 @@ function updateStats()
                 threePieceWrath: document.querySelector("#threePieceWrath").checked,
                 threePieceBrotherhood: document.querySelector("#threePieceBrotherhood").checked,
                 twoPieceDreadslayer: document.querySelector("#twoPieceDreadslayer").checked,
+                t3Pvp: document.querySelector("#t3pvp").checked,
 
                 threatenchant: document.getElementById("handenchant").value == "Threat",
                 berserking: document.getElementById("berserking").checked,
