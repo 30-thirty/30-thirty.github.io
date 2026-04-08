@@ -9535,7 +9535,7 @@ let weapons = {
        "blockvalue": 0,
        "block": 0
     },
-    "Mirah's song": {
+    "Mirah's Song": {
        "min": 57,
        "max": 87,
        "swingtimer": 1.8,
