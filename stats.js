@@ -797,6 +797,27 @@ let heads = {
     skill: 0,
     skilltype: 'none'
 },
+    "Veteran's Plate Helm": {
+    strength: 24,
+    stamina: 43,
+    agility: 24,
+
+    hit: 1,
+    crit: 1,
+    haste: 0,
+    arp: 0,
+    attackpower: 0,
+
+    armor: 834,
+    parry: 0,
+    dodge: 0,
+    defense: 0,
+    block: 0,
+    blockvalue: 0,
+
+    skill: 0,
+    skilltype: 'none'
+},
 }
 
 let necks = {
@@ -950,7 +971,7 @@ let necks = {
     agility: 15,
 
     hit: 0,
-    crit: 2,
+    crit: 0,
     haste: 2,
     arp: 0,
     attackpower: 0,
@@ -1929,7 +1950,7 @@ let chests = {
        "skilltype": 0,
        "blockvalue": 0,
        "block": 0
-    }
+    },
  }
 
 let shoulders = {
@@ -2424,6 +2445,27 @@ let shoulders = {
     attackpower: 0,
 
     armor: 113,
+    parry: 0,
+    dodge: 0,
+    defense: 0,
+    block: 0,
+    blockvalue: 0,
+
+    skill: 0,
+    skilltype: 'none'
+},
+    "Veteran's Plate Shoulderguards" : {
+    strength: 20,
+    stamina: 33,
+    agility: 21,
+
+    hit: 0,
+    crit: 1,
+    haste: 0,
+    arp: 0,
+    attackpower: 0,
+
+    armor: 642,
     parry: 0,
     dodge: 0,
     defense: 0,
@@ -5111,7 +5153,25 @@ let legs = {
        "skilltype": 0,
        "blockvalue": 0,
        "block": 0
-    }
+    },
+    "Veteran's Plate Legguards": {
+       "crit": 1,
+       "hit": 1,
+       "strength": 28,
+       "stamina": 41,
+       "agility": 23,
+       "attackpower": 0,
+       "haste": 0,
+       "arp": 0,
+       "dodge": 0,
+       "parry": 0,
+       "defense": 0,
+       "armor": 898,
+       "skill": 0,
+       "skilltype": 0,
+       "blockvalue": 0,
+       "block": 0
+    },
 }
 
 let feet = {
@@ -5650,6 +5710,24 @@ let feet = {
        "parry": 0,
        "defense": 0,
        "armor": 115,
+       "skill": 0,
+       "skilltype": 0,
+       "blockvalue": 0,
+       "block": 0
+    },
+    "Veteran's Plate Boots": {
+       "crit": 1,
+       "hit": 0,
+       "strength": 18,
+       "stamina": 31,
+       "agility": 18,
+       "attackpower": 0,
+       "haste": 0,
+       "arp": 0,
+       "dodge": 0,
+       "parry": 0,
+       "defense": 0,
+       "armor": 709,
        "skill": 0,
        "skilltype": 0,
        "blockvalue": 0,
